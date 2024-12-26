@@ -1,8 +1,10 @@
+import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/core/styles/app_text_style.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:dream_home/core/utils/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/constant/app_sized.dart';
 import '../../../../core/widget/custom_app_button.dart';
 import '../cubit/login/login_cubit.dart';
@@ -52,10 +54,13 @@ class LoginScreen extends StatelessWidget {
                     height(4),
                     const CustomForgetPasswordWidget(),
                     height(16),
-                    const CustomAppButton(
+                    CustomAppButton(
                       text: "Login",
                       textColor: AppColor.white,
                       containerColor: AppColor.beanut,
+                      onPressed: () {
+                        context.pushReplacement(Routes.whoareyou);
+                      },
                     ),
                     height(heightSize(context) * 0.2),
                     const CustomAuthText(

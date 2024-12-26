@@ -1,7 +1,9 @@
+import 'package:dream_home/core/extension/extension.dart';
 import 'package:dream_home/core/styles/app_text_style.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/constant/app_sized.dart';
 import '../../../../core/widget/app_bar.dart';
@@ -20,11 +22,15 @@ class ForgetPasswordScreen extends StatelessWidget {
         builder: (context, state) {
           final cubit = context.read<ForgetPasswordCubit>();
           return Scaffold(
-            appBar: appBar(
-              context,
-              title: "Forget Password",
-              automaticallyImplyLeading: false,
-            ),
+            appBar: appBar(context,
+                title: "Forget Password",
+                automaticallyImplyLeading: false,
+                leading: Icon(
+                  Icons.arrow_back_ios_new,
+                  color: AppColor.beanut,
+                ).onTap(() {
+                  context.pop();
+                })),
             body: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),

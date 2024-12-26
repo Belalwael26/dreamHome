@@ -11,4 +11,5 @@ class AppImages {
   static const String vec7 = '$_path/vec7.png';
   static const String vec8 = '$_path/vec8.png';
   static const String vec9 = '$_path/vec9.png';
+  static const String vec10 = '$_path/vec10.png';
 }

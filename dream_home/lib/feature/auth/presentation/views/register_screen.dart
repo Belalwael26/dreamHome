@@ -2,7 +2,9 @@ import 'package:dream_home/core/styles/app_text_style.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../../app/routes/routes.dart';
 import '../../../../core/constant/app_sized.dart';
 import '../../../../core/widget/app_bar.dart';
 import '../../../../core/widget/custom_app_button.dart';
@@ -73,10 +75,13 @@ class RegisterScreen extends StatelessWidget {
                       controller: cubit.passwordController,
                     ),
                     height(16),
-                    const CustomAppButton(
+                    CustomAppButton(
                       text: "Sign UP ",
                       containerColor: AppColor.beanut,
                       textColor: AppColor.white,
+                      onPressed: () {
+                        context.pushReplacement(Routes.whoareyou);
+                      },
                     ),
                     height(heightSize(context) * 0.05),
                     const CustomAuthText(isLoadgin: false),
