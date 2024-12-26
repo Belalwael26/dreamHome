@@ -1,4 +1,5 @@
 import 'package:dream_home/app/routes/app_router.dart';
+import 'package:dream_home/core/styles/app_styles.dart';
 import 'package:flutter/material.dart';
 
 class DreamHomeApp extends StatelessWidget {
@@ -9,6 +10,7 @@ class DreamHomeApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       routerConfig: router,
+      theme: theme(),
     );
   }
 }
