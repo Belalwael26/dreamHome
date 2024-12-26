@@ -9,7 +9,7 @@ ThemeData theme() {
     scaffoldBackgroundColor: AppColor.greyD,
     fontFamily: "PublicSans",
     inputDecorationTheme: InputDecorationTheme(
-      hintStyle: AppTextStyle.style14,
+      hintStyle: AppTextStyle.style14.copyWith(color: AppColor.grey8),
       errorBorder: outLineInputBorder(),
       enabledBorder: outLineInputBorder(),
       focusedBorder: outLineInputBorder(),

@@ -7,4 +7,5 @@ class AppColor {
   static const white = Color(0xffFFFFFF);
   static const beanut = Color(0xffbf9674);
   static const black = Color(0xff000000);
+  static const Color grey8 = Color(0xff858383);
 }
