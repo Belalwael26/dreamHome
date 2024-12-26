@@ -14,7 +14,7 @@ PreferredSizeWidget? appBar(
     automaticallyImplyLeading: automaticallyImplyLeading,
     title: Text(
       title,
-      style: AppTextStyle.style20,
+      style: AppTextStyle.style24,
     ),
     actions: actions,
     leading: leading,
