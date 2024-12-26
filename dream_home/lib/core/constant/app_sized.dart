@@ -7,3 +7,11 @@ Widget height(double h) {
 Widget width(double w) {
   return SizedBox(width: w);
 }
+
+double heightSize(ctx) {
+  return MediaQuery.sizeOf(ctx).height;
+}
+
+double widthSize(ctx) {
+  return MediaQuery.sizeOf(ctx).width;
+}

@@ -42,4 +42,9 @@ abstract class AppTextStyle {
     fontSize: 16,
     fontWeight: FontWeight.w500,
   );
+  static TextStyle style14 = TextStyle(
+    color: Colors.black.withValues(alpha: 0.800000011920929),
+    fontSize: 14,
+    fontWeight: FontWeight.w500,
+  );
 }

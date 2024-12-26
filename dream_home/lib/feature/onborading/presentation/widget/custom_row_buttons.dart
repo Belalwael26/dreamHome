@@ -44,7 +44,7 @@ class CustomButtonsRow extends StatelessWidget {
             }
           },
           icon: Icons.arrow_forward,
-          backGroundColor: AppColor.primaryColor,
+          backGroundColor: AppColor.beanut,
         ),
       ],
     );
