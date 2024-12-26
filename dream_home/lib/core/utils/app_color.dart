@@ -5,4 +5,6 @@ class AppColor {
   static const transparent = Colors.transparent;
   static const greyD = Color(0xffD8CBB8);
   static const white = Color(0xffFFFFFF);
+  static const beanut = Color(0xffbf9674);
+  static const black = Color(0xff000000);
 }
