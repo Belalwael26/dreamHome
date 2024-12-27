@@ -23,4 +23,5 @@ class AppImages {
   static const String logout = '$_vectorPath/logout.svg';
   static const String number = '$_vectorPath/number.svg';
   static const String profile = '$_vectorPath/profile.svg';
+  static const String person = '$_vectorPath/person.svg';
 }
