@@ -1,5 +1,7 @@
 import 'package:dream_home/core/constant/app_sized.dart';
+import 'package:dream_home/core/extension/extension.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/utils/app_color.dart';
@@ -15,7 +17,8 @@ class AboutUsScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(Icons.arrow_back_ios, color: AppColor.beanut),
+            Icon(Icons.arrow_back_ios, color: AppColor.beanut)
+                .onTap(context.pop),
             height(24),
             Text(
               "About Dream Home ",
