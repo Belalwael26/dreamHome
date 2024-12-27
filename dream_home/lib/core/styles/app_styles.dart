@@ -23,5 +23,9 @@ ThemeData theme() {
       backgroundColor: AppColor.greyD,
       elevation: 0.0,
     ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      backgroundColor: AppColor.greyD,
+      elevation: 0.0,
+    ),
   );
 }
