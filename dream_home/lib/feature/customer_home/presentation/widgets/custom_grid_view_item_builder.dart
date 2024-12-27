@@ -1,0 +1,45 @@
+import 'package:flutter/material.dart';
+import '../../../../core/styles/app_text_style.dart';
+import '../../../../core/utils/app_color.dart';
+
+class CustomGridViewItemBuilder extends StatelessWidget {
+  final String vectors;
+  final String jobName;
+  const CustomGridViewItemBuilder(
+      {super.key, required this.vectors, required this.jobName});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: AppColor.white,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 8,
+            color: AppColor.grey8,
+            offset: Offset(5, 5),
+            spreadRadius: 1,
+          ),
+        ],
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        children: [
+          CircleAvatar(
+            radius: 60,
+            backgroundImage: AssetImage(vectors),
+            backgroundColor: AppColor.beanut,
+          ),
+          Spacer(),
+          Text(
+            jobName,
+            style: AppTextStyle.style16.copyWith(
+              color: AppColor.lightblack,
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
