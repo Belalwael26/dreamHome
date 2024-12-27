@@ -1,5 +1,6 @@
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/extension/extension.dart';
+import 'package:dream_home/core/widget/custom_app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,10 +25,16 @@ class ContactUsScreen extends StatelessWidget {
               "Send us Your Problem",
               style: AppTextStyle.style24.copyWith(color: AppColor.lightblack),
             ),
-            height(100),
+            Spacer(),
             TextFormField(
               maxLines: 10,
               decoration: InputDecoration(hintText: "Your Problem....."),
+            ),
+            Spacer(),
+            CustomAppButton(
+              text: "Send",
+              containerColor: AppColor.beanut,
+              textColor: AppColor.white,
             )
           ],
         ),
