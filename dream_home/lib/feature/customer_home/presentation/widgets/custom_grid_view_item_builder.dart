@@ -29,6 +29,7 @@ class CustomGridViewItemBuilder extends StatelessWidget {
           CircleAvatar(
             radius: 60,
             backgroundImage: AssetImage(vectors),
+            backgroundColor: AppColor.beanut,
           ),
           Spacer(),
           Text(
