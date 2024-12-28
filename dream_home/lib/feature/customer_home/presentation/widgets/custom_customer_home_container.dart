@@ -5,7 +5,8 @@ import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/utils/app_color.dart';
 
 class CustomCustomerHomeContainer extends StatelessWidget {
-  const CustomCustomerHomeContainer({super.key});
+  final String? text;
+  const CustomCustomerHomeContainer({super.key, this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +57,7 @@ class CustomCustomerHomeContainer extends StatelessWidget {
           ),
           Spacer(),
           Text(
-            "Recommended Professions",
+            text ?? "Recommended Professions",
             style: AppTextStyle.style20.copyWith(
               color: AppColor.white,
               fontWeight: FontWeight.w700,
