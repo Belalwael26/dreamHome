@@ -1,6 +1,7 @@
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/extension/extension.dart';
 import 'package:dream_home/core/utils/app_color.dart';
+import 'package:dream_home/feature/auth/presentation/widget/custom_text_form_filed.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -26,6 +27,15 @@ class CustomProfileInfo extends StatelessWidget {
               iconColor: AppColor.lightblack,
               iconBorderColor: AppColor.transparent,
             ),
+            height(50),
+            CustomTextFormFiled(
+                controller: TextEditingController(text: "Name")),
+            height(16),
+            CustomTextFormFiled(
+                controller: TextEditingController(text: "Phone ")),
+            height(16),
+            CustomTextFormFiled(
+                controller: TextEditingController(text: "Email")),
           ],
         ),
       ),
