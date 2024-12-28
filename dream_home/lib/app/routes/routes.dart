@@ -7,4 +7,10 @@ class Routes {
   static const String whoareyou = '/whoareyouscreen';
   static const String workernavbar = '/workernavbarscreen';
   static const String customernavbar = '/customernavbarscreen';
+  static const String profileinfo = '/profileinfoscreen';
+  static const String changepassword = '/changepasswordscreen';
+  static const String changenumber = '/changenumberscreen';
+  static const String aboutus = '/aboutusscreen';
+  static const String contactus = '/contactusscreen';
+  static const String complaintscreen = '/complaintscreen';
 }
