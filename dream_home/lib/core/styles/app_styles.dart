@@ -10,11 +10,15 @@ ThemeData theme() {
     fontFamily: "PublicSans",
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: AppTextStyle.style14.copyWith(color: AppColor.grey8),
-      errorBorder: outLineInputBorder(),
+      errorBorder: outLineInputBorder(
+        color: AppColor.redED,
+      ),
       enabledBorder: outLineInputBorder(),
       focusedBorder: outLineInputBorder(),
       disabledBorder: outLineInputBorder(),
-      focusedErrorBorder: outLineInputBorder(),
+      focusedErrorBorder: outLineInputBorder(
+        color: AppColor.redED,
+      ),
       outlineBorder: const BorderSide(),
       activeIndicatorBorder: const BorderSide(),
     ),

@@ -1,11 +1,43 @@
+import 'dart:developer';
+
+import 'package:dream_home/feature/auth/data/repo/login/login_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(InitialState());
+  final LoginRepo _repo;
+  LoginCubit(this._repo) : super(InitialState());
 
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+  bool obsecureText = false;
+
+  void changeObsecureText() {
+    obsecureText = !obsecureText;
+
+    emit(ChangeObsecureTextState());
+  }
+
+  Future<void> login() async {
+    if (formKey.currentState!.validate()) {
+      emit(LoginLoadingState());
+      final result = await _repo.login(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+      result.fold(
+        (l) {
+          log("Error: $l");
+          emit(LoginFailureState(l.message));
+        },
+        (r) {
+          log("User: $r");
+          emit(LoginSuccessState(r));
+        },
+      );
+    }
+  }
 }
