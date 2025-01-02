@@ -27,10 +27,16 @@ class LoginScreen extends StatelessWidget {
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
           if (state is LoginSuccessState) {
-            showToast(message: "Login Success");
+            showToast(
+              message: "Login Success",
+              backgroundColor: AppColor.beanut,
+            );
             context.pushReplacement(Routes.whoareyou);
           } else if (state is LoginFailureState) {
-            showToast(message: state.message);
+            showToast(
+              message: state.message,
+              backgroundColor: AppColor.redED,
+            );
           }
         },
         builder: (context, state) {
