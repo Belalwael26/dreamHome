@@ -18,3 +18,10 @@ class LoginFailureState extends LoginState {
   final String message;
   LoginFailureState(this.message);
 }
+
+class UpdateSuccessState extends LoginState {}
+
+class UpdateFailureState extends LoginState {
+  final String message;
+  UpdateFailureState(this.message);
+}

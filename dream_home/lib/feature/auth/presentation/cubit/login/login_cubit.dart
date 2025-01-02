@@ -33,11 +33,26 @@ class LoginCubit extends Cubit<LoginState> {
           log("Error: $l");
           emit(LoginFailureState(l.message));
         },
-        (r) {
+        (r) async {
           log("User: $r");
+          await updatePassword();
           emit(LoginSuccessState(r));
         },
       );
     }
+  }
+
+  Future<void> updatePassword() async {
+    final result = await _repo.updatePasswordInFirestore(
+      email: emailController.text,
+      newPassword: passwordController.text,
+    );
+
+    result.fold(
+      (l) => emit(UpdateFailureState(l.message)),
+      (r) {
+        emit(UpdateSuccessState());
+      },
+    );
   }
 }

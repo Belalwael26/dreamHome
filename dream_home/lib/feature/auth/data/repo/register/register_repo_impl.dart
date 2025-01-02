@@ -7,6 +7,8 @@ import 'package:dream_home/feature/auth/data/model/user_model.dart';
 import 'package:dream_home/feature/auth/data/repo/register/register_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../../../core/errors/user_error_message.dart';
+
 class RegisterRepoImpl implements RegisterRepo {
   @override
   Future<Either<Failure, UserModel>> register({
@@ -42,8 +44,9 @@ class RegisterRepoImpl implements RegisterRepo {
         return Right(UserModel());
       }
       return Left(ServerFailure("User creation failed."));
-    } catch (e) {
-      return Left(ServerFailure(e.toString()));
+    } on FirebaseAuthException catch (e) {
+      String friendlyMessage = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(friendlyMessage));
     }
   }
 }

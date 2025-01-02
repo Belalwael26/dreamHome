@@ -37,6 +37,16 @@ class LoginScreen extends StatelessWidget {
               message: state.message,
               backgroundColor: AppColor.redED,
             );
+          } else if (state is UpdateSuccessState) {
+            showToast(
+              message: "Password Updated",
+              backgroundColor: AppColor.beanut,
+            );
+          } else if (state is UpdateFailureState) {
+            showToast(
+              message: state.message,
+              backgroundColor: AppColor.redED,
+            );
           }
         },
         builder: (context, state) {
