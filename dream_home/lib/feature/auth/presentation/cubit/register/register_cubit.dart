@@ -13,6 +13,10 @@ class RegisterCubit extends Cubit<RegisterState> {
   final RegisterRepo _repo;
   RegisterCubit(this._repo) : super(RegisterInitial());
 
+  static RegisterCubit get(context) => BlocProvider.of(context);
+
+  UserModel? user;
+
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -52,6 +56,8 @@ class RegisterCubit extends Cubit<RegisterState> {
         },
         (r) {
           log("User: ${r.name}");
+          user = r;
+          log("User Name ${user!.name}");
           emit(RegisterSuccess(r));
         },
       );

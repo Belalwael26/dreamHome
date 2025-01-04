@@ -26,16 +26,24 @@ class CustomGridViewItemBuilder extends StatelessWidget {
       ),
       child: Column(
         children: [
-          CircleAvatar(
-            radius: 60,
-            backgroundImage: AssetImage(vectors),
-            backgroundColor: AppColor.beanut,
+          Flexible(
+            flex: 5,
+            child: CircleAvatar(
+              radius: 60,
+              backgroundImage: AssetImage(vectors),
+              backgroundColor: AppColor.beanut,
+            ),
           ),
           Spacer(),
-          Text(
-            jobName,
-            style: AppTextStyle.style16.copyWith(
-              color: AppColor.lightblack,
+          Flexible(
+            child: FittedBox(
+              child: Text(
+                jobName,
+                textAlign: TextAlign.center,
+                style: AppTextStyle.style16.copyWith(
+                  color: AppColor.lightblack,
+                ),
+              ),
             ),
           )
         ],

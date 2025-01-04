@@ -1,13 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:equatable/equatable.dart';
 
-class UserModel {
+class UserModel with EquatableMixin {
   final String? id;
   final String? email;
   final String? password;
   final String? name;
-  final String? phone;
+  final String? job;
 
-  UserModel({this.id, this.email, this.password, this.name, this.phone});
+  UserModel({this.id, this.email, this.password, this.name, this.job});
 
   factory UserModel.fromDocumentSnapshot(
       DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -16,7 +17,16 @@ class UserModel {
       email: doc.data()!['email'],
       password: doc.data()!['password'],
       name: doc.data()!['name'],
-      phone: doc.data()!['phone'],
+      job: doc.data()!['job'],
     );
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        email,
+        password,
+        name,
+        job,
+      ];
 }

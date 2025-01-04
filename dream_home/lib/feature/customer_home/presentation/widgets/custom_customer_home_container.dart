@@ -6,7 +6,8 @@ import '../../../../core/utils/app_color.dart';
 
 class CustomCustomerHomeContainer extends StatelessWidget {
   final String? text;
-  const CustomCustomerHomeContainer({super.key, this.text});
+  final String name;
+  const CustomCustomerHomeContainer({super.key, this.text, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class CustomCustomerHomeContainer extends StatelessWidget {
                   width(16),
                   //! Change static name with name back from firebase
                   Text(
-                    "Welcome Kareem",
+                    "Welcome $name",
                     style: AppTextStyle.style20.copyWith(
                       color: AppColor.white,
                       fontWeight: FontWeight.w700,

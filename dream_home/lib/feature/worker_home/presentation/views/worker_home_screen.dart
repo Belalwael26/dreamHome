@@ -15,7 +15,10 @@ class WorkerHomeScreen extends StatelessWidget {
       child: Scaffold(
         body: Column(
           children: [
-            CustomCustomerHomeContainer(text: "Orders"),
+            CustomCustomerHomeContainer(
+              text: "Orders",
+              name: "",
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
