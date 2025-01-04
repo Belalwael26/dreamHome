@@ -10,6 +10,7 @@ class CustomAppButton extends StatelessWidget {
   final double? width;
   final double? radius;
   final double? height;
+  final Color? borderColor;
   const CustomAppButton(
       {super.key,
       this.onPressed,
@@ -18,7 +19,8 @@ class CustomAppButton extends StatelessWidget {
       this.textColor,
       this.width,
       this.radius,
-      this.height});
+      this.height,
+      this.borderColor});
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +28,7 @@ class CustomAppButton extends StatelessWidget {
       height: height ?? 57,
       width: width ?? double.maxFinite,
       decoration: BoxDecoration(
+          border: Border.all(color: borderColor ?? AppColor.transparent),
           color: containerColor ?? AppColor.primaryColor,
           borderRadius: BorderRadius.circular(radius ?? 12)),
       child: MaterialButton(

@@ -25,6 +25,7 @@ class AppImages {
   static const String number = '$_vectorPath/number.svg';
   static const String profile = '$_vectorPath/profile.svg';
   static const String person = '$_vectorPath/person.svg';
+  static const String cancel = '$_vectorPath/cancel.svg';
 
   //! Animation
 

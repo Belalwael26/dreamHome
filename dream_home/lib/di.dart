@@ -5,6 +5,9 @@ import 'package:dream_home/feature/auth/data/repo/register/register_repo.dart';
 import 'package:dream_home/feature/auth/data/repo/register/register_repo_impl.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/login/login_cubit.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/register/register_cubit.dart';
+import 'package:dream_home/feature/customer_profile/data/repo/logout/logout_repo.dart';
+import 'package:dream_home/feature/customer_profile/data/repo/logout/logout_repo_impl.dart';
+import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_profile_cubit/customer_profile_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -34,6 +37,7 @@ void _registerRepos() {
   getIt.registerSingleton<LoginRepo>(LoginRepoImpl());
   getIt.registerSingleton<RegisterRepo>(RegisterRepoImpl());
   getIt.registerSingleton<ForgetPasswordRepo>(ForgetPasswordRepoImpl());
+  getIt.registerSingleton<LogoutRepo>(LogoutRepoImpl());
 }
 
 void _registerFactory() {
@@ -41,4 +45,6 @@ void _registerFactory() {
   getIt.registerFactory<RegisterCubit>(() => RegisterCubit(getIt()));
   getIt
       .registerFactory<ForgetPasswordCubit>(() => ForgetPasswordCubit(getIt()));
+  getIt.registerFactory<CustomerProfileCubit>(
+      () => CustomerProfileCubit(logoutRepo: getIt()));
 }
