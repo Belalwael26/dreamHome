@@ -28,6 +28,12 @@ class CustomerProfilScreen extends StatelessWidget {
             context.go(Routes.login);
           } else if (state is LogoutFailureState) {
             showToast(message: state.message, backgroundColor: AppColor.redED);
+          } else if (state is DeleteAccountSuccessState) {
+            showToast(
+                message: "Account Deleted", backgroundColor: AppColor.beanut);
+            context.go(Routes.login);
+          } else if (state is DeleteAccountFailureState) {
+            showToast(message: state.message, backgroundColor: AppColor.redED);
           }
         },
         builder: (context, state) {
@@ -73,7 +79,14 @@ class CustomerProfilScreen extends StatelessWidget {
                   ),
                   CustomProfileItem(
                     textColor: AppColor.redED,
-                    onTap: () {},
+                    onTap: () {
+                      logoutDialog(
+                          textButton: "Delete Account",
+                          textTitle: "Are you sure you want to delete account?",
+                          context, onPressed: () {
+                        cubit.deleteAccount();
+                      });
+                    },
                     vectorColor: AppColor.redED,
                     svgIconPath: AppImages.deleteacc,
                     text: "Delete Account",

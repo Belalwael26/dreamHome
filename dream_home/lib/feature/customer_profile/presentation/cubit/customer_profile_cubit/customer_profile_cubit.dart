@@ -28,4 +28,19 @@ class CustomerProfileCubit extends Cubit<CustomerProfileState> {
       },
     );
   }
+
+  Future<void> deleteAccount() async {
+    emit(CustomerProfileLoading());
+    final result = await logoutRepo.deleteAccount();
+    result.fold(
+      (failure) {
+        log("message: ${failure.message}");
+        emit(DeleteAccountFailureState(failure.message));
+      },
+      (message) {
+        log("message: $message");
+        emit(DeleteAccountSuccessState(message));
+      },
+    );
+  }
 }

@@ -3,4 +3,6 @@ import 'package:dream_home/core/errors/errors.dart';
 
 abstract class LogoutRepo {
   Future<Either<Failure, String>> logout();
+
+  Future<Either<Failure, String>> deleteAccount();
 }

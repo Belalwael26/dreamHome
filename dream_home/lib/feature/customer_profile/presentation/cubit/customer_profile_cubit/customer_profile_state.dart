@@ -17,3 +17,15 @@ final class LogoutFailureState extends CustomerProfileState {
 
   LogoutFailureState(this.message);
 }
+
+final class DeleteAccountSuccessState extends CustomerProfileState {
+  final String message;
+
+  DeleteAccountSuccessState(this.message);
+}
+
+final class DeleteAccountFailureState extends CustomerProfileState {
+  final String message;
+
+  DeleteAccountFailureState(this.message);
+}

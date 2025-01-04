@@ -8,7 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 
-void logoutDialog(BuildContext context, {void Function()? onPressed}) {
+void logoutDialog(
+  BuildContext context, {
+  void Function()? onPressed,
+  String? textTitle,
+  String? textButton,
+}) {
   showDialog(
       context: context,
       builder: (context) {
@@ -30,7 +35,7 @@ void logoutDialog(BuildContext context, {void Function()? onPressed}) {
                 }),
                 height(16),
                 Text(
-                  "Are you sure you want to logout?",
+                  textTitle ?? "Are you sure you want to logout?",
                   textAlign: TextAlign.center,
                   style: AppTextStyle.style18.copyWith(
                     color: AppColor.white,
@@ -39,7 +44,7 @@ void logoutDialog(BuildContext context, {void Function()? onPressed}) {
                 ),
                 Spacer(),
                 CustomAppButton(
-                  text: "logout",
+                  text: textButton ?? "logout",
                   containerColor: AppColor.redED,
                   textColor: AppColor.white,
                   borderColor: AppColor.redED,
