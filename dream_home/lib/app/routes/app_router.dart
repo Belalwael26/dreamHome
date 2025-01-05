@@ -2,6 +2,7 @@ import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/feature/auth/presentation/views/forget_password_screen.dart';
 import 'package:dream_home/feature/auth/presentation/views/login_screen.dart';
 import 'package:dream_home/feature/auth/presentation/views/register_screen.dart';
+import 'package:dream_home/feature/customer_home/presentation/view/worker_caregory_screen.dart';
 import 'package:dream_home/feature/customer_nav_bar/presentation/view/customer_nav_bar_screen.dart';
 import 'package:dream_home/feature/customer_profile/presentation/widget/about_us_screen.dart';
 import 'package:dream_home/feature/customer_profile/presentation/widget/change_number_screen.dart';
@@ -71,5 +72,15 @@ final router = GoRouter(routes: [
   GoRoute(
     path: Routes.complaintscreen,
     builder: (context, state) => ComplaintScreen(),
+  ),
+  GoRoute(
+    path: "/${Routes.workerCategory}",
+    name: Routes.workerCategory,
+    builder: (context, state) {
+      final jobName = state.extra;
+      return WorkerCaregoryScreen(
+        category: jobName.toString(),
+      );
+    },
   ),
 ]);

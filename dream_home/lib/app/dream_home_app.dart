@@ -25,7 +25,10 @@ class DreamHomeApp extends StatelessWidget {
           create: (context) => RegisterCubit(getIt()),
           lazy: false,
         ),
-        BlocProvider(create: (context) => CustomerHomeCubit()),
+        BlocProvider(
+          create: (context) => CustomerHomeCubit(getIt()),
+          lazy: false,
+        ),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

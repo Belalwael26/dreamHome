@@ -55,8 +55,8 @@ class RegisterCubit extends Cubit<RegisterState> {
           emit(RegisterError(l.message));
         },
         (r) {
-          log("User: ${r.name}");
           user = r;
+          log("User: ${r.name}");
           log("User Name ${user!.name}");
           emit(RegisterSuccess(r));
         },

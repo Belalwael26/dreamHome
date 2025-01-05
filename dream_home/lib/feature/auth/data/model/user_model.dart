@@ -7,8 +7,18 @@ class UserModel with EquatableMixin {
   final String? password;
   final String? name;
   final String? job;
+  final String? phone;
+  final String? image;
 
-  UserModel({this.id, this.email, this.password, this.name, this.job});
+  UserModel({
+    this.id,
+    this.email,
+    this.password,
+    this.name,
+    this.job,
+    this.phone,
+    this.image,
+  });
 
   factory UserModel.fromDocumentSnapshot(
       DocumentSnapshot<Map<String, dynamic>> doc) {
@@ -18,6 +28,8 @@ class UserModel with EquatableMixin {
       password: doc.data()!['password'],
       name: doc.data()!['name'],
       job: doc.data()!['job'],
+      phone: doc.data()!['phone'],
+      image: doc.data()!['image'],
     );
   }
 
@@ -28,5 +40,7 @@ class UserModel with EquatableMixin {
         password,
         name,
         job,
+        phone,
+        image,
       ];
 }

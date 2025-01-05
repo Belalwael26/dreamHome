@@ -18,7 +18,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  UserModel? user;
+  UserModel user = UserModel();
 
   Future<void> login() async {
     if (formKey.currentState!.validate()) {
@@ -33,11 +33,12 @@ class LoginCubit extends Cubit<LoginState> {
           emit(LoginFailureState(l.message));
         },
         (r) async {
+          user = r;
           log("User: $r");
 
           await updatePassword();
-          user = r;
-          log("User Name ${user!.name}");
+
+          log("User Name ${user.name}");
           emit(LoginSuccessState(r));
         },
       );

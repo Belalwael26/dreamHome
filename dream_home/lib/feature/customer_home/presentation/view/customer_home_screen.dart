@@ -1,10 +1,13 @@
+import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
+import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/login/login_cubit.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_state.dart';
 import 'package:dream_home/feature/customer_home/presentation/data/models/worker_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../widgets/custom_customer_home_container.dart';
 import '../widgets/custom_grid_view_item_builder.dart';
 
@@ -14,7 +17,7 @@ class CustomerHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CustomerHomeCubit(),
+      create: (context) => CustomerHomeCubit(getIt()),
       child: BlocBuilder<CustomerHomeCubit, CustomerHomeState>(
         builder: (context, state) {
           //final cubit = CustomerHomeCubit.get(context);
@@ -25,7 +28,7 @@ class CustomerHomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 CustomCustomerHomeContainer(
-                  name: userCubit.user?.name ?? "",
+                  name: userCubit.user.name ?? "",
                 ),
                 height(6),
                 Expanded(
@@ -42,6 +45,10 @@ class CustomerHomeScreen extends StatelessWidget {
                       return CustomGridViewItemBuilder(
                         jobName: worker[index].jobName,
                         vectors: worker[index].image,
+                        onTap: () => context.pushNamed(
+                          Routes.workerCategory,
+                          extra: worker[index].jobName,
+                        ),
                       );
                     },
                     itemCount: worker.length,

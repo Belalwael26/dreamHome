@@ -1,3 +1,4 @@
+import 'package:dream_home/core/extension/extension.dart';
 import 'package:flutter/material.dart';
 import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/utils/app_color.dart';
@@ -5,8 +6,13 @@ import '../../../../core/utils/app_color.dart';
 class CustomGridViewItemBuilder extends StatelessWidget {
   final String vectors;
   final String jobName;
-  const CustomGridViewItemBuilder(
-      {super.key, required this.vectors, required this.jobName});
+  final void Function()? onTap;
+  const CustomGridViewItemBuilder({
+    super.key,
+    required this.vectors,
+    required this.jobName,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +54,6 @@ class CustomGridViewItemBuilder extends StatelessWidget {
           )
         ],
       ),
-    );
+    ).onTap(onTap);
   }
 }

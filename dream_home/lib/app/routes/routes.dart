@@ -13,4 +13,5 @@ class Routes {
   static const String aboutus = '/aboutusscreen';
   static const String contactus = '/contactusscreen';
   static const String complaintscreen = '/complaintscreen';
+  static const String workerCategory = "workercategoryscreen";
 }

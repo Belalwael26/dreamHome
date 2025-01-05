@@ -5,6 +5,9 @@ import 'package:dream_home/feature/auth/data/repo/register/register_repo.dart';
 import 'package:dream_home/feature/auth/data/repo/register/register_repo_impl.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/login/login_cubit.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/register/register_cubit.dart';
+import 'package:dream_home/feature/customer_home/data/repo/customer_home_repo.dart';
+import 'package:dream_home/feature/customer_home/data/repo/customer_home_repo_impl.dart';
+import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
 import 'package:dream_home/feature/customer_profile/data/repo/logout/logout_repo.dart';
 import 'package:dream_home/feature/customer_profile/data/repo/logout/logout_repo_impl.dart';
 import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_profile_cubit/customer_profile_cubit.dart';
@@ -38,6 +41,7 @@ void _registerRepos() {
   getIt.registerSingleton<RegisterRepo>(RegisterRepoImpl());
   getIt.registerSingleton<ForgetPasswordRepo>(ForgetPasswordRepoImpl());
   getIt.registerSingleton<LogoutRepo>(LogoutRepoImpl());
+  getIt.registerSingleton<CustomerHomeRepo>(CustomerHomeRepoImpl());
 }
 
 void _registerFactory() {
@@ -47,4 +51,5 @@ void _registerFactory() {
       .registerFactory<ForgetPasswordCubit>(() => ForgetPasswordCubit(getIt()));
   getIt.registerFactory<CustomerProfileCubit>(
       () => CustomerProfileCubit(logoutRepo: getIt()));
+  getIt.registerFactory<CustomerHomeCubit>(() => CustomerHomeCubit(getIt()));
 }
