@@ -36,7 +36,12 @@ class LoginCubit extends Cubit<LoginState> {
           user = r;
           log("User: $r");
 
-          await updatePassword();
+          if (user.password != passwordController.text) {
+            await updatePassword();
+            log("function is not work");
+          } else {
+            log("condition is false");
+          }
 
           log("User Name ${user.name}");
           emit(LoginSuccessState(r));
