@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../data/repo/logout/logout_repo.dart';
@@ -13,6 +14,9 @@ class CustomerProfileCubit extends Cubit<CustomerProfileState> {
 
   static CustomerProfileCubit get(context) =>
       BlocProvider.of<CustomerProfileCubit>(context);
+
+  final TextEditingController phoneController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   Future<void> logout() async {
     emit(CustomerProfileLoading());
@@ -42,5 +46,18 @@ class CustomerProfileCubit extends Cubit<CustomerProfileState> {
         emit(DeleteAccountSuccessState(message));
       },
     );
+  }
+
+  Future<void> phone() async {
+    if (formKey.currentState!.validate()) {
+      final result =
+          await logoutRepo.phoneNumer(phoneNumer: phoneController.text);
+
+      result.fold((fail) {
+        emit(AddPhoneNumberFailureState(fail.message));
+      }, (success) {
+        emit(AddphoneNumberSuccessState(success));
+      });
+    }
   }
 }

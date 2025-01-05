@@ -29,3 +29,15 @@ final class DeleteAccountFailureState extends CustomerProfileState {
 
   DeleteAccountFailureState(this.message);
 }
+
+final class AddphoneNumberSuccessState extends CustomerProfileState {
+  final String message;
+
+  AddphoneNumberSuccessState(this.message);
+}
+
+final class AddPhoneNumberFailureState extends CustomerProfileState {
+  final String message;
+
+  AddPhoneNumberFailureState(this.message);
+}

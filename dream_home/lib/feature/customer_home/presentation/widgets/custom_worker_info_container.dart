@@ -1,7 +1,6 @@
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import '../../../../core/constant/app_sized.dart';
 import '../../../../core/styles/app_text_style.dart';
 

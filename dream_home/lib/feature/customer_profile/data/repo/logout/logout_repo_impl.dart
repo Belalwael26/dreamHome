@@ -49,4 +49,23 @@ class LogoutRepoImpl implements LogoutRepo {
       return Left(ServerFailure(message));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> phoneNumer({
+    required String phoneNumer,
+  }) async {
+    try {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      final User? user = auth.currentUser;
+      final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      await firestore.collection('users').doc(user!.uid).update({
+        'phone': phoneNumer,
+      });
+      return Right("Phone Added Successflly");
+    } on FirebaseAuthException catch (e) {
+      final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(message));
+    }
+  }
 }
