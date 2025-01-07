@@ -11,6 +11,8 @@ import 'package:dream_home/feature/customer_home/presentation/cubit/customer_hom
 import 'package:dream_home/feature/customer_profile/data/repo/logout/logout_repo.dart';
 import 'package:dream_home/feature/customer_profile/data/repo/logout/logout_repo_impl.dart';
 import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_profile_cubit/customer_profile_cubit.dart';
+import 'package:dream_home/feature/worker_profile/data/repos/worker_profile_repo.dart';
+import 'package:dream_home/feature/worker_profile/data/repos/worker_profile_repo_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -42,6 +44,7 @@ void _registerRepos() {
   getIt.registerSingleton<ForgetPasswordRepo>(ForgetPasswordRepoImpl());
   getIt.registerSingleton<LogoutRepo>(LogoutRepoImpl());
   getIt.registerSingleton<CustomerHomeRepo>(CustomerHomeRepoImpl());
+  getIt.registerSingleton<WorkerProfileRepo>(WorkerProfileRepoImpl());
 }
 
 void _registerFactory() {

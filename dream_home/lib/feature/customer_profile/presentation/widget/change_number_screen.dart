@@ -1,4 +1,3 @@
-import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/core/extension/extension.dart';
 import 'package:dream_home/core/function/show_toast.dart';
 import 'package:dream_home/core/function/validation.dart';
@@ -25,7 +24,7 @@ class ChangeNumberScreen extends StatelessWidget {
       child: BlocConsumer<CustomerProfileCubit, CustomerProfileState>(
         listener: (context, state) {
           if (state is AddphoneNumberSuccessState) {
-            context.push(Routes.customernavbar);
+            context.pop();
             showToast(message: state.message, backgroundColor: AppColor.beanut);
           } else if (state is AddPhoneNumberFailureState) {
             showToast(message: state.message);

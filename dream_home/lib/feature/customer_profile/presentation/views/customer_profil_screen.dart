@@ -25,13 +25,13 @@ class CustomerProfilScreen extends StatelessWidget {
           if (state is LogoutSuccessState) {
             showToast(
                 message: "Logout Success", backgroundColor: AppColor.beanut);
-            context.go(Routes.login);
+            context.pushReplacement(Routes.login);
           } else if (state is LogoutFailureState) {
             showToast(message: state.message, backgroundColor: AppColor.redED);
           } else if (state is DeleteAccountSuccessState) {
             showToast(
                 message: "Account Deleted", backgroundColor: AppColor.beanut);
-            context.go(Routes.login);
+            context.pushReplacement(Routes.login);
           } else if (state is DeleteAccountFailureState) {
             showToast(message: state.message, backgroundColor: AppColor.redED);
           }
