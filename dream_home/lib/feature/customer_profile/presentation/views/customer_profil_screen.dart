@@ -62,15 +62,6 @@ class CustomerProfilScreen extends StatelessWidget {
                   CustomProfileItem(
                     textColor: AppColor.white,
                     onTap: () {
-                      context.push(Routes.changepassword);
-                    },
-                    vectorColor: AppColor.lightblack,
-                    svgIconPath: AppImages.lock,
-                    text: "Change Password",
-                  ),
-                  CustomProfileItem(
-                    textColor: AppColor.white,
-                    onTap: () {
                       context.push(Routes.changenumber);
                     },
                     vectorColor: AppColor.lightblack,
