@@ -1,12 +1,38 @@
+import 'dart:developer';
+
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/styles/app_text_style.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:dream_home/core/utils/app_images.dart';
+import 'package:dream_home/feature/auth/data/model/user_model.dart';
 import 'package:dream_home/feature/customer_home/presentation/widgets/custom_customer_home_container.dart';
 import 'package:flutter/material.dart';
 
-class WorkerHomeScreen extends StatelessWidget {
+import '../../../../core/cache/user_info_cache.dart';
+
+class WorkerHomeScreen extends StatefulWidget {
   const WorkerHomeScreen({super.key});
+
+  @override
+  State<WorkerHomeScreen> createState() => _WorkerHomeScreenState();
+}
+
+class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
+  UserModel? _user;
+  Future<void> load() async {
+    UserModel? user = await getUserFromSharedPreferences();
+    setState(() {
+      _user = user;
+    });
+    log("$_user");
+    log("${_user!.name}");
+  }
+
+  @override
+  void initState() {
+    load();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +43,7 @@ class WorkerHomeScreen extends StatelessWidget {
           children: [
             CustomCustomerHomeContainer(
               text: "Orders",
-              name: "",
+              name: _user?.name ?? "",
             ),
             Expanded(
               child: Padding(
