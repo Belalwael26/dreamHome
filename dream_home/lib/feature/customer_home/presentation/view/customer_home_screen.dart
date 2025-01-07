@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:dream_home/app/routes/routes.dart';
+import 'package:dream_home/core/cache/user_info_cache.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/di.dart';
-import 'package:dream_home/feature/auth/presentation/cubit/login/login_cubit.dart';
+import 'package:dream_home/feature/auth/data/model/user_model.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_state.dart';
 import 'package:dream_home/feature/customer_home/presentation/data/models/worker_data_model.dart';
@@ -11,8 +14,30 @@ import 'package:go_router/go_router.dart';
 import '../widgets/custom_customer_home_container.dart';
 import '../widgets/custom_grid_view_item_builder.dart';
 
-class CustomerHomeScreen extends StatelessWidget {
+class CustomerHomeScreen extends StatefulWidget {
   const CustomerHomeScreen({super.key});
+
+  @override
+  State<CustomerHomeScreen> createState() => _CustomerHomeScreenState();
+}
+
+class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
+  UserModel? _user;
+
+  @override
+  void initState() {
+    load();
+    super.initState();
+  }
+
+  Future<void> load() async {
+    UserModel? user = await getUserFromSharedPreferences();
+    setState(() {
+      _user = user;
+    });
+    log("$user");
+    log("${user!.name}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -20,16 +45,12 @@ class CustomerHomeScreen extends StatelessWidget {
       create: (context) => CustomerHomeCubit(getIt()),
       child: BlocBuilder<CustomerHomeCubit, CustomerHomeState>(
         builder: (context, state) {
-          //final cubit = CustomerHomeCubit.get(context);
-          final userCubit = BlocProvider.of<LoginCubit>(context, listen: true);
           return Scaffold(
               body: Padding(
             padding: const EdgeInsets.symmetric(vertical: 24),
             child: Column(
               children: [
-                CustomCustomerHomeContainer(
-                  name: userCubit.user.name ?? "",
-                ),
+                CustomCustomerHomeContainer(name: _user?.name ?? ""),
                 height(6),
                 Expanded(
                     child: Padding(

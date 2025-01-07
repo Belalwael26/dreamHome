@@ -41,7 +41,7 @@ class RegisterRepoImpl implements RegisterRepo {
             .doc(userCredential.user?.uid)
             .get();
         log("Doce: $userDoc");
-        return Right(UserModel());
+        return Right(UserModel.fromDocumentSnapshot(userDoc));
       }
       return Left(ServerFailure("User creation failed."));
     } on FirebaseAuthException catch (e) {

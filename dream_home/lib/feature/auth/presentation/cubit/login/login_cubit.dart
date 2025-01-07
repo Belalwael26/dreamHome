@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:dream_home/core/cache/user_info_cache.dart';
 import 'package:dream_home/feature/auth/data/model/user_model.dart';
 import 'package:dream_home/feature/auth/data/repo/login/login_repo.dart';
 import 'package:flutter/material.dart';
@@ -40,9 +41,10 @@ class LoginCubit extends Cubit<LoginState> {
             await updatePassword();
             log("function is not work");
           }
+          await saveUserToSharedPreferences(user);
 
           log("User Name ${user.name}");
-          emit(LoginSuccessState(r));
+          emit(LoginSuccessState(user));
         },
       );
     }

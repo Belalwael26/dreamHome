@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../../core/cache/user_info_cache.dart';
 import '../../../data/model/user_model.dart';
 import '../../../data/repo/register/register_repo.dart';
 
@@ -15,7 +16,7 @@ class RegisterCubit extends Cubit<RegisterState> {
 
   static RegisterCubit get(context) => BlocProvider.of(context);
 
-  UserModel? user;
+  UserModel user = UserModel();
 
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -54,10 +55,11 @@ class RegisterCubit extends Cubit<RegisterState> {
           log("Error: $l");
           emit(RegisterError(l.message));
         },
-        (r) {
+        (r) async {
           user = r;
+          await saveUserToSharedPreferences(user);
           log("User: ${r.name}");
-          log("User Name ${user!.name}");
+          log("User Name ${user.name}");
           emit(RegisterSuccess(r));
         },
       );

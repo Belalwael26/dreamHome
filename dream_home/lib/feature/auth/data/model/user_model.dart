@@ -43,4 +43,28 @@ class UserModel with EquatableMixin {
         phone,
         image,
       ];
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'email': email,
+      'password': password,
+      'name': name,
+      'job': job,
+      'phone': phone,
+      'image': image,
+    };
+  }
+
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['id'],
+      email: json['email'],
+      password: json['password'],
+      name: json['name'],
+      job: json['job'],
+      phone: json['phone'],
+      image: json['image'],
+    );
+  }
 }
