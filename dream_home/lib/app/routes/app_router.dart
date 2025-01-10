@@ -10,13 +10,16 @@ import 'package:dream_home/feature/customer_profile/presentation/widget/change_p
 import 'package:dream_home/feature/customer_profile/presentation/widget/complaint_screen.dart';
 import 'package:dream_home/feature/customer_profile/presentation/widget/contact_us_screen.dart';
 import 'package:dream_home/feature/customer_profile/presentation/widget/custom_profile_info.dart';
+import 'package:dream_home/feature/notifications/presentation/views/notification_screen.dart';
 import 'package:dream_home/feature/onborading/presentation/views/onboarding_screen.dart';
 import 'package:dream_home/feature/splash/presentation/view/splash_screen.dart';
 import 'package:dream_home/feature/who_are_you/presentation/views/who_are_you_screen.dart';
 import 'package:dream_home/feature/worker_nav_bar/presentation/views/worker_nav_bar_screen.dart';
+import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-final router = GoRouter(routes: [
+GlobalKey<NavigatorState>? navigatorKey = GlobalKey<NavigatorState>();
+final router = GoRouter(navigatorKey: navigatorKey, routes: [
   GoRoute(
     path: Routes.splash,
     builder: (context, state) => SplashScreen(),
@@ -82,5 +85,9 @@ final router = GoRouter(routes: [
         category: jobName.toString(),
       );
     },
+  ),
+  GoRoute(
+    path: Routes.notification,
+    builder: (context, state) => NotificationScreen(),
   ),
 ]);

@@ -9,6 +9,7 @@ class UserModel with EquatableMixin {
   final String? job;
   final String? phone;
   final String? image;
+  final String? token;
 
   UserModel({
     this.id,
@@ -18,6 +19,7 @@ class UserModel with EquatableMixin {
     this.job,
     this.phone,
     this.image,
+    this.token,
   });
 
   factory UserModel.fromDocumentSnapshot(
@@ -30,6 +32,7 @@ class UserModel with EquatableMixin {
       job: doc.data()!['job'],
       phone: doc.data()!['phone'],
       image: doc.data()!['profile_picture'],
+      token: doc.data()!['token'],
     );
   }
 
@@ -42,6 +45,7 @@ class UserModel with EquatableMixin {
         job,
         phone,
         image,
+        token,
       ];
 
   Map<String, dynamic> toJson() {
@@ -53,6 +57,7 @@ class UserModel with EquatableMixin {
       'job': job,
       'phone': phone,
       'profile_picture': image,
+      'token': token,
     };
   }
 
@@ -65,6 +70,7 @@ class UserModel with EquatableMixin {
       job: json['job'],
       phone: json['phone'],
       image: json['profile_picture'],
+      token: json['token'],
     );
   }
 }

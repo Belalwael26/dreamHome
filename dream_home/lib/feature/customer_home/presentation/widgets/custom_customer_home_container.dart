@@ -1,4 +1,7 @@
+import 'package:dream_home/app/routes/routes.dart';
+import 'package:dream_home/core/extension/extension.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../core/constant/app_sized.dart';
 import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/utils/app_color.dart';
@@ -51,7 +54,9 @@ class CustomCustomerHomeContainer extends StatelessWidget {
                 Icons.notifications_active,
                 color: AppColor.white,
                 size: 30,
-              )
+              ).onTap(() {
+                context.push(Routes.notification);
+              })
             ],
           ),
           Spacer(),
