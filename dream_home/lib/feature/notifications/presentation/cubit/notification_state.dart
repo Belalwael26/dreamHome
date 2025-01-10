@@ -17,3 +17,17 @@ final class NotificationFailureState extends NotificationState {
 }
 
 final class NotificationLoadingState extends NotificationState {}
+
+final class DeleteNotificationLoadingState extends NotificationState {}
+
+final class DeleteNotificationSuccessState extends NotificationState {
+  final String message;
+
+  DeleteNotificationSuccessState(this.message);
+}
+
+final class DeleteNotificationFailureState extends NotificationState {
+  final String message;
+
+  DeleteNotificationFailureState(this.message);
+}

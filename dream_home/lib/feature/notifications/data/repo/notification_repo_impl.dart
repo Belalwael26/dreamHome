@@ -8,9 +8,9 @@ import 'package:dream_home/feature/notifications/data/models/notification_model.
 import 'package:dream_home/feature/notifications/data/repo/notification_repo.dart';
 
 class NotificationRepoImpl implements NotificationRepo {
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
   @override
   Future<Either<Failure, List<NotificationModel>>> notification() async {
-    final FirebaseFirestore firestore = FirebaseFirestore.instance;
     try {
       final querySnapshot = await firestore.collection('notifications').get();
 
@@ -28,6 +28,20 @@ class NotificationRepoImpl implements NotificationRepo {
     } on FirebaseException catch (e) {
       final message = getFriendlyErrorMessage(e.code);
       log("Error: $message");
+      return Left(ServerFailure(message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> deleteNotification(
+      {required String id}) async {
+    try {
+      await firestore.collection('notifications').doc(id).delete();
+      log("Notification with ID $id deleted successfully.");
+      return const Right("Notification deleted successfully");
+    } on FirebaseException catch (e) {
+      final message = getFriendlyErrorMessage(e.code);
+      log("Error deleting notification: $message");
       return Left(ServerFailure(message));
     }
   }

@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/function/show_toast.dart';
 import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/utils/app_color.dart';
 import '../widget/notification_item.dart';
@@ -18,7 +19,15 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => NotificationCubit(getIt())..notification(),
-      child: BlocBuilder<NotificationCubit, NotificationState>(
+      child: BlocConsumer<NotificationCubit, NotificationState>(
+        listener: (context, state) {
+          if (state is DeleteNotificationSuccessState) {
+            showToast(message: state.message, backgroundColor: AppColor.beanut);
+            context.read<NotificationCubit>().notification();
+          } else if (state is DeleteNotificationFailureState) {
+            showToast(message: state.message, backgroundColor: AppColor.redED);
+          }
+        },
         builder: (context, state) {
           final cubit = context.read<NotificationCubit>();
           return Scaffold(
@@ -41,11 +50,29 @@ class NotificationScreen extends StatelessWidget {
                           height(24),
                           ...List.generate(
                               cubit.notificationList.length,
-                              (index) => NotificationItem(
-                                    body: cubit.notificationList[index].title ??
-                                        "",
-                                    title: cubit.notificationList[index].body ??
-                                        "",
+                              (index) => Dismissible(
+                                    background: Container(
+                                      margin: EdgeInsets.only(bottom: 16),
+                                      decoration: BoxDecoration(
+                                        color: AppColor.redED,
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                    key: UniqueKey(),
+                                    onDismissed: (direction) {
+                                      cubit.deleteNotification(
+                                          id: cubit
+                                                  .notificationList[index].id ??
+                                              "");
+                                    },
+                                    child: NotificationItem(
+                                      body:
+                                          cubit.notificationList[index].title ??
+                                              "",
+                                      title:
+                                          cubit.notificationList[index].body ??
+                                              "",
+                                    ),
                                   ))
                         ],
                       ),

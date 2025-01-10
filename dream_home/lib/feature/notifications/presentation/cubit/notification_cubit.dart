@@ -21,4 +21,12 @@ class NotificationCubit extends Cubit<NotificationState> {
       emit(NotificationSuccessState(success));
     });
   }
+
+  Future<void> deleteNotification({required String id}) async {
+    emit(DeleteNotificationLoadingState());
+    final result = await _repo.deleteNotification(id: id);
+    result.fold(
+        (failure) => emit(DeleteNotificationFailureState(failure.message)),
+        (success) => emit(DeleteNotificationSuccessState(success)));
+  }
 }

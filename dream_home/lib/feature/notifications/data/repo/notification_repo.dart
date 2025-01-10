@@ -4,4 +4,6 @@ import 'package:dream_home/feature/notifications/data/models/notification_model.
 
 abstract class NotificationRepo {
   Future<Either<Failure, List<NotificationModel>>> notification();
+
+  Future<Either<Failure, String>> deleteNotification({required String id});
 }
