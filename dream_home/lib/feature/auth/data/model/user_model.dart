@@ -29,7 +29,7 @@ class UserModel with EquatableMixin {
       name: doc.data()!['name'],
       job: doc.data()!['job'],
       phone: doc.data()!['phone'],
-      image: doc.data()!['image'],
+      image: doc.data()!['profile_picture'],
     );
   }
 
@@ -52,7 +52,7 @@ class UserModel with EquatableMixin {
       'name': name,
       'job': job,
       'phone': phone,
-      'image': image,
+      'profile_picture': image,
     };
   }
 
@@ -64,7 +64,7 @@ class UserModel with EquatableMixin {
       name: json['name'],
       job: json['job'],
       phone: json['phone'],
-      image: json['image'],
+      image: json['profile_picture'],
     );
   }
 }

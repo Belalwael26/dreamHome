@@ -16,7 +16,10 @@ class DreamHomeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => ImagePickerCubit()),
+        BlocProvider(
+          create: (context) => ImagePickerCubit(getIt()),
+          lazy: false,
+        ),
         BlocProvider(
           create: (context) => LoginCubit(getIt()),
           lazy: false,

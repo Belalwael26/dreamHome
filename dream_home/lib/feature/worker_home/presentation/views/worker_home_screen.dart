@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dream_home/core/constant/app_sized.dart';
+import 'package:dream_home/core/constant/constant.dart';
 import 'package:dream_home/core/styles/app_text_style.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:dream_home/core/utils/app_images.dart';
@@ -24,8 +25,8 @@ class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
     setState(() {
       _user = user;
     });
-    log("$_user");
-    log("${_user!.name}");
+    log("$user");
+    log("${user!.name}");
   }
 
   @override
@@ -44,6 +45,7 @@ class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
             CustomCustomerHomeContainer(
               text: "Orders",
               name: _user?.name ?? "",
+              image: image,
             ),
             Expanded(
               child: Padding(

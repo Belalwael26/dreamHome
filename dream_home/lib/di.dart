@@ -8,9 +8,12 @@ import 'package:dream_home/feature/auth/presentation/cubit/register/register_cub
 import 'package:dream_home/feature/customer_home/data/repo/customer_home_repo.dart';
 import 'package:dream_home/feature/customer_home/data/repo/customer_home_repo_impl.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
+import 'package:dream_home/feature/customer_profile/data/repo/image_picker/image_picker_repo.dart';
+import 'package:dream_home/feature/customer_profile/data/repo/image_picker/image_picker_repo_impl.dart';
 import 'package:dream_home/feature/customer_profile/data/repo/logout/logout_repo.dart';
 import 'package:dream_home/feature/customer_profile/data/repo/logout/logout_repo_impl.dart';
 import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_profile_cubit/customer_profile_cubit.dart';
+import 'package:dream_home/feature/customer_profile/presentation/cubit/image_picker/image_picker_cubit.dart';
 import 'package:dream_home/feature/worker_profile/data/repos/worker_profile_repo.dart';
 import 'package:dream_home/feature/worker_profile/data/repos/worker_profile_repo_impl.dart';
 import 'package:flutter/material.dart';
@@ -45,6 +48,7 @@ void _registerRepos() {
   getIt.registerSingleton<LogoutRepo>(LogoutRepoImpl());
   getIt.registerSingleton<CustomerHomeRepo>(CustomerHomeRepoImpl());
   getIt.registerSingleton<WorkerProfileRepo>(WorkerProfileRepoImpl());
+  getIt.registerSingleton<ImagePickerRepo>(ImagePickerRepoImpl());
 }
 
 void _registerFactory() {
@@ -55,4 +59,5 @@ void _registerFactory() {
   getIt.registerFactory<CustomerProfileCubit>(
       () => CustomerProfileCubit(logoutRepo: getIt()));
   getIt.registerFactory<CustomerHomeCubit>(() => CustomerHomeCubit(getIt()));
+  getIt.registerFactory<ImagePickerCubit>(() => ImagePickerCubit(getIt()));
 }
