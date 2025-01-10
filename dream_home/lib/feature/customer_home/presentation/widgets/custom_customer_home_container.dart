@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../../core/constant/app_sized.dart';
 import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/utils/app_color.dart';
@@ -7,7 +6,9 @@ import '../../../../core/utils/app_color.dart';
 class CustomCustomerHomeContainer extends StatelessWidget {
   final String? text;
   final String name;
-  const CustomCustomerHomeContainer({super.key, this.text, required this.name});
+  final String image;
+  const CustomCustomerHomeContainer(
+      {super.key, this.text, required this.name, required this.image});
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +33,8 @@ class CustomCustomerHomeContainer extends StatelessWidget {
                 children: [
                   CircleAvatar(
                     backgroundColor: AppColor.white,
-                    child: Icon(
-                      Icons.person,
-                      size: 30,
-                      color: AppColor.beanut,
-                    ),
+                    radius: 30,
+                    backgroundImage: NetworkImage(image),
                   ),
                   width(16),
                   //! Change static name with name back from firebase

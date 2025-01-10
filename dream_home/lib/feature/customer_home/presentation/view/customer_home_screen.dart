@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/core/cache/user_info_cache.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
+import 'package:dream_home/core/constant/constant.dart';
 import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/auth/data/model/user_model.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
@@ -50,7 +51,10 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
             padding: const EdgeInsets.symmetric(vertical: 24),
             child: Column(
               children: [
-                CustomCustomerHomeContainer(name: _user?.name ?? ""),
+                CustomCustomerHomeContainer(
+                  name: _user?.name ?? "",
+                  image: image,
+                ),
                 height(6),
                 Expanded(
                     child: Padding(
