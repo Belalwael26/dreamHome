@@ -1,6 +1,7 @@
 import 'package:dream_home/app/routes/app_router.dart';
 import 'package:dream_home/core/styles/app_styles.dart';
 import 'package:dream_home/di.dart';
+import 'package:dream_home/feature/Pick_Location/cubit/pick_location_cubit.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/login/login_cubit.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/register/register_cubit.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +17,9 @@ class DreamHomeApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+            lazy: false,
+            create: (context) => PickLocationCubit()..getUserLocation()),
         BlocProvider(
           create: (context) => ImagePickerCubit(getIt()),
           lazy: false,

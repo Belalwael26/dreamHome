@@ -30,7 +30,7 @@ class LoginRepoImpl implements LoginRepo {
           'uid': userCredential.user?.uid,
           'email': userCredential.user?.email,
           'createdAt': FieldValue.serverTimestamp(),
-        });
+        }, SetOptions(merge: true));
       }
 
       return Right(UserModel.fromDocumentSnapshot(userDoc));
