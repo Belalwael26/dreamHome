@@ -4,6 +4,8 @@ import 'package:dream_home/core/utils/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/service/on_boarding_service.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -16,10 +18,17 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _controller;
   late Animation<Color?> _colorAnimation1;
   late Animation<Color?> _colorAnimation2;
+
+  bool onboardingShown = false;
   @override
   void initState() {
     super.initState();
+    load();
     animated();
+  }
+
+  Future<void> load() async {
+    onboardingShown = await OnboardingService().isOnboardingShown();
   }
 
   @override
@@ -71,7 +80,9 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        context.pushReplacement(Routes.onboarding);
+        onboardingShown
+            ? context.pushReplacement(Routes.login)
+            : context.pushReplacement(Routes.onboarding);
       }
     });
 
