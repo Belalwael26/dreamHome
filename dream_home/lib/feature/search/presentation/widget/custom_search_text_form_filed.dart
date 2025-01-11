@@ -3,11 +3,19 @@ import 'package:dream_home/core/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearchTextFormFiled extends StatelessWidget {
-  const CustomSearchTextFormFiled({super.key});
+  final TextEditingController controller;
+  final void Function(String)? onChanged;
+  const CustomSearchTextFormFiled({
+    super.key,
+    required this.controller,
+    this.onChanged,
+  });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onChanged: onChanged,
+      controller: controller,
       decoration: InputDecoration(
         hintText: "Search",
         hintStyle: AppTextStyle.style16.copyWith(color: AppColor.beanut),
