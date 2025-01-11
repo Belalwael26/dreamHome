@@ -10,6 +10,7 @@ class UserModel with EquatableMixin {
   final String? phone;
   final String? image;
   final String? token;
+  final String? location;
 
   UserModel({
     this.id,
@@ -20,20 +21,21 @@ class UserModel with EquatableMixin {
     this.phone,
     this.image,
     this.token,
+    this.location,
   });
 
   factory UserModel.fromDocumentSnapshot(
       DocumentSnapshot<Map<String, dynamic>> doc) {
     return UserModel(
-      id: doc.id,
-      email: doc.data()!['email'],
-      password: doc.data()!['password'],
-      name: doc.data()!['name'],
-      job: doc.data()!['job'],
-      phone: doc.data()!['phone'],
-      image: doc.data()!['profile_picture'],
-      token: doc.data()!['token'],
-    );
+        id: doc.id,
+        email: doc.data()!['email'],
+        password: doc.data()!['password'],
+        name: doc.data()!['name'],
+        job: doc.data()!['job'],
+        phone: doc.data()!['phone'],
+        image: doc.data()!['profile_picture'],
+        token: doc.data()!['token'],
+        location: doc.data()!['location']);
   }
 
   @override
@@ -46,6 +48,7 @@ class UserModel with EquatableMixin {
         phone,
         image,
         token,
+        location,
       ];
 
   Map<String, dynamic> toJson() {
@@ -58,6 +61,7 @@ class UserModel with EquatableMixin {
       'phone': phone,
       'profile_picture': image,
       'token': token,
+      'location': location,
     };
   }
 
@@ -71,6 +75,7 @@ class UserModel with EquatableMixin {
       phone: json['phone'],
       image: json['profile_picture'],
       token: json['token'],
+      location: json['location'],
     );
   }
 }

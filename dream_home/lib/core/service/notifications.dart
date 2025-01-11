@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dream_home/app/routes/routes.dart';
+import 'package:dream_home/core/constant/constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -22,7 +23,7 @@ class NotificationService {
   final _messaging = FirebaseMessaging.instance;
   final _localNotifications = FlutterLocalNotificationsPlugin();
   bool _isFlutterLocalNotificationsInitialized = false;
-  final user = FirebaseAuth.instance.currentUser!;
+  final user = FirebaseAuth.instance.currentUser;
 
   Future<void> initialize() async {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -33,17 +34,20 @@ class NotificationService {
 
     final token = await _messaging.getToken();
     log('FCM Token: $token');
-    await FirebaseFirestore.instance.collection('users').doc(user.uid).update({
+
+    if (user == null) {
+      tempId;
+    }
+
+    String id = user?.uid ?? tempId;
+    await FirebaseFirestore.instance.collection('users').doc(id).set({
       'token': token,
-    }).catchError((error) {
+    }, SetOptions(merge: true)).catchError((error) {
       log('Error saving FCM token: $error');
     });
     _messaging.onTokenRefresh.listen((newToken) async {
       log('FCM Token refreshed: $newToken');
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(user.uid)
-          .update({
+      await FirebaseFirestore.instance.collection('users').doc(id).update({
         'token': newToken,
       }).catchError((error) {
         log('Error updating refreshed FCM token: $error');
