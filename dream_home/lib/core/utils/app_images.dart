@@ -14,6 +14,18 @@ class AppImages {
   static const String vec8 = '$_path/vec8.png';
   static const String vec9 = '$_path/vec9.png';
   static const String vec10 = '$_path/vec10.png';
+  static const String blacksmith = "$_path/blacksmith.png";
+  static const String carpenter = "$_path/carpenter.png";
+  static const String clean = "$_path/clean.png";
+  static const String electrician = "$_path/electrician.png";
+  static const String electronic = "$_path/electronic.png";
+  static const String flooring = "$_path/flooring.png";
+  static const String home = "$_path/home.png";
+  static const String painter = "$_path/Painter.png";
+  static const String plumber = "$_path/plumber.png";
+  static const String sculptor = "$_path/sculptor.png";
+  static const String technician = "$_path/technician.png";
+  static const String tiler = "$_path/tiler.png";
 
   //! Vectors
   static const String aboutus = '$_vectorPath/aboutus.svg';

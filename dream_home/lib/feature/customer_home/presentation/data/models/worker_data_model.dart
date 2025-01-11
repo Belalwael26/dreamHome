@@ -11,19 +11,18 @@ class WorkerDataModel {
 }
 
 final List<WorkerDataModel> worker = [
-  WorkerDataModel(jobName: "Carpentry", image: AppImages.vec1),
-  WorkerDataModel(jobName: "Blacksmithing", image: AppImages.vec2),
-  WorkerDataModel(jobName: "Plumbing", image: AppImages.vec3),
-  WorkerDataModel(jobName: "Electricity", image: AppImages.vec4),
-  WorkerDataModel(jobName: "Painting", image: AppImages.vec1),
-  WorkerDataModel(jobName: "Tiling ", image: AppImages.vec2),
-  WorkerDataModel(jobName: "Carving and Sculpting", image: AppImages.vec3),
+  WorkerDataModel(jobName: "Carpentry", image: AppImages.carpenter),
+  WorkerDataModel(jobName: "Blacksmithing", image: AppImages.blacksmith),
+  WorkerDataModel(jobName: "Plumbing", image: AppImages.plumber),
+  WorkerDataModel(jobName: "Electricity", image: AppImages.electrician),
+  WorkerDataModel(jobName: "Painting", image: AppImages.painter),
+  WorkerDataModel(jobName: "Tiling ", image: AppImages.tiler),
+  WorkerDataModel(jobName: "Carving and Sculpting", image: AppImages.sculptor),
   WorkerDataModel(
-      jobName: "Tiling and Flooring Installation", image: AppImages.vec4),
+      jobName: "Tiling and Flooring Installation", image: AppImages.flooring),
   WorkerDataModel(
-      jobName: "Cooling and Air Conditioning", image: AppImages.vec1),
-  WorkerDataModel(jobName: "Electronic Repairs", image: AppImages.vec2),
-  WorkerDataModel(jobName: "Home Appliance Maintenance", image: AppImages.vec3),
-  WorkerDataModel(jobName: "Home Carpentry", image: AppImages.vec4),
-  WorkerDataModel(jobName: "House Cleaning ", image: AppImages.vec1),
+      jobName: "Cooling and Air Conditioning", image: AppImages.technician),
+  WorkerDataModel(jobName: "Electronic Repairs", image: AppImages.electronic),
+  WorkerDataModel(jobName: "Home Appliance Maintenance", image: AppImages.home),
+  WorkerDataModel(jobName: "House Cleaning ", image: AppImages.clean),
 ];
