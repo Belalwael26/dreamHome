@@ -4,7 +4,9 @@ import 'package:dream_home/core/utils/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/cache/user_info_cache.dart';
 import '../../../../core/service/on_boarding_service.dart';
+import '../../../auth/data/model/user_model.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -20,6 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
   late Animation<Color?> _colorAnimation2;
 
   bool onboardingShown = false;
+  UserModel? _user;
   @override
   void initState() {
     super.initState();
@@ -29,6 +32,10 @@ class _SplashScreenState extends State<SplashScreen>
 
   Future<void> load() async {
     onboardingShown = await OnboardingService().isOnboardingShown();
+    UserModel? user = await getUserFromSharedPreferences();
+    setState(() {
+      _user = user;
+    });
   }
 
   @override
@@ -80,9 +87,15 @@ class _SplashScreenState extends State<SplashScreen>
 
     _controller.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        onboardingShown
-            ? context.pushReplacement(Routes.login)
-            : context.pushReplacement(Routes.onboarding);
+        if (onboardingShown) {
+          if (_user?.token == null) {
+            context.pushReplacement(Routes.login);
+          } else {
+            context.pushReplacement(Routes.customernavbar);
+          }
+        } else {
+          context.pushReplacement(Routes.onboarding);
+        }
       }
     });
 
