@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
 import 'package:dream_home/core/errors/errors.dart';
@@ -5,6 +7,7 @@ import 'package:dream_home/feature/auth/data/model/user_model.dart';
 import 'package:dream_home/feature/auth/data/repo/login/login_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../../../../core/constant/constant.dart';
 import '../../../../../core/errors/user_error_message.dart';
 
 class LoginRepoImpl implements LoginRepo {
@@ -32,6 +35,7 @@ class LoginRepoImpl implements LoginRepo {
           'createdAt': FieldValue.serverTimestamp(),
         }, SetOptions(merge: true));
       }
+      await migrateTemporaryDataToNewUser(userCredential.user!.uid);
 
       return Right(UserModel.fromDocumentSnapshot(userDoc));
     } on FirebaseAuthException catch (e) {
@@ -61,6 +65,33 @@ class LoginRepoImpl implements LoginRepo {
     } on FirebaseAuthException catch (e) {
       final String message = getFriendlyErrorMessage(e.code);
       return Left(ServerFailure(message));
+    }
+  }
+
+  Future<void> migrateTemporaryDataToNewUser(String newUid) async {
+    if (tempId.isNotEmpty) {
+      try {
+        DocumentSnapshot tempData = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(tempId)
+            .get();
+
+        if (tempData.exists) {
+          await FirebaseFirestore.instance.collection('users').doc(newUid).set(
+                tempData.data() as Map<String, dynamic>,
+                SetOptions(merge: true),
+              );
+
+          await FirebaseFirestore.instance
+              .collection('users')
+              .doc(tempId)
+              .delete();
+
+          log('Temporary data migrated successfully.');
+        }
+      } catch (e) {
+        log('Error during data migration: $e');
+      }
     }
   }
 }

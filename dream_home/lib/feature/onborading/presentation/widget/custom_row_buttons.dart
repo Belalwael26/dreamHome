@@ -1,3 +1,4 @@
+import 'package:dream_home/core/service/on_boarding_service.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:dream_home/feature/onborading/data/models/on_boarding_model.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +32,10 @@ class CustomButtonsRow extends StatelessWidget {
           backGroundColor: AppColor.primaryColor,
         ),
         CustomNextButton(
-          onTap: () {
+          onTap: () async {
             if (pageController.hasClients) {
               if (pageController.page!.toInt() == onBoarding.length - 1) {
+                await OnboardingService().markOnboardingAsShown();
                 context.pushReplacement(Routes.login);
               } else {
                 pageController.nextPage(
