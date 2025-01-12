@@ -91,7 +91,9 @@ class _SplashScreenState extends State<SplashScreen>
           if (_user?.token == null) {
             context.pushReplacement(Routes.login);
           } else {
-            context.pushReplacement(Routes.customernavbar);
+            _user?.isWorker == true
+                ? context.pushReplacement(Routes.workernavbar)
+                : context.pushReplacement(Routes.customernavbar);
           }
         } else {
           context.pushReplacement(Routes.onboarding);
