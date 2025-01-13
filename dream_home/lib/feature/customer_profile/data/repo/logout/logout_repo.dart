@@ -9,4 +9,6 @@ abstract class LogoutRepo {
   Future<Either<Failure, String>> phoneNumer({
     required String phoneNumer,
   });
+
+  Future<Either<Failure, String>> job({required String job});
 }

@@ -90,7 +90,7 @@ class _ChangeNumberScreenState extends State<ChangeNumberScreen> {
                       textColor: AppColor.white,
                       onPressed: () {
                         cubit.phoneController.text != _user!.phone
-                            ? cubit.phone()
+                            ? cubit.phone(_user!)
                             : showToast(
                                 message: "Enter a different phone number",
                                 backgroundColor: AppColor.redED,

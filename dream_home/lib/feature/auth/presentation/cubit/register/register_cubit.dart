@@ -20,6 +20,7 @@ class RegisterCubit extends Cubit<RegisterState> {
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
   final TextEditingController confirmPasswordController =
       TextEditingController();
 
@@ -48,6 +49,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         email: emailController.text,
         password: passwordController.text,
         confirmPassword: confirmPasswordController.text,
+        phone: phoneController.text,
       );
       result.fold(
         (l) {

@@ -6,10 +6,29 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../feature/auth/data/model/user_model.dart';
 
-Future<void> saveUserToSharedPreferences(UserModel user) async {
+Future<void> saveUserToSharedPreferences(UserModel user,
+    [Map<String, dynamic>? updates]) async {
   final prefs = await SharedPreferences.getInstance();
-  final userData = jsonEncode(user.toJson());
-  await prefs.setString(ShredKeys.user, userData);
+
+  final existingUserData = prefs.getString(ShredKeys.user);
+
+  if (existingUserData != null) {
+    final Map<String, dynamic> userMap = jsonDecode(existingUserData);
+
+    if (updates != null) {
+      userMap.addAll(updates);
+    }
+
+    await prefs.setString(ShredKeys.user, jsonEncode(userMap));
+  } else {
+    final newUser = user.toJson();
+
+    if (updates != null) {
+      newUser.addAll(updates);
+    }
+
+    await prefs.setString(ShredKeys.user, jsonEncode(newUser));
+  }
 }
 
 Future<UserModel?> getUserFromSharedPreferences() async {

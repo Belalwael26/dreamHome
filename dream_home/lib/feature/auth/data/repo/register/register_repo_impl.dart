@@ -12,12 +12,12 @@ import '../../../../../core/errors/user_error_message.dart';
 
 class RegisterRepoImpl implements RegisterRepo {
   @override
-  Future<Either<Failure, UserModel>> register({
-    required String name,
-    required String email,
-    required String password,
-    required String confirmPassword,
-  }) async {
+  Future<Either<Failure, UserModel>> register(
+      {required String name,
+      required String email,
+      required String password,
+      required String confirmPassword,
+      required String phone}) async {
     try {
       UserCredential userCredential =
           await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -34,6 +34,7 @@ class RegisterRepoImpl implements RegisterRepo {
           'email': email,
           'name': name,
           'password': password,
+          'phone': phone,
           'createdAt': FieldValue.serverTimestamp(),
         };
         migrateTemporaryDataToNewUser(user.uid);

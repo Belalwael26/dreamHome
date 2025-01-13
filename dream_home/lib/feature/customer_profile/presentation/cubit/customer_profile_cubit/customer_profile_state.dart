@@ -41,3 +41,15 @@ final class AddPhoneNumberFailureState extends CustomerProfileState {
 
   AddPhoneNumberFailureState(this.message);
 }
+
+final class AddJobSuccessState extends CustomerProfileState {
+  final String message;
+
+  AddJobSuccessState(this.message);
+}
+
+final class AddJobFailureState extends CustomerProfileState {
+  final String message;
+
+  AddJobFailureState(this.message);
+}

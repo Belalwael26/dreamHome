@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:dream_home/core/cache/shred_keys.dart';
+import 'package:dream_home/core/cache/user_info_cache.dart';
+import 'package:dream_home/feature/auth/data/model/user_model.dart';
 import 'package:dream_home/feature/who_are_you/presentation/data/repo/who_are_you_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -21,6 +24,7 @@ class WhoAreYouCubit extends Cubit<WhoAreYouState> {
       },
       (success) {
         isWork = success;
+        saveUserToSharedPreferences(UserModel(), {ShredKeys.woker: isWorker});
         log("Is Worker Saved $success");
         emit(WhoAreYouSuccess(success));
       },

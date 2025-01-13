@@ -84,6 +84,19 @@ class RegisterScreen extends StatelessWidget {
                                 ),
                                 height(16),
                                 Text(
+                                  "Phone",
+                                  style: AppTextStyle.style14,
+                                ),
+                                height(4),
+                                CustomTextFormFiled(
+                                  hintText: "01000000000",
+                                  controller: cubit.phoneController,
+                                  validator: (val) =>
+                                      AppValidation.phoneNumberVaildtor(
+                                          cubit.phoneController.text),
+                                ),
+                                height(16),
+                                Text(
                                   "Password",
                                   style: AppTextStyle.style14,
                                 ),

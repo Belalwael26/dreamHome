@@ -68,4 +68,21 @@ class LogoutRepoImpl implements LogoutRepo {
       return Left(ServerFailure(message));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> job({required String job}) async {
+    try {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      final User? user = auth.currentUser;
+      final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+      await firestore.collection('users').doc(user!.uid).update({
+        'job': job,
+      });
+      return Right("Job Added Successflly");
+    } on FirebaseAuthException catch (e) {
+      final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(message));
+    }
+  }
 }
