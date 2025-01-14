@@ -10,6 +10,7 @@ class WorkerHomeCubit extends Cubit<WorkerHomeState> {
 
   List<OrderModel> order = [];
   Future<void> orders() async {
+    emit(WorkerHomeLoadingState());
     final result = await _repo.getOrder();
 
     result.fold((fail) {
@@ -17,6 +18,22 @@ class WorkerHomeCubit extends Cubit<WorkerHomeState> {
     }, (success) {
       order = success;
       emit(WorkerHomeSuccessState(success));
+    });
+  }
+
+  Future<void> changeOrderStatus({
+    required String orderStatus,
+    required String orderId,
+  }) async {
+    final result = await _repo.changeOrderStatus(
+      orderStatus: orderStatus,
+      orderId: orderId,
+    );
+
+    result.fold((fail) {
+      emit(ChangeOrderStatusFailureState(fail.message));
+    }, (success) {
+      emit(ChangeOrderStatusSuccessState(success));
     });
   }
 }

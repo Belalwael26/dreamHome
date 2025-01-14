@@ -17,3 +17,15 @@ final class WorkerHomeFailureState extends WorkerHomeState {
 
   WorkerHomeFailureState(this.message);
 }
+
+final class ChangeOrderStatusSuccessState extends WorkerHomeState {
+  final String message;
+
+  ChangeOrderStatusSuccessState(this.message);
+}
+
+final class ChangeOrderStatusFailureState extends WorkerHomeState {
+  final String message;
+
+  ChangeOrderStatusFailureState(this.message);
+}
