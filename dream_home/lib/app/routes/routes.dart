@@ -15,4 +15,5 @@ class Routes {
   static const String complaintscreen = '/complaintscreen';
   static const String workerCategory = "workercategoryscreen";
   static const String notification = "/notificationscreen";
+  static const String workerdetails = "/workerdetailsscreen";
 }

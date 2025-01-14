@@ -18,6 +18,9 @@ import 'package:dream_home/feature/notifications/data/repo/notification_repo.dar
 import 'package:dream_home/feature/who_are_you/presentation/cubit/who_are_you_cubit.dart';
 import 'package:dream_home/feature/who_are_you/presentation/data/repo/who_are_you_repo.dart';
 import 'package:dream_home/feature/who_are_you/presentation/data/repo/who_are_you_repo_impl.dart';
+import 'package:dream_home/feature/worker_home/data/repos/worker_home_repo.dart';
+import 'package:dream_home/feature/worker_home/data/repos/worker_home_repo_impl.dart';
+import 'package:dream_home/feature/worker_home/presentation/cubit/worker_home_cubit.dart';
 import 'package:dream_home/feature/worker_profile/data/repos/worker_profile_repo.dart';
 import 'package:dream_home/feature/worker_profile/data/repos/worker_profile_repo_impl.dart';
 import 'package:flutter/material.dart';
@@ -57,6 +60,7 @@ void _registerRepos() {
   getIt.registerSingleton<ImagePickerRepo>(ImagePickerRepoImpl());
   getIt.registerSingleton<NotificationRepo>(NotificationRepoImpl());
   getIt.registerSingleton<WhoAreYouRepo>(WhoAreYouRepoImpl());
+  getIt.registerSingleton<WorkerHomeRepo>(WorkerHomeRepoImpl());
 }
 
 void _registerFactory() {
@@ -70,4 +74,5 @@ void _registerFactory() {
   getIt.registerFactory<ImagePickerCubit>(() => ImagePickerCubit(getIt()));
   getIt.registerFactory<NotificationCubit>(() => NotificationCubit(getIt()));
   getIt.registerFactory<WhoAreYouCubit>(() => WhoAreYouCubit(getIt()));
+  getIt.registerFactory<WorkerHomeCubit>(() => WorkerHomeCubit(getIt()));
 }

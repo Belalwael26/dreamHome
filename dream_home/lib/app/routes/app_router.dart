@@ -3,6 +3,7 @@ import 'package:dream_home/feature/auth/presentation/views/forget_password_scree
 import 'package:dream_home/feature/auth/presentation/views/login_screen.dart';
 import 'package:dream_home/feature/auth/presentation/views/register_screen.dart';
 import 'package:dream_home/feature/customer_home/presentation/view/worker_caregory_screen.dart';
+import 'package:dream_home/feature/customer_home/presentation/view/worker_details_screen.dart';
 import 'package:dream_home/feature/customer_nav_bar/presentation/view/customer_nav_bar_screen.dart';
 import 'package:dream_home/feature/customer_profile/presentation/widget/about_us_screen.dart';
 import 'package:dream_home/feature/customer_profile/presentation/widget/change_number_screen.dart';
@@ -17,6 +18,8 @@ import 'package:dream_home/feature/who_are_you/presentation/views/who_are_you_sc
 import 'package:dream_home/feature/worker_nav_bar/presentation/views/worker_nav_bar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../../feature/auth/data/model/user_model.dart';
 
 GlobalKey<NavigatorState>? navigatorKey = GlobalKey<NavigatorState>();
 final router = GoRouter(navigatorKey: navigatorKey, routes: [
@@ -90,4 +93,13 @@ final router = GoRouter(navigatorKey: navigatorKey, routes: [
     path: Routes.notification,
     builder: (context, state) => NotificationScreen(),
   ),
+  GoRoute(
+      path: "/${Routes.workerdetails}",
+      name: Routes.workerdetails,
+      builder: (context, state) {
+        final user = state.extra as UserModel;
+        return WorkerDetailsScreen(
+          user: user,
+        );
+      }),
 ]);

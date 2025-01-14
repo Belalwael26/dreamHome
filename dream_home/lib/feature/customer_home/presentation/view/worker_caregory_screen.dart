@@ -1,4 +1,5 @@
 import 'package:dream_home/Core/extension/extension.dart';
+import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/constant/constant.dart';
 import 'package:dream_home/core/styles/app_text_style.dart';
@@ -50,7 +51,10 @@ class WorkerCaregoryScreen extends StatelessWidget {
                             name: cubit.users[index].name!,
                             phone: cubit.users[index].phone ?? "01000000000",
                             image: cubit.users[index].image ?? image,
-                          ),
+                          ).onTap(() {
+                            context.pushNamed(Routes.workerdetails,
+                                extra: cubit.users[index]);
+                          }),
                         )
                       ],
                     ),

@@ -17,6 +17,7 @@ class CustomWorkerInfoContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: EdgeInsets.only(bottom: 16),
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
         border: Border.all(color: AppColor.beanut),
@@ -39,10 +40,12 @@ class CustomWorkerInfoContainer extends StatelessWidget {
                   color: AppColor.lightblack,
                 ),
               ),
-              Text(phone,
-                  style: AppTextStyle.style18.copyWith(
-                    color: AppColor.lightblack,
-                  ))
+              Text(
+                phone,
+                style: AppTextStyle.style18.copyWith(
+                  color: AppColor.lightblack,
+                ),
+              ),
             ],
           )
         ],

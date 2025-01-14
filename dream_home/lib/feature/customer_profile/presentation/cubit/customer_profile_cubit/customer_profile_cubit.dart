@@ -32,6 +32,7 @@ class CustomerProfileCubit extends Cubit<CustomerProfileState> {
         emit(LogoutFailureState(failure.message));
       },
       (message) {
+        clearUserData();
         log("message: $message");
         emit(LogoutSuccessState(message));
       },
@@ -47,6 +48,7 @@ class CustomerProfileCubit extends Cubit<CustomerProfileState> {
         emit(DeleteAccountFailureState(failure.message));
       },
       (message) {
+        clearUserData();
         log("message: $message");
         emit(DeleteAccountSuccessState(message));
       },

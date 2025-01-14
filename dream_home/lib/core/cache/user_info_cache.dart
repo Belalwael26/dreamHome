@@ -44,4 +44,5 @@ Future<UserModel?> getUserFromSharedPreferences() async {
 Future<void> clearUserData() async {
   final prefs = await SharedPreferences.getInstance();
   await prefs.remove(ShredKeys.user);
+  log("Cache is Cleared");
 }
