@@ -43,6 +43,8 @@ class CustomProfileItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 SvgPicture.asset(
+                  height: 25,
+                  width: 50,
                   svgIconPath,
                   colorFilter: ColorFilter.mode(vectorColor, BlendMode.srcIn),
                 ),

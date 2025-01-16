@@ -43,9 +43,21 @@ class CustomerHomeRepoImpl implements CustomerHomeRepo {
     required bool isWorker,
     required String job,
     required bool isOpen,
+    required String workerName,
+    required String workerPhone,
+    required String worderId,
+    required String workerLocation,
   }) async {
     final firestore = FirebaseFirestore.instance;
     try {
+      final existingOrder = await firestore
+          .collection('orders')
+          .where('user_id', isEqualTo: userId)
+          .where('order_status', isEqualTo: 'Pendding')
+          .get();
+      if (existingOrder.docs.isNotEmpty) {
+        return Left(ServerFailure('You already have a pending order.'));
+      }
       Map<String, dynamic> orderData = {
         'user_name': userName,
         'user_phone': userphone,
@@ -55,6 +67,10 @@ class CustomerHomeRepoImpl implements CustomerHomeRepo {
         'order_status': orderStatus,
         'is_worker': isWorker,
         'job': job,
+        'worker_name': workerName,
+        'worker_phone': workerPhone,
+        'worker_id': worderId,
+        'worker_location': workerLocation,
       };
       await firestore
           .collection('orders')

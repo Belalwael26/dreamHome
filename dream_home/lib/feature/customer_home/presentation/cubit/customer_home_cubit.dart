@@ -50,6 +50,10 @@ class CustomerHomeCubit extends Cubit<CustomerHomeState> {
     required String userId,
     required bool isWorker,
     required String job,
+    required String workerName,
+    required String workerPhone,
+    required String worderId,
+    required String workerLocation,
   }) async {
     final result = await repo.order(
       userName: userName,
@@ -60,6 +64,10 @@ class CustomerHomeCubit extends Cubit<CustomerHomeState> {
       isWorker: isWorker,
       job: job,
       isOpen: true,
+      worderId: worderId,
+      workerName: workerName,
+      workerPhone: workerPhone,
+      workerLocation: workerLocation,
     );
 
     result.fold((fail) {

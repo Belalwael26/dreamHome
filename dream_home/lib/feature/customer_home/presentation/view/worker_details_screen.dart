@@ -143,13 +143,16 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
                     textColor: AppColor.white,
                     onPressed: () {
                       cubit.order(
-                        userName: _user?.name ?? "",
-                        userphone: _user?.phone ?? "",
-                        userLocation: _user?.location ?? "",
-                        userId: _user?.id ?? "",
-                        isWorker: _user?.isWorker ?? false,
-                        job: widget.user.job ?? "",
-                      );
+                          userName: _user?.name ?? "",
+                          userphone: _user?.phone ?? "",
+                          userLocation: _user?.location ?? "",
+                          userId: _user?.id ?? "",
+                          isWorker: _user?.isWorker ?? false,
+                          job: widget.user.job ?? "",
+                          worderId: widget.user.id ?? "",
+                          workerName: widget.user.name ?? "",
+                          workerPhone: widget.user.phone ?? "",
+                          workerLocation: widget.user.location ?? "");
                     },
                   ),
                 )

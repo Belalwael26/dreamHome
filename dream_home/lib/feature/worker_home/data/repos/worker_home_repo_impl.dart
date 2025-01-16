@@ -12,15 +12,11 @@ class WorkerHomeRepoImpl implements WorkerHomeRepo {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
   @override
   Future<Either<Failure, List<OrderModel>>> getOrder() async {
+    final auth = FirebaseAuth.instance.currentUser;
     try {
       final querySnapshot = await firestore
           .collection('orders')
-          .where('is_worker', isEqualTo: true)
-          .where(
-            'job',
-            isEqualTo: OrderModel().job,
-          )
-          .where('order_status', isEqualTo: "Pendding")
+          .where('worker_id', isEqualTo: auth!.uid)
           .get();
 
       final orders = querySnapshot.docs.map((doc) {

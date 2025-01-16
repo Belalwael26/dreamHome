@@ -34,6 +34,7 @@ class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
     log("$user");
     log("${user!.name}");
     log("${_user!.job}");
+    log("=======================================${_user!.id}");
   }
 
   @override

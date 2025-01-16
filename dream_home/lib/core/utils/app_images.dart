@@ -48,6 +48,8 @@ class AppImages {
   static const String profile = '$_vectorPath/profile.svg';
   static const String person = '$_vectorPath/person.svg';
   static const String cancel = '$_vectorPath/cancel.svg';
+  static const String orders = '$_vectorPath/orders.svg';
+  static const String order = '$_vectorPath/order.svg';
 
   //! Animation
 

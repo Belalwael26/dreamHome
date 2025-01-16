@@ -5,6 +5,7 @@ import 'package:dream_home/feature/auth/presentation/views/register_screen.dart'
 import 'package:dream_home/feature/customer_home/presentation/view/worker_caregory_screen.dart';
 import 'package:dream_home/feature/customer_home/presentation/view/worker_details_screen.dart';
 import 'package:dream_home/feature/customer_nav_bar/presentation/view/customer_nav_bar_screen.dart';
+import 'package:dream_home/feature/customer_order/presentation/views/customer_order_screen.dart';
 import 'package:dream_home/feature/customer_profile/presentation/widget/about_us_screen.dart';
 import 'package:dream_home/feature/customer_profile/presentation/widget/change_number_screen.dart';
 import 'package:dream_home/feature/customer_profile/presentation/widget/change_password_screen.dart';
@@ -102,4 +103,8 @@ final router = GoRouter(navigatorKey: navigatorKey, routes: [
           user: user,
         );
       }),
+  GoRoute(
+    path: Routes.customerOrder,
+    builder: (context, state) => CustomerOrderScreen(),
+  ),
 ]);

@@ -16,5 +16,9 @@ abstract class CustomerHomeRepo {
     required bool isWorker,
     required String job,
     required bool isOpen,
+    required String workerName,
+    required String workerPhone,
+    required String worderId,
+    required String workerLocation,
   });
 }
