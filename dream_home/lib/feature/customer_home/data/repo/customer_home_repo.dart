@@ -15,5 +15,6 @@ abstract class CustomerHomeRepo {
     required String orderStatus,
     required bool isWorker,
     required String job,
+    required bool isOpen,
   });
 }

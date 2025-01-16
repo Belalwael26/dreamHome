@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dream_home/Core/extension/extension.dart';
 import 'package:dream_home/Core/styles/app_text_style.dart';
 import 'package:dream_home/app/routes/routes.dart';
@@ -11,13 +13,35 @@ import 'package:dream_home/feature/customer_home/presentation/cubit/customer_hom
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/cache/user_info_cache.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../customer_profile/presentation/widget/custom_add_profile_stack.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class WorkerDetailsScreen extends StatelessWidget {
+class WorkerDetailsScreen extends StatefulWidget {
   final UserModel user;
   const WorkerDetailsScreen({super.key, required this.user});
+
+  @override
+  State<WorkerDetailsScreen> createState() => _WorkerDetailsScreenState();
+}
+
+class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
+  UserModel? _user;
+  @override
+  void initState() {
+    load();
+    super.initState();
+  }
+
+  Future<void> load() async {
+    UserModel? user = await getUserFromSharedPreferences();
+    setState(() {
+      _user = user;
+    });
+    log("$_user");
+    log("${_user!.name}");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +84,7 @@ class WorkerDetailsScreen extends StatelessWidget {
                         ),
                         height(16),
                         Text(
-                          user.name!,
+                          widget.user.name!,
                           style: AppTextStyle.style18.copyWith(
                             color: AppColor.lightblack,
                             fontWeight: FontWeight.w700,
@@ -68,7 +92,7 @@ class WorkerDetailsScreen extends StatelessWidget {
                         ),
                         height(8),
                         Text(
-                          user.phone ?? "01000000000",
+                          widget.user.phone ?? "01000000000",
                           style: AppTextStyle.style18.copyWith(
                             color: AppColor.lightblack,
                             fontWeight: FontWeight.w700,
@@ -76,7 +100,7 @@ class WorkerDetailsScreen extends StatelessWidget {
                         ),
                         height(8),
                         Text(
-                          user.job ?? "",
+                          widget.user.job ?? "",
                           style: AppTextStyle.style18.copyWith(
                             color: AppColor.lightblack,
                             fontWeight: FontWeight.w700,
@@ -119,12 +143,12 @@ class WorkerDetailsScreen extends StatelessWidget {
                     textColor: AppColor.white,
                     onPressed: () {
                       cubit.order(
-                        userName: user.name ?? "",
-                        userphone: user.phone ?? "",
-                        userLocation: user.location ?? "",
-                        userId: user.id ?? "",
-                        isWorker: user.isWorker ?? false,
-                        job: user.job ?? "",
+                        userName: _user?.name ?? "",
+                        userphone: _user?.phone ?? "",
+                        userLocation: _user?.location ?? "",
+                        userId: _user?.id ?? "",
+                        isWorker: _user?.isWorker ?? false,
+                        job: widget.user.job ?? "",
                       );
                     },
                   ),

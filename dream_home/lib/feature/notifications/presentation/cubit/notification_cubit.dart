@@ -29,4 +29,15 @@ class NotificationCubit extends Cubit<NotificationState> {
         (failure) => emit(DeleteNotificationFailureState(failure.message)),
         (success) => emit(DeleteNotificationSuccessState(success)));
   }
+
+  Future<void> changeNotificationStatus({required String id}) async {
+    final result = await _repo.changeNotificationStatus(id: id);
+    result.fold(
+        (failure) =>
+            emit(ChangeNotificationStatusFailureState(failure.message)),
+        (success) {
+      log("Status is Changed");
+      emit(ChangeNotificationStatusSuccessState());
+    });
+  }
 }

@@ -6,4 +6,7 @@ abstract class NotificationRepo {
   Future<Either<Failure, List<NotificationModel>>> notification();
 
   Future<Either<Failure, String>> deleteNotification({required String id});
+
+  Future<Either<Failure, String>> changeNotificationStatus(
+      {required String id});
 }

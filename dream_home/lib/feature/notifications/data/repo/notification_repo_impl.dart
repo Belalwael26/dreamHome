@@ -45,4 +45,18 @@ class NotificationRepoImpl implements NotificationRepo {
       return Left(ServerFailure(message));
     }
   }
+
+  @override
+  Future<Either<Failure, String>> changeNotificationStatus(
+      {required String id}) async {
+    try {
+      await firestore.collection('notifications').doc(id).update({
+        'is_open': false,
+      });
+      return Right("");
+    } on FirebaseException catch (e) {
+      final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(message));
+    }
+  }
 }

@@ -7,7 +7,13 @@ import '../../../../core/utils/app_color.dart';
 class NotificationItem extends StatelessWidget {
   final String title;
   final String body;
-  const NotificationItem({super.key, required this.title, required this.body});
+  final Color? color;
+  const NotificationItem({
+    super.key,
+    required this.title,
+    required this.body,
+    this.color,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +22,7 @@ class NotificationItem extends StatelessWidget {
       width: double.maxFinite,
       padding: EdgeInsets.all(8),
       decoration: BoxDecoration(
+          color: color,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(color: AppColor.beanut)),
       child: Column(

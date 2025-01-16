@@ -12,9 +12,14 @@ import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/utils/app_color.dart';
 import '../widget/notification_item.dart';
 
-class NotificationScreen extends StatelessWidget {
+class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
 
+  @override
+  State<NotificationScreen> createState() => _NotificationScreenState();
+}
+
+class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -25,6 +30,10 @@ class NotificationScreen extends StatelessWidget {
             showToast(message: state.message, backgroundColor: AppColor.beanut);
             context.read<NotificationCubit>().notification();
           } else if (state is DeleteNotificationFailureState) {
+            showToast(message: state.message, backgroundColor: AppColor.redED);
+          } else if (state is ChangeNotificationStatusSuccessState) {
+            context.read<NotificationCubit>().notification();
+          } else if (state is ChangeNotificationStatusFailureState) {
             showToast(message: state.message, backgroundColor: AppColor.redED);
           }
         },
@@ -49,31 +58,33 @@ class NotificationScreen extends StatelessWidget {
                           ),
                           height(24),
                           ...List.generate(
-                              cubit.notificationList.length,
-                              (index) => Dismissible(
-                                    background: Container(
-                                      margin: EdgeInsets.only(bottom: 16),
-                                      decoration: BoxDecoration(
-                                        color: AppColor.redED,
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                    ),
-                                    key: UniqueKey(),
-                                    onDismissed: (direction) {
-                                      cubit.deleteNotification(
-                                          id: cubit
-                                                  .notificationList[index].id ??
-                                              "");
-                                    },
-                                    child: NotificationItem(
-                                      body:
-                                          cubit.notificationList[index].title ??
-                                              "",
-                                      title:
-                                          cubit.notificationList[index].body ??
-                                              "",
-                                    ),
-                                  ))
+                            cubit.notificationList.length,
+                            (index) => Dismissible(
+                              background: Container(
+                                margin: EdgeInsets.only(bottom: 16),
+                                decoration: BoxDecoration(
+                                  color: AppColor.redED,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                              ),
+                              key: UniqueKey(),
+                              onDismissed: (direction) {
+                                cubit.deleteNotification(
+                                    id: cubit.notificationList[index].id ?? "");
+                              },
+                              child: NotificationItem(
+                                color:
+                                    cubit.notificationList[index].isOpen == true
+                                        ? AppColor.beanut.withValues(alpha: 0.3)
+                                        : AppColor.transparent,
+                                body: cubit.notificationList[index].title ?? "",
+                                title: cubit.notificationList[index].body ?? "",
+                              ).onTap(() {
+                                cubit.changeNotificationStatus(
+                                    id: cubit.notificationList[index].id ?? "");
+                              }),
+                            ),
+                          )
                         ],
                       ),
                     ),

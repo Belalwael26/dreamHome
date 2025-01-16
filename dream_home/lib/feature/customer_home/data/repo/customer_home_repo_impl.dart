@@ -42,6 +42,7 @@ class CustomerHomeRepoImpl implements CustomerHomeRepo {
     required String orderStatus,
     required bool isWorker,
     required String job,
+    required bool isOpen,
   }) async {
     final firestore = FirebaseFirestore.instance;
     try {
@@ -71,9 +72,10 @@ class CustomerHomeRepoImpl implements CustomerHomeRepo {
       if (userToken.isNotEmpty) {
         final notificationData = {
           'title': 'New Order Created',
-          'body': 'Order for $userName has been created successfully.',
+          'body': '$userName has been created$job Order successfully.',
           'userId': userId,
           'timestamp': FieldValue.serverTimestamp(),
+          'is_open': isOpen
         };
         try {
           await NotificationService.instance.showNotification(

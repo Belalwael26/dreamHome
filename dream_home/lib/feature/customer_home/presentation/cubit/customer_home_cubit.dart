@@ -59,6 +59,7 @@ class CustomerHomeCubit extends Cubit<CustomerHomeState> {
       orderStatus: "Pendding",
       isWorker: isWorker,
       job: job,
+      isOpen: true,
     );
 
     result.fold((fail) {

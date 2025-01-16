@@ -31,3 +31,11 @@ final class DeleteNotificationFailureState extends NotificationState {
 
   DeleteNotificationFailureState(this.message);
 }
+
+final class ChangeNotificationStatusSuccessState extends NotificationState {}
+
+final class ChangeNotificationStatusFailureState extends NotificationState {
+  final String message;
+
+  ChangeNotificationStatusFailureState(this.message);
+}
