@@ -2,7 +2,6 @@ import 'package:dream_home/feature/worker_nav_bar/presentation/cubit/worker_nav_
 import 'package:dream_home/feature/worker_nav_bar/presentation/cubit/worker_nav_bar_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/utils/app_color.dart';
 
 class WorkerNavBarScreen extends StatelessWidget {
@@ -28,6 +27,8 @@ class WorkerNavBarScreen extends StatelessWidget {
               unselectedIconTheme: IconThemeData(size: 24),
               items: [
                 BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
+                BottomNavigationBarItem(
+                    icon: Icon(Icons.request_page), label: "Orders"),
                 BottomNavigationBarItem(
                     icon: Icon(Icons.person_3), label: "Profile"),
               ],

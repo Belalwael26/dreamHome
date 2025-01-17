@@ -1,3 +1,4 @@
+import 'package:dream_home/feature/orders/presentation/views/order_screen.dart';
 import 'package:dream_home/feature/worker_home/presentation/views/worker_home_screen.dart';
 import 'package:dream_home/feature/worker_nav_bar/presentation/cubit/worker_nav_bar_state.dart';
 import 'package:dream_home/feature/worker_profile/presentation/views/worker_profile_screen.dart';
@@ -19,6 +20,7 @@ class WorkerNavBarCubit extends Cubit<WorkerNavBarState> {
 
   List<Widget> screens = [
     WorkerHomeScreen(),
+    OrderScreen(),
     WorkerProfileScreen(),
   ];
 }
