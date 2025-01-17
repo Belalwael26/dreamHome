@@ -9,11 +9,13 @@ class CustomOrderDataBody extends StatelessWidget {
   final String userName;
   final String userLoation;
   final String phone;
+  final String orderStatus;
   const CustomOrderDataBody(
       {super.key,
       required this.userName,
       required this.userLoation,
-      required this.phone});
+      required this.phone,
+      required this.orderStatus});
 
   @override
   Widget build(BuildContext context) {
@@ -42,6 +44,11 @@ class CustomOrderDataBody extends StatelessWidget {
                         .copyWith(color: AppColor.lightblack),
                   ),
                   Text(
+                    phone,
+                    style: AppTextStyle.style16
+                        .copyWith(color: AppColor.lightblack),
+                  ),
+                  Text(
                     userLoation.split(' ').take(3).join(' '),
                     style: AppTextStyle.style14
                         .copyWith(color: AppColor.lightblack),
@@ -51,7 +58,7 @@ class CustomOrderDataBody extends StatelessWidget {
             ],
           ),
           Text(
-            phone,
+            orderStatus,
             style: AppTextStyle.style16.copyWith(color: AppColor.lightblack),
           ),
         ],

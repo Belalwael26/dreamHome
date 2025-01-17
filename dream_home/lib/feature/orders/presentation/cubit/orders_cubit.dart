@@ -14,8 +14,8 @@ class OrdersCubit extends Cubit<OrdersState> {
 
   List<String> orderStatus = [
     "Pendding",
-    "Active",
-    "Finished",
+    "Accepted",
+    "Decline",
   ];
 
   void changeIndexState(int index) {

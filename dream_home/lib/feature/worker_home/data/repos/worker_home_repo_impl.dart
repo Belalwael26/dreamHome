@@ -17,6 +17,7 @@ class WorkerHomeRepoImpl implements WorkerHomeRepo {
       final querySnapshot = await firestore
           .collection('orders')
           .where('worker_id', isEqualTo: auth!.uid)
+          //.where('order_status', isEqualTo: 'Pendding')
           .get();
 
       final orders = querySnapshot.docs.map((doc) {

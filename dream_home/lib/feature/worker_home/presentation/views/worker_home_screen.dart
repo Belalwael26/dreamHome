@@ -14,6 +14,7 @@ import 'package:dream_home/feature/worker_home/presentation/widget/custom_accept
 import 'package:dream_home/feature/worker_home/presentation/widget/custom_order_data_body.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../../core/cache/user_info_cache.dart';
 
@@ -91,6 +92,8 @@ class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
                                       userLoation:
                                           cubit.order[index].userLocation ?? "",
                                       phone: cubit.order[index].userphone ?? "",
+                                      orderStatus:
+                                          cubit.order[index].orderStatus ?? "",
                                     ).onTap(() {
                                       showDialog(
                                           context: context,
@@ -100,6 +103,7 @@ class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
                                                         .userName ??
                                                     " ",
                                                 acceptonPressed: () {
+                                                  context.pop();
                                                   cubit.changeOrderStatus(
                                                     orderStatus: "Accepted",
                                                     orderId: cubit.order[index]
@@ -108,6 +112,7 @@ class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
                                                   );
                                                 },
                                                 declineonPressed: () {
+                                                  context.pop();
                                                   cubit.changeOrderStatus(
                                                     orderStatus: "Decline",
                                                     orderId: cubit.order[index]
