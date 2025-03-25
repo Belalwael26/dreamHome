@@ -29,7 +29,7 @@ class CustomButtonsRow extends StatelessWidget {
             }
           },
           icon: Icons.arrow_back,
-          backGroundColor: AppColor.primaryColor,
+          backGroundColor: AppColor.black,
         ),
         CustomNextButton(
           onTap: () async {
@@ -46,7 +46,7 @@ class CustomButtonsRow extends StatelessWidget {
             }
           },
           icon: Icons.arrow_forward,
-          backGroundColor: AppColor.beanut,
+          backGroundColor: AppColor.yellowColor,
         ),
       ],
     );
