@@ -1,14 +1,11 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dream_home/core/errors/errors.dart';
 import 'package:dream_home/feature/auth/data/model/user_model.dart';
 import 'package:dream_home/feature/auth/data/repo/register/register_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import '../../../../../core/constant/constant.dart';
-import '../../../../../core/errors/user_error_message.dart';
+import '../../../../../core/network/error/failure.dart';
 
 class RegisterRepoImpl implements RegisterRepo {
   @override
@@ -51,8 +48,8 @@ class RegisterRepoImpl implements RegisterRepo {
       }
       return Left(ServerFailure("User creation failed."));
     } on FirebaseAuthException catch (e) {
-      String friendlyMessage = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(friendlyMessage));
+      // String friendlyMessage = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
     }
   }
 

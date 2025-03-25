@@ -16,12 +16,11 @@ import 'package:dream_home/feature/onborading/presentation/views/onboarding_scre
 import 'package:dream_home/feature/splash/presentation/view/splash_screen.dart';
 import 'package:dream_home/feature/who_are_you/presentation/views/who_are_you_screen.dart';
 import 'package:dream_home/feature/worker_nav_bar/presentation/views/worker_nav_bar_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/constant/constant.dart';
 import '../../feature/auth/data/model/user_model.dart';
 
-GlobalKey<NavigatorState>? navigatorKey = GlobalKey<NavigatorState>();
 final router = GoRouter(navigatorKey: navigatorKey, routes: [
   GoRoute(
     path: Routes.splash,

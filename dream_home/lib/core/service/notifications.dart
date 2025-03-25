@@ -8,8 +8,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../app/routes/app_router.dart';
-
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await NotificationService.instance.setupFlutterNotifications();
@@ -153,7 +151,7 @@ class NotificationService {
 
   void _handleBackgroundMessage(RemoteMessage message) {
     if (message.data['type'] == 'order') {
-      navigatorKey!.currentContext!.pushReplacement(Routes.notification);
+      navigatorKey.currentContext!.pushReplacement(Routes.notification);
     }
   }
 }

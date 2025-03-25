@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dream_home/core/errors/errors.dart';
-import 'package:dream_home/core/errors/user_error_message.dart';
 import 'package:dream_home/feature/auth/data/repo/forgetpassword/forget_password_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../../../../core/network/error/failure.dart';
 
 class ForgetPasswordRepoImpl implements ForgetPasswordRepo {
   @override
@@ -27,8 +27,8 @@ class ForgetPasswordRepoImpl implements ForgetPasswordRepo {
       }
       return Right("Password reset link sent to your email.");
     } on FirebaseAuthException catch (e) {
-      final String message = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(message));
+      // final String message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

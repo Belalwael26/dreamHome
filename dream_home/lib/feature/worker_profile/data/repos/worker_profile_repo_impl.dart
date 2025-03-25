@@ -3,8 +3,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dream_home/feature/worker_profile/data/repos/worker_profile_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import '../../../../core/errors/errors.dart';
-import '../../../../core/errors/user_error_message.dart';
+import '../../../../core/network/error/failure.dart';
 
 class WorkerProfileRepoImpl implements WorkerProfileRepo {
   @override
@@ -23,8 +22,8 @@ class WorkerProfileRepoImpl implements WorkerProfileRepo {
       await auth.signOut();
       return Right('Logged out successfully');
     } on FirebaseAuthException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(message));
+      // final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -46,8 +45,8 @@ class WorkerProfileRepoImpl implements WorkerProfileRepo {
 
       return Right('Account deleted successfully');
     } on FirebaseAuthException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(message));
+      // final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

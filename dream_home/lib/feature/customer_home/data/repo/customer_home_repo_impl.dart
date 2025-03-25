@@ -1,14 +1,12 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dream_home/core/errors/errors.dart';
-import 'package:dream_home/core/errors/user_error_message.dart';
 import 'package:dream_home/feature/auth/data/model/user_model.dart';
 import 'package:dream_home/feature/customer_home/data/repo/customer_home_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+import '../../../../core/network/error/failure.dart';
 import '../../../../core/service/notifications.dart';
 import '../model/order_model.dart';
 
@@ -28,8 +26,8 @@ class CustomerHomeRepoImpl implements CustomerHomeRepo {
 
       return Right(cateogties);
     } on FirebaseAuthException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(message));
+      // final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -115,8 +113,8 @@ class CustomerHomeRepoImpl implements CustomerHomeRepo {
 
       return Right(OrderModel.fromDocumentSnapshot(order));
     } on FirebaseAuthException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(message));
+      // final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

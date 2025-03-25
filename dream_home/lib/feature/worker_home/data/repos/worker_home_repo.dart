@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:dream_home/core/errors/errors.dart';
 import 'package:dream_home/feature/customer_home/data/model/order_model.dart';
+
+import '../../../../core/network/error/failure.dart';
 
 abstract class WorkerHomeRepo {
   Future<Either<Failure, List<OrderModel>>> getOrder();
