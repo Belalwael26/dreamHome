@@ -22,7 +22,7 @@ class CustomAuthText extends StatelessWidget {
             style: AppTextStyle.style14),
         Text(isLoadgin ? "Sign Up Here" : "Login Here",
             style: AppTextStyle.style16.copyWith(
-              color: AppColor.beanut,
+              color: AppColor.white,
             )).onTap(() {
           isLoadgin
               ? context.push(Routes.register)

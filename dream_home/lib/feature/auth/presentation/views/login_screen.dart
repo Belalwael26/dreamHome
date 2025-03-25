@@ -1,20 +1,18 @@
-import 'package:dream_home/app/routes/routes.dart';
-import 'package:dream_home/core/function/show_toast.dart';
-import 'package:dream_home/core/function/validation.dart';
-import 'package:dream_home/core/styles/app_text_style.dart';
+import 'package:dream_home/Core/extension/extension.dart';
 import 'package:dream_home/core/utils/app_color.dart';
-import 'package:dream_home/core/utils/app_images.dart';
-import 'package:dream_home/di.dart';
+import 'package:dream_home/feature/auth/presentation/cubit/login/login_cubit.dart';
+import 'package:dream_home/feature/auth/presentation/cubit/login/login_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../core/constant/app_sized.dart';
+import '../../../../Core/styles/app_text_style.dart';
+import '../../../../Core/utils/app_images.dart';
+import '../../../../app/routes/routes.dart';
+import '../../../../core/function/show_toast.dart';
+import '../../../../core/function/validation.dart';
 import '../../../../core/widget/custom_app_button.dart';
-import '../../../../core/widget/custom_loader.dart';
-import '../cubit/login/login_cubit.dart';
-import '../cubit/login/login_state.dart';
+import '../../../../di.dart';
 import '../widget/custom_auth_text.dart';
-import '../widget/custom_forget_password_text.dart';
 import '../widget/custom_text_form_filed.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -26,104 +24,92 @@ class LoginScreen extends StatelessWidget {
       create: (context) => LoginCubit(getIt()),
       child: BlocConsumer<LoginCubit, LoginState>(
         listener: (context, state) {
-          if (state is LoginSuccessState) {
-            showToast(
-              message: "Login Success",
-              backgroundColor: AppColor.beanut,
-            );
-            state.user.isWorker == null
-                ? context.pushReplacement(Routes.whoareyou)
-                : state.user.isWorker == true
-                    ? context.pushReplacement(Routes.workernavbar)
-                    : context.pushReplacement(Routes.customernavbar);
-          } else if (state is LoginFailureState) {
-            showToast(
-              message: state.message,
-              backgroundColor: AppColor.redED,
-            );
-          } else if (state is UpdateSuccessState) {
-            showToast(
-              message: "Password Updated",
-              backgroundColor: AppColor.beanut,
-            );
-          } else if (state is UpdateFailureState) {
-            showToast(
-              message: state.message,
-              backgroundColor: AppColor.redED,
-            );
-          }
+          // if (state is LoginSuccessState) {
+          //   showToast(
+          //       message: state.user.message!, backgroundColor: AppColor.green);
+          //   context.pushReplacement(Routes.whoareyou);
+          // } else if (state is LoginFailedState) {
+          //   showToast(message: state.message, backgroundColor: AppColor.redED);
+          // }
         },
         builder: (context, state) {
           final cubit = context.read<LoginCubit>();
           return Scaffold(
-            body: state is LoginLoadingState
-                ? CustomLoader()
-                : SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
+            body: Padding(
+              padding: const EdgeInsets.only(top: 24),
+              child: Column(
+                children: [
+                  Expanded(flex: 2, child: Image.asset(AppImages.logo)),
+                  Expanded(
+                    flex: 3,
+                    child: Container(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                      decoration: BoxDecoration(
+                        color: AppColor.yellowColor,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        ),
+                      ),
                       child: Form(
                         key: cubit.formKey,
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          spacing: 16,
                           children: [
-                            Align(
-                              alignment: Alignment.center,
-                              child: Image.asset(
-                                AppImages.logo,
-                                width: 250,
-                                height: 250,
-                              ),
+                            Text(
+                              "مرحبا مجددا",
+                              style: AppTextStyle.style20,
                             ),
-                            Text("Email", style: AppTextStyle.style14),
-                            height(4),
+                            Text(
+                              "من فضلك قم بتسجيل الدخول",
+                              style: AppTextStyle.style16
+                                  .copyWith(color: AppColor.white),
+                            ),
                             CustomTextFormFiled(
-                              hintText: "demo@mail.com",
+                              borderColor: AppColor.black,
                               controller: cubit.emailController,
-                              validator: (val) => AppValidation.emailValidator(
+                              hintText: "ادخل البريد الالكتروني الخاص بك",
+                              validator: (valu) => AppValidation.emailValidator(
                                   cubit.emailController.text),
                             ),
-                            height(36),
-                            Text("Password", style: AppTextStyle.style14),
-                            height(4),
                             CustomTextFormFiled(
-                              hintText: "**********************",
+                              borderColor: AppColor.black,
                               controller: cubit.passwordController,
-                              obscureText: cubit.obsecureText,
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  cubit.obsecureText
-                                      ? Icons.visibility_off_outlined
-                                      : Icons.visibility_outlined,
-                                  color: AppColor.beanut,
-                                ),
-                                onPressed: () {
-                                  cubit.changeObsecureText();
-                                },
-                              ),
-                              validator: (val) =>
+                              hintText: "ادخل كلمة المرور الخاصة بك",
+                              validator: (valu) =>
                                   AppValidation.passwordVaildtor(
                                       cubit.passwordController.text),
                             ),
-                            height(4),
-                            const CustomForgetPasswordWidget(),
-                            height(16),
+                            Align(
+                              alignment: AlignmentDirectional.centerEnd,
+                              child: Text(
+                                "نسيت كلمة المرور؟",
+                                style: AppTextStyle.style16
+                                    .copyWith(color: AppColor.redED),
+                              ).onTap(() {
+                                context.push(Routes.forgetpaswword);
+                              }),
+                            ),
                             CustomAppButton(
-                              text: "Login",
-                              textColor: AppColor.white,
-                              containerColor: AppColor.beanut,
+                              text: "تسجيل الدخول",
+                              containerColor: AppColor.white,
+                              textColor: AppColor.black,
                               onPressed: () {
                                 cubit.login();
                               },
                             ),
-                            height(heightSize(context) * 0.2),
-                            const CustomAuthText(
+                            CustomAuthText(
                               isLoadgin: true,
                             ),
                           ],
                         ),
                       ),
                     ),
-                  ),
+                  )
+                ],
+              ),
+            ),
           );
         },
       ),
