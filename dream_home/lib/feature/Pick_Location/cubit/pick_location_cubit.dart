@@ -1,8 +1,6 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dream_home/core/constant/constant.dart';
-import 'package:dream_home/core/errors/user_error_message.dart';
 import 'package:dream_home/core/function/show_toast.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -54,9 +52,9 @@ class PickLocationCubit extends Cubit<PickLocationState> {
         'longitude': position.longitude,
       }, SetOptions(merge: true));
     } on FirebaseException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      log(message);
-      showToast(message: message, backgroundColor: AppColor.redED);
+      //final message = getFriendlyErrorMessage(e.code);
+      log(e.toString());
+      showToast(message: e.toString(), backgroundColor: AppColor.redED);
     }
   }
 }

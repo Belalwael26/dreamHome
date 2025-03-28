@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dream_home/core/errors/errors.dart';
-import 'package:dream_home/core/errors/user_error_message.dart';
 import 'package:dream_home/feature/customer_home/data/model/order_model.dart';
 import 'package:dream_home/feature/worker_home/data/repos/worker_home_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../../../core/network/error/failure.dart';
 
 class WorkerHomeRepoImpl implements WorkerHomeRepo {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -44,8 +44,8 @@ class WorkerHomeRepoImpl implements WorkerHomeRepo {
       });
       return Right("Chnage Order Status Successflly");
     } on FirebaseAuthException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(message));
+      // final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

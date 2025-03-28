@@ -1,12 +1,10 @@
-import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/core/utils/app_color.dart';
-import 'package:dream_home/core/utils/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-
-import '../../../../core/cache/user_info_cache.dart';
+import '../../../../Core/utils/app_images.dart';
+import '../../../../app/routes/routes.dart';
+import '../../../../core/constant/app_sized.dart';
 import '../../../../core/service/on_boarding_service.dart';
-import '../../../auth/data/model/user_model.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -15,92 +13,80 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<Color?> _colorAnimation1;
-  late Animation<Color?> _colorAnimation2;
+class _SplashScreenState extends State<SplashScreen> {
+  bool _isCentered = false;
+  bool _isExpanded = false;
+  //User? _user;
 
-  bool onboardingShown = false;
-  UserModel? _user;
   @override
   void initState() {
     super.initState();
+    _startAnimation();
     load();
-    animated();
   }
 
   Future<void> load() async {
-    onboardingShown = await OnboardingService().isOnboardingShown();
-    UserModel? user = await getUserFromSharedPreferences();
+    // User? user = await getUserFromSharedPreferences();
     setState(() {
-      _user = user;
+      //  _user = user;
     });
   }
 
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
+  void _startAnimation() async {
+    //! 500 ms delay before starting the animation
+    await Future.delayed(const Duration(milliseconds: 500));
+    setState(() {
+      _isCentered = true;
+    });
+
+    //! 1 sec delay before expanding
+    await Future.delayed(const Duration(seconds: 1));
+    setState(() {
+      _isExpanded = true;
+    });
+    await Future.delayed(const Duration(seconds: 1));
+    _navigateToLogin();
+  }
+
+  void _navigateToLogin() async {
+    context.pushReplacement(Routes.onboarding);
+    bool onboardingShown = await OnboardingService().isOnboardingShown();
+
+    if (onboardingShown) {
+      //   if (_user?.token == null) {
+      //     context.pushReplacement(Routes.login);
+      //   } else {
+      //  _user.role == 'customer' ?    context.pushReplacement(Routes.customernavbar)  : context.pushReplacement(Routes.workernavbar);
+      //   }
+      // } else {
+      //   context.pushReplacement(Routes.onboarding);
+      // }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _controller,
-      builder: (context, child) => Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.centerLeft,
-            end: Alignment.centerRight,
-            colors: [
-              _colorAnimation1.value ?? Colors.transparent,
-              _colorAnimation2.value ?? Colors.transparent,
-            ],
-          ),
-        ),
-        child: Scaffold(
-          backgroundColor: AppColor.transparent,
-          body: Center(
-            child: Image.asset(AppImages.logo),
+    final screenWidth = widthSize(context);
+    final screenHeight = heightSize(context);
+
+    return Scaffold(
+      backgroundColor: _isExpanded ? AppColor.yellowColor : AppColor.white,
+      body: AnimatedContainer(
+        duration: const Duration(seconds: 1),
+        curve: Curves.easeInOut,
+        alignment: _isCentered ? Alignment.center : Alignment.centerLeft,
+        color: _isExpanded ? AppColor.yellowColor : AppColor.white,
+        child: AnimatedContainer(
+          duration: const Duration(seconds: 1),
+          curve: Curves.easeInOut,
+          width: _isExpanded ? screenWidth : 100,
+          height: _isExpanded ? screenHeight : 100,
+          child: Image.asset(
+            AppImages.logo,
+            fit: _isExpanded ? BoxFit.fill : BoxFit.contain,
           ),
         ),
       ),
     );
-  }
-
-  animated() {
-    _controller = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 4),
-    );
-
-    _colorAnimation1 = ColorTween(
-      begin: AppColor.primaryColor,
-      end: AppColor.greyD,
-    ).animate(_controller);
-
-    _colorAnimation2 = ColorTween(
-      begin: AppColor.primaryColor,
-      end: AppColor.greyD,
-    ).animate(_controller);
-
-    _controller.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        if (onboardingShown) {
-          if (_user?.token == null) {
-            context.pushReplacement(Routes.login);
-          } else {
-            _user?.isWorker == true
-                ? context.pushReplacement(Routes.workernavbar)
-                : context.pushReplacement(Routes.customernavbar);
-          }
-        } else {
-          context.pushReplacement(Routes.onboarding);
-        }
-      }
-    });
-
-    _controller.forward();
   }
 }

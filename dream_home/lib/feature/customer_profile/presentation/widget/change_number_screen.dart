@@ -4,7 +4,7 @@ import 'package:dream_home/core/extension/extension.dart';
 import 'package:dream_home/core/function/show_toast.dart';
 import 'package:dream_home/core/function/validation.dart';
 import 'package:dream_home/di.dart';
-import 'package:dream_home/feature/auth/data/model/user_model.dart';
+import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:dream_home/feature/auth/presentation/widget/custom_text_form_filed.dart';
 import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_profile_cubit/customer_profile_cubit.dart';
 import 'package:flutter/material.dart';
@@ -25,15 +25,15 @@ class ChangeNumberScreen extends StatefulWidget {
 }
 
 class _ChangeNumberScreenState extends State<ChangeNumberScreen> {
-  UserModel? _user;
+  LoginModel? _user;
 
   Future<void> load() async {
-    UserModel? user = await getUserFromSharedPreferences();
+    LoginModel? user = await getUserFromSharedPreferences();
     setState(() {
       _user = user;
     });
     log("$user");
-    log("${user!.phone}");
+    //log("${user!.phone}");
   }
 
   @override
@@ -56,7 +56,7 @@ class _ChangeNumberScreenState extends State<ChangeNumberScreen> {
           }
         },
         builder: (context, state) {
-          bool isChange = _user?.phone == null;
+          bool isChange = _user?.user?.contactNumber == null;
           final cubit = context.read<CustomerProfileCubit>();
           return Scaffold(
             body: Padding(
@@ -77,7 +77,7 @@ class _ChangeNumberScreenState extends State<ChangeNumberScreen> {
                     height(50),
                     CustomTextFormFiled(
                       controller: cubit.phoneController,
-                      hintText: _user?.phone ?? "Phone Number",
+                      hintText: _user?.user?.contactNumber ?? "Phone Number",
                       validator: (val) {
                         return AppValidation.phoneNumberVaildtor(
                             cubit.phoneController.text);
@@ -89,7 +89,7 @@ class _ChangeNumberScreenState extends State<ChangeNumberScreen> {
                       containerColor: AppColor.beanut,
                       textColor: AppColor.white,
                       onPressed: () {
-                        cubit.phoneController.text != _user!.phone
+                        cubit.phoneController.text != _user!.user?.contactNumber
                             ? cubit.phone(_user!)
                             : showToast(
                                 message: "Enter a different phone number",

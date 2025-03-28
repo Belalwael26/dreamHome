@@ -12,7 +12,7 @@ final class RegisterInitial extends RegisterState {}
 final class RegisterLoading extends RegisterState {}
 
 final class RegisterSuccess extends RegisterState {
-  final UserModel user;
+  final LoginModel user;
   const RegisterSuccess(this.user);
 
   @override
@@ -30,3 +30,12 @@ final class RegisterError extends RegisterState {
 class ChangePasswordObsecureTextState extends RegisterState {}
 
 class ChangeConfirmPasswordObsecureTextState extends RegisterState {}
+
+final class ImagePickerSuccessState extends RegisterState {
+  final File image;
+
+  const ImagePickerSuccessState(this.image);
+
+  @override
+  List<Object> get props => [image];
+}

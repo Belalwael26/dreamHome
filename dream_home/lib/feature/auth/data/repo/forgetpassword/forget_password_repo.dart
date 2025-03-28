@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 
-import '../../../../../core/errors/errors.dart';
+import '../../../../../core/network/error/failure.dart';
 
 abstract class ForgetPasswordRepo {
   Future<Either<Failure, String>> forgetPassword({

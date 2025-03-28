@@ -1,11 +1,10 @@
 import 'dart:developer';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dream_home/core/errors/errors.dart';
-import 'package:dream_home/core/errors/user_error_message.dart';
 import 'package:dream_home/feature/notifications/data/models/notification_model.dart';
 import 'package:dream_home/feature/notifications/data/repo/notification_repo.dart';
+
+import '../../../../core/network/error/failure.dart';
 
 class NotificationRepoImpl implements NotificationRepo {
   final FirebaseFirestore firestore = FirebaseFirestore.instance;
@@ -26,9 +25,9 @@ class NotificationRepoImpl implements NotificationRepo {
 
       return Right(notifications);
     } on FirebaseException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      log("Error: $message");
-      return Left(ServerFailure(message));
+      // final message = getFriendlyErrorMessage(e.code);
+      log("Error: ${e.toString()}");
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -40,9 +39,9 @@ class NotificationRepoImpl implements NotificationRepo {
       log("Notification with ID $id deleted successfully.");
       return const Right("Notification deleted successfully");
     } on FirebaseException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      log("Error deleting notification: $message");
-      return Left(ServerFailure(message));
+      // final message = getFriendlyErrorMessage(e.code);
+      log("Error deleting notification: ${e.toString()}");
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -55,8 +54,8 @@ class NotificationRepoImpl implements NotificationRepo {
       });
       return Right("");
     } on FirebaseException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(message));
+      // final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

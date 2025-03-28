@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dream_home/core/errors/errors.dart';
-import 'package:dream_home/core/errors/user_error_message.dart';
 import 'package:dream_home/feature/customer_profile/data/repo/logout/logout_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import '../../../../../core/network/error/failure.dart';
 
 class LogoutRepoImpl implements LogoutRepo {
   @override
@@ -22,8 +22,8 @@ class LogoutRepoImpl implements LogoutRepo {
       await auth.signOut();
       return Right('Logged out successfully');
     } on FirebaseAuthException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(message));
+      // final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -45,8 +45,8 @@ class LogoutRepoImpl implements LogoutRepo {
 
       return Right('Account deleted successfully');
     } on FirebaseAuthException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(message));
+      // final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -64,8 +64,8 @@ class LogoutRepoImpl implements LogoutRepo {
       });
       return Right("Phone Added Successflly");
     } on FirebaseAuthException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(message));
+      // final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
     }
   }
 
@@ -81,8 +81,8 @@ class LogoutRepoImpl implements LogoutRepo {
       });
       return Right("Job Added Successflly");
     } on FirebaseAuthException catch (e) {
-      final message = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(message));
+      // final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
     }
   }
 }

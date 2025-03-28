@@ -43,7 +43,9 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 children: [
                   Text(
                     onBoarding[index].title,
-                    style: AppTextStyle.style25,
+                    style: AppTextStyle.style25.copyWith(
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                   Image.asset(onBoarding[index].image),
                   Text(

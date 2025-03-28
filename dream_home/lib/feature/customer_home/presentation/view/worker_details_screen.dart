@@ -7,7 +7,7 @@ import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/function/show_toast.dart';
 import 'package:dream_home/core/widget/custom_app_button.dart';
 import 'package:dream_home/di.dart';
-import 'package:dream_home/feature/auth/data/model/user_model.dart';
+import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_state.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +19,7 @@ import '../../../customer_profile/presentation/widget/custom_add_profile_stack.d
 import 'package:carousel_slider/carousel_slider.dart';
 
 class WorkerDetailsScreen extends StatefulWidget {
-  final UserModel user;
+  final LoginModel user;
   const WorkerDetailsScreen({super.key, required this.user});
 
   @override
@@ -27,7 +27,7 @@ class WorkerDetailsScreen extends StatefulWidget {
 }
 
 class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
-  UserModel? _user;
+  LoginModel? _user;
   @override
   void initState() {
     load();
@@ -35,12 +35,12 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
   }
 
   Future<void> load() async {
-    UserModel? user = await getUserFromSharedPreferences();
+    LoginModel? user = await getUserFromSharedPreferences();
     setState(() {
       _user = user;
     });
     log("$_user");
-    log("${_user!.name}");
+    log("${_user!.user?.firstName}");
   }
 
   @override
@@ -84,7 +84,7 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
                         ),
                         height(16),
                         Text(
-                          widget.user.name!,
+                          widget.user.user?.firstName ?? "",
                           style: AppTextStyle.style18.copyWith(
                             color: AppColor.lightblack,
                             fontWeight: FontWeight.w700,
@@ -92,7 +92,7 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
                         ),
                         height(8),
                         Text(
-                          widget.user.phone ?? "01000000000",
+                          widget.user.user?.contactNumber ?? "01000000000",
                           style: AppTextStyle.style18.copyWith(
                             color: AppColor.lightblack,
                             fontWeight: FontWeight.w700,
@@ -100,7 +100,7 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
                         ),
                         height(8),
                         Text(
-                          widget.user.job ?? "",
+                          widget.user.user?.job ?? "",
                           style: AppTextStyle.style18.copyWith(
                             color: AppColor.lightblack,
                             fontWeight: FontWeight.w700,
@@ -143,16 +143,16 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
                     textColor: AppColor.white,
                     onPressed: () {
                       cubit.order(
-                          userName: _user?.name ?? "",
-                          userphone: _user?.phone ?? "",
-                          userLocation: _user?.location ?? "",
-                          userId: _user?.id ?? "",
-                          isWorker: _user?.isWorker ?? false,
-                          job: widget.user.job ?? "",
-                          worderId: widget.user.id ?? "",
-                          workerName: widget.user.name ?? "",
-                          workerPhone: widget.user.phone ?? "",
-                          workerLocation: widget.user.location ?? "");
+                          userName: _user?.user?.firstName ?? "",
+                          userphone: _user?.user?.contactNumber ?? "",
+                          userLocation: "_user?.location ?? " "",
+                          userId: _user?.user?.id ?? "",
+                          isWorker: false,
+                          job: widget.user.user?.job ?? "",
+                          worderId: widget.user.user?.id ?? "",
+                          workerName: widget.user.user?.firstName ?? "",
+                          workerPhone: widget.user.user?.contactNumber ?? "",
+                          workerLocation: "widget.user.location ?? " "");
                     },
                   ),
                 )

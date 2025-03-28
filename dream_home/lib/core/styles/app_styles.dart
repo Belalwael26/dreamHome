@@ -6,7 +6,7 @@ import 'app_text_style.dart';
 
 ThemeData theme() {
   return ThemeData(
-    scaffoldBackgroundColor: AppColor.greyD,
+    scaffoldBackgroundColor: AppColor.white,
     fontFamily: "PublicSans",
     inputDecorationTheme: InputDecorationTheme(
       hintStyle: AppTextStyle.style14.copyWith(color: AppColor.grey8),

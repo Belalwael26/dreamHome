@@ -1,14 +1,14 @@
 import 'dart:developer';
 import 'package:dream_home/core/cache/user_info_cache.dart';
-import 'package:dream_home/feature/auth/data/model/user_model.dart';
-import 'package:dream_home/feature/auth/data/repo/login/login_repo.dart';
+import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../domin/repo/auth_repo.dart';
 import 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  final LoginRepo _repo;
+  final AuthRepo _repo;
 
   LoginCubit(this._repo) : super(InitialState());
 
@@ -19,7 +19,7 @@ class LoginCubit extends Cubit<LoginState> {
 
   static LoginCubit get(context) => BlocProvider.of(context);
 
-  UserModel user = UserModel();
+  LoginModel user = LoginModel();
 
   Future<void> login() async {
     if (formKey.currentState!.validate()) {
@@ -37,13 +37,9 @@ class LoginCubit extends Cubit<LoginState> {
           user = r;
           log("User: $r");
 
-          if (user.password != passwordController.text) {
-            await updatePassword();
-            log("function is not work");
-          }
           await saveUserToSharedPreferences(user);
 
-          log("User Name ${user.name}");
+          log("User Name ${user.user?.firstName}");
           emit(LoginSuccessState(user));
         },
       );
@@ -52,21 +48,6 @@ class LoginCubit extends Cubit<LoginState> {
 
   void changeObsecureText() {
     obsecureText = !obsecureText;
-
     emit(ChangeObsecureTextState());
-  }
-
-  Future<void> updatePassword() async {
-    final result = await _repo.updatePasswordInFirestore(
-      email: emailController.text,
-      newPassword: passwordController.text,
-    );
-
-    result.fold(
-      (l) => emit(UpdateFailureState(l.message)),
-      (r) {
-        emit(UpdateSuccessState());
-      },
-    );
   }
 }
