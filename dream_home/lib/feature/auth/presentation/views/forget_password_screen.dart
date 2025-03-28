@@ -7,7 +7,6 @@ import 'package:dream_home/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../app/routes/routes.dart';
 import '../../../../core/constant/app_sized.dart';
 import '../../../../core/function/show_toast.dart';
@@ -46,7 +45,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                 automaticallyImplyLeading: false,
                 leading: Icon(
                   Icons.arrow_back_ios_new,
-                  color: AppColor.beanut,
+                  color: AppColor.yellowColor,
                 ).onTap(() {
                   context.pop();
                 })),
@@ -63,12 +62,15 @@ class ForgetPasswordScreen extends StatelessWidget {
                             height(heightSize(context) * 0.2),
                             Text(
                               "Email",
-                              style: AppTextStyle.style14,
+                              style: AppTextStyle.style14
+                                  .copyWith(color: AppColor.yellowColor),
                             ),
                             height(4),
                             CustomTextFormFiled(
                               hintText: "demo@mail.com",
+                              hintColor: AppColor.black,
                               controller: cubit.emailController,
+                              borderColor: AppColor.yellowColor,
                               validator: (val) => AppValidation.emailValidator(
                                   cubit.emailController.text),
                             ),
@@ -78,7 +80,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                               onPressed: () {
                                 cubit.forgetpassword();
                               },
-                              containerColor: AppColor.beanut,
+                              containerColor: AppColor.yellowColor,
                               textColor: AppColor.white,
                             ),
                           ],

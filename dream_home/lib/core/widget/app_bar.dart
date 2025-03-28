@@ -1,3 +1,4 @@
+import 'package:dream_home/core/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import '../styles/app_text_style.dart';
 
@@ -10,7 +11,7 @@ PreferredSizeWidget? appBar(
 }) {
   return AppBar(
     elevation: 0,
-    surfaceTintColor: Colors.white,
+    surfaceTintColor: AppColor.white,
     automaticallyImplyLeading: automaticallyImplyLeading,
     title: Text(
       title,
