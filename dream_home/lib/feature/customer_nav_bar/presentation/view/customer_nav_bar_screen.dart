@@ -16,10 +16,11 @@ class CustomerNavBarScreen extends StatelessWidget {
           final cubit = CustomerNavBarCubit.get(context);
           return Scaffold(
             bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: AppColor.white,
               onTap: (index) {
                 cubit.changeIndex(index);
               },
-              selectedItemColor: AppColor.beanut,
+              selectedItemColor: AppColor.yellowColor,
               unselectedItemColor: AppColor.primaryColor,
               currentIndex: cubit.currentIndex,
               selectedFontSize: 16,

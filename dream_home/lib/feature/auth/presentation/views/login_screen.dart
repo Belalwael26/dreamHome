@@ -29,7 +29,9 @@ class LoginScreen extends StatelessWidget {
           if (state is LoginSuccessState) {
             showToast(
                 message: state.user.message!, backgroundColor: AppColor.green);
-            context.pushReplacement(Routes.whoareyou);
+            state.user.user?.role == "customer"
+                ? context.pushReplacement(Routes.customernavbar)
+                : context.pushReplacement(Routes.workernavbar);
           } else if (state is LoginFailureState) {
             showToast(message: state.message, backgroundColor: AppColor.redED);
           }

@@ -41,6 +41,9 @@ class AppImages {
   static const String per = "$_path/per.jpg";
   static const String craft2 = "$_path/craft2.png";
   static const String per2 = "$_path/per2.png";
+  static const String banner1 = "$_path/banner1.jpg";
+  static const String banner2 = "$_path/banner2.jpg";
+  static const String banner3 = "$_path/banner3.jpg";
 
   //! Vectors
   static const String aboutus = '$_vectorPath/aboutus.svg';
