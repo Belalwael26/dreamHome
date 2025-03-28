@@ -1,5 +1,6 @@
 import 'package:dream_home/Core/extension/extension.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
+import 'package:dream_home/core/utils/fade_animation_custom.dart';
 import 'package:dream_home/di.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -66,54 +67,74 @@ class LoginScreen extends StatelessWidget {
                               Center(
                                 child: Column(
                                   children: [
-                                    Text("مرحبا مجددا",
-                                        style: AppTextStyle.style20),
-                                    Text(
-                                      "من فضلك قم بتسجيل الدخول",
-                                      style: AppTextStyle.style16
-                                          .copyWith(color: AppColor.white),
+                                    FadeAnimationCustom(
+                                      delay: 1.2,
+                                      child: Text("مرحبا مجددا",
+                                          style: AppTextStyle.style20),
+                                    ),
+                                    FadeAnimationCustom(
+                                      delay: 1.2,
+                                      child: Text(
+                                        "من فضلك قم بتسجيل الدخول",
+                                        style: AppTextStyle.style16
+                                            .copyWith(color: AppColor.white),
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
-                              CustomTextFormFiled(
-                                borderColor: AppColor.black,
-                                controller: cubit.emailController,
-                                hintText: "ادخل البريد الالكتروني الخاص بك",
-                                validator: (value) =>
-                                    AppValidation.emailValidator(
-                                        cubit.emailController.text),
+                              FadeAnimationCustom(
+                                delay: 1.2,
+                                child: CustomTextFormFiled(
+                                  borderColor: AppColor.black,
+                                  controller: cubit.emailController,
+                                  hintText: "ادخل البريد الالكتروني الخاص بك",
+                                  validator: (value) =>
+                                      AppValidation.emailValidator(
+                                          cubit.emailController.text),
+                                ),
                               ),
-                              CustomTextFormFiled(
-                                borderColor: AppColor.black,
-                                controller: cubit.passwordController,
-                                hintText: "ادخل كلمة المرور الخاصة بك",
-                                validator: (value) =>
-                                    AppValidation.passwordVaildtor(
-                                        cubit.passwordController.text),
+                              FadeAnimationCustom(
+                                delay: 1.2,
+                                child: CustomTextFormFiled(
+                                  borderColor: AppColor.black,
+                                  controller: cubit.passwordController,
+                                  hintText: "ادخل كلمة المرور الخاصة بك",
+                                  validator: (value) =>
+                                      AppValidation.passwordVaildtor(
+                                          cubit.passwordController.text),
+                                ),
                               ),
-                              const SizedBox(height: 8),
-                              Align(
-                                alignment: AlignmentDirectional.centerEnd,
-                                child: Text(
-                                  "نسيت كلمة المرور؟",
-                                  style: AppTextStyle.style16
-                                      .copyWith(color: AppColor.redED),
-                                ).onTap(() {
-                                  context.push(Routes.forgetpaswword);
-                                }),
+                              FadeAnimationCustom(
+                                delay: 1.2,
+                                child: Align(
+                                  alignment: AlignmentDirectional.centerEnd,
+                                  child: Text(
+                                    "نسيت كلمة المرور؟",
+                                    style: AppTextStyle.style16
+                                        .copyWith(color: AppColor.redED),
+                                  ).onTap(() {
+                                    context.push(Routes.forgetpaswword);
+                                  }),
+                                ),
                               ),
-                              CustomAppButton(
-                                text: "تسجيل الدخول",
-                                containerColor: AppColor.white,
-                                textColor: AppColor.black,
-                                onPressed: () {
-                                  cubit.login();
-                                },
+                              FadeAnimationCustom(
+                                delay: 1.2,
+                                child: CustomAppButton(
+                                  text: "تسجيل الدخول",
+                                  containerColor: AppColor.white,
+                                  textColor: AppColor.black,
+                                  onPressed: () {
+                                    cubit.login();
+                                  },
+                                ),
                               ),
-                              Center(
-                                child: CustomAuthText(
-                                  isLoadgin: true,
+                              FadeAnimationCustom(
+                                delay: 1.2,
+                                child: Center(
+                                  child: CustomAuthText(
+                                    isLoadgin: true,
+                                  ),
                                 ),
                               ),
                             ],

@@ -8,7 +8,8 @@ import '../../../../app/routes/routes.dart';
 
 class CustomAuthText extends StatelessWidget {
   final bool isLoadgin;
-  const CustomAuthText({super.key, required this.isLoadgin});
+  final Color? textColor;
+  const CustomAuthText({super.key, required this.isLoadgin, this.textColor});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +23,7 @@ class CustomAuthText extends StatelessWidget {
             style: AppTextStyle.style14),
         Text(isLoadgin ? "Sign Up Here" : "Login Here",
             style: AppTextStyle.style16.copyWith(
-              color: AppColor.white,
+              color: textColor ?? AppColor.white,
             )).onTap(() {
           isLoadgin
               ? context.push(Routes.register)

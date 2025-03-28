@@ -1,171 +1,266 @@
-import 'package:dream_home/core/function/show_toast.dart';
-import 'package:dream_home/core/function/validation.dart';
-import 'package:dream_home/core/styles/app_text_style.dart';
+import 'package:dream_home/core/extension/extension.dart';
 import 'package:dream_home/core/utils/app_color.dart';
-import 'package:dream_home/core/widget/custom_loader.dart';
+import 'package:dream_home/core/utils/fade_animation_custom.dart';
 import 'package:dream_home/di.dart';
+import 'package:dream_home/feature/auth/presentation/cubit/register/register_cubit.dart';
+import 'package:dream_home/feature/auth/presentation/widget/custom_choose_account_type.dart';
+import 'package:dream_home/feature/auth/presentation/widget/custom_choose_your_job.dart';
+import 'package:dream_home/feature/customer_home/presentation/data/models/worker_data_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../app/routes/routes.dart';
 import '../../../../core/constant/app_sized.dart';
-import '../../../../core/widget/app_bar.dart';
+import '../../../../core/function/show_toast.dart';
+import '../../../../core/function/validation.dart';
 import '../../../../core/widget/custom_app_button.dart';
-import '../cubit/register/register_cubit.dart';
+import '../../../../core/widget/dialogs/dialog.dart';
 import '../widget/custom_auth_text.dart';
+import '../widget/custom_image_container.dart';
 import '../widget/custom_text_form_filed.dart';
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
 
   @override
+  State<RegisterScreen> createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) => RegisterCubit(getIt()),
-        child: BlocConsumer<RegisterCubit, RegisterState>(
-          listener: (context, state) {
-            if (state is RegisterSuccess) {
-              showToast(
-                message: "Register Success",
-                backgroundColor: AppColor.beanut,
-              );
-              context.pushReplacement(Routes.whoareyou);
-            } else if (state is RegisterError) {
-              showToast(
-                message: state.message,
-                backgroundColor: AppColor.redED,
-              );
-            }
-          },
-          builder: (context, state) {
-            final cubit = context.read<RegisterCubit>();
-            return Scaffold(
-                appBar: appBar(
-                  context,
-                  title: "Sign UP",
-                  automaticallyImplyLeading: false,
+      create: (context) => RegisterCubit(getIt()),
+      child: BlocConsumer<RegisterCubit, RegisterState>(
+        listener: (context, state) {
+          // if (state is RegisterSuccessState) {
+          //   showToast(
+          //     message: state.user.message!,
+          //     backgroundColor: AppColor.green,
+          //   );
+
+          //  // context.pushReplacement(Routes.bottomNavigationBar);
+          // } else if (state is RegisterFailedState) {
+          //   showToast(
+          //     message: state.message,
+          //     backgroundColor: AppColor.redED,
+          //   );
+          // }
+        },
+        builder: (context, state) {
+          final cubit = context.read<RegisterCubit>();
+          return Scaffold(
+            body: SingleChildScrollView(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 40,
                 ),
-                body: state is RegisterLoading
-                    ? CustomLoader()
-                    : SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Form(
-                            key: cubit.formKey,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                height(heightSize(context) * 0.1),
-                                Text(
-                                  "FullName ",
-                                  style: AppTextStyle.style14,
-                                ),
-                                height(4),
-                                CustomTextFormFiled(
-                                  hintText: "name",
-                                  controller: cubit.userNameController,
-                                  validator: (val) =>
-                                      AppValidation.displayNameValidator(
-                                          cubit.userNameController.text),
-                                ),
-                                height(16),
-                                Text(
-                                  "Email",
-                                  style: AppTextStyle.style14,
-                                ),
-                                height(4),
-                                CustomTextFormFiled(
-                                  hintText: "demo@mail.com",
-                                  controller: cubit.emailController,
-                                  validator: (val) =>
-                                      AppValidation.emailValidator(
-                                          cubit.emailController.text),
-                                ),
-                                height(16),
-                                Text(
-                                  "Phone",
-                                  style: AppTextStyle.style14,
-                                ),
-                                height(4),
-                                CustomTextFormFiled(
-                                  hintText: "01000000000",
-                                  controller: cubit.phoneController,
-                                  validator: (val) =>
-                                      AppValidation.phoneNumberVaildtor(
-                                          cubit.phoneController.text),
-                                ),
-                                height(16),
-                                Text(
-                                  "Password",
-                                  style: AppTextStyle.style14,
-                                ),
-                                height(4),
-                                CustomTextFormFiled(
-                                  hintText: "**********************",
-                                  controller: cubit.passwordController,
-                                  obscureText: cubit.passwordObsecureText,
-                                  validator: (val) =>
-                                      AppValidation.passwordVaildtor(
-                                          cubit.passwordController.text),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      cubit.passwordObsecureText
-                                          ? Icons.visibility_outlined
-                                          : Icons.visibility_off_outlined,
-                                      color: AppColor.beanut,
-                                    ),
-                                    onPressed: () {
-                                      cubit.changepasswordObsecureText();
-                                    },
-                                  ),
-                                ),
-                                height(16),
-                                Text(
-                                  "Confirm Password",
-                                  style: AppTextStyle.style14,
-                                ),
-                                height(4),
-                                CustomTextFormFiled(
-                                  validator: (val) =>
-                                      AppValidation.confirmPasswordVaildtor(
-                                    password:
-                                        cubit.confirmPasswordController.text,
-                                    value: cubit.passwordController.text,
-                                  ),
-                                  hintText: "**********************",
-                                  controller: cubit.confirmPasswordController,
-                                  obscureText:
-                                      cubit.confirmPasswordObsecureText,
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      cubit.confirmPasswordObsecureText
-                                          ? Icons.visibility_outlined
-                                          : Icons.visibility_off_outlined,
-                                      color: AppColor.beanut,
-                                    ),
-                                    onPressed: () {
-                                      cubit.changeconfirmPasswordObsecureText();
-                                    },
-                                  ),
-                                ),
-                                height(16),
-                                CustomAppButton(
-                                  text: "Sign UP ",
-                                  containerColor: AppColor.beanut,
-                                  textColor: AppColor.white,
-                                  onPressed: () {
-                                    cubit.register();
-                                  },
-                                ),
-                                height(heightSize(context) * 0.05),
-                                const CustomAuthText(isLoadgin: false),
-                              ],
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Form(
+                      key: cubit.formKey,
+                      child: Column(
+                        spacing: 16,
+                        children: [
+                          CustomAddImage(),
+                          //! User Name
+                          FadeAnimationCustom(
+                            delay: 1.2,
+                            child: CustomTextFormFiled(
+                              textInputColor: AppColor.primaryColor,
+                              hintColor: AppColor.black,
+                              controller: cubit.userNameController,
+                              borderColor: AppColor.yellowColor,
+                              hintText: "ادخل  الاسم الخاص بك",
+                              validator: (val) =>
+                                  AppValidation.displayNameValidator(
+                                cubit.userNameController.text,
+                              ),
                             ),
                           ),
-                        ),
-                      ));
-          },
-        ));
+                          //! Email
+                          FadeAnimationCustom(
+                            delay: 1.2,
+                            child: CustomTextFormFiled(
+                              textInputColor: AppColor.primaryColor,
+                              hintColor: AppColor.black,
+                              controller: cubit.emailController,
+                              borderColor: AppColor.yellowColor,
+                              hintText: "ادخل البريد الالكتروني الخاص بك",
+                              validator: (val) => AppValidation.emailValidator(
+                                cubit.emailController.text,
+                              ),
+                            ),
+                          ),
+                          //! Phone
+                          FadeAnimationCustom(
+                            delay: 1.2,
+                            child: CustomTextFormFiled(
+                              textInputColor: AppColor.primaryColor,
+                              hintColor: AppColor.black,
+                              borderColor: AppColor.yellowColor,
+                              controller: cubit.phoneController,
+                              hintText: "ادخل رقم الهاتف الخاص بك",
+                              validator: (val) =>
+                                  AppValidation.phoneNumberVaildtor(
+                                cubit.phoneController.text,
+                              ),
+                            ),
+                          ),
+
+                          //! Password
+                          FadeAnimationCustom(
+                            delay: 1.2,
+                            child: CustomTextFormFiled(
+                              textInputColor: AppColor.primaryColor,
+                              hintColor: AppColor.black,
+                              borderColor: AppColor.yellowColor,
+                              controller: cubit.passwordController,
+                              hintText: "ادخل كلمة المرور الخاص بك",
+                              validator: (val) =>
+                                  AppValidation.passwordVaildtor(
+                                cubit.passwordController.text,
+                              ),
+                            ),
+                          ),
+                          //! Confirm Password
+                          FadeAnimationCustom(
+                            delay: 1.2,
+                            child: CustomTextFormFiled(
+                              textInputColor: AppColor.primaryColor,
+                              hintColor: AppColor.black,
+                              borderColor: AppColor.yellowColor,
+                              controller: cubit.confirmPasswordController,
+                              hintText: "اعد ادخال كلمة المرور الخاصة بك",
+                              validator: (val) =>
+                                  AppValidation.confirmPasswordVaildtor(
+                                password: cubit.passwordController.text,
+                                value: cubit.confirmPasswordController.text,
+                              ),
+                            ),
+                          ),
+                          //! Account Type
+                          FadeAnimationCustom(
+                            delay: 1.2,
+                            child: CustomTextFormFiled(
+                              hintColor: AppColor.black,
+                              controller: TextEditingController(),
+                              borderColor: AppColor.yellowColor,
+                              hintText: cubit.selectedItem == ""
+                                  ? "اختار نوع الحساب"
+                                  : cubit.selectedItem,
+                              enabled: false,
+                            ).onTap(
+                              () {
+                                popupDropDownDialogs(
+                                    context: context,
+                                    height: heightSize(context) * 0.25,
+                                    children: [
+                                      SizedBox(
+                                          height: heightSize(context) * 0.25,
+                                          width: double.maxFinite,
+                                          child: ListView.separated(
+                                            separatorBuilder:
+                                                (context, index) => Divider(
+                                              color: AppColor.yellowColor,
+                                              thickness: 3,
+                                            ),
+                                            itemCount: cubit.items.length,
+                                            itemBuilder: (context, index) {
+                                              return CustomChooseAccountType(
+                                                image: cubit.images[index],
+                                                text: cubit.items[index],
+                                              ).onTap(() {
+                                                setState(() {
+                                                  cubit.selectedItem =
+                                                      cubit.items[index];
+                                                });
+                                                context.pop();
+                                              });
+                                            },
+                                          ))
+                                    ]);
+                              },
+                            ),
+                          ),
+                          //! Job Title
+                          Visibility(
+                            visible: cubit.selectedItem == "employee",
+                            child: FadeAnimationCustom(
+                              delay: 1.2,
+                              child: CustomTextFormFiled(
+                                hintColor: AppColor.black,
+                                controller: TextEditingController(),
+                                borderColor: AppColor.yellowColor,
+                                hintText: cubit.selectedJob == ""
+                                    ? "اختار نوع الوظيفة"
+                                    : cubit.selectedJob,
+                                enabled: false,
+                              ).onTap(
+                                () {
+                                  popupDropDownDialogs(
+                                      context: context,
+                                      height: heightSize(context) * 0.7,
+                                      children: [
+                                        SizedBox(
+                                          height: heightSize(context) * 0.7,
+                                          width: double.maxFinite,
+                                          child: GridView.builder(
+                                            padding: EdgeInsets.only(bottom: 8),
+                                            gridDelegate:
+                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 2,
+                                            ),
+                                            itemBuilder: (context, index) {
+                                              return CustomChooseYourJob(
+                                                image: worker[index].image,
+                                                text: worker[index].jobName,
+                                              ).onTap(() {
+                                                setState(() {
+                                                  cubit.selectedJob =
+                                                      worker[index].jobName;
+                                                });
+                                                context.pop();
+                                              });
+                                            },
+                                            itemCount: worker.length,
+                                          ),
+                                        )
+                                      ]);
+                                },
+                              ),
+                            ),
+                          ),
+                          FadeAnimationCustom(
+                            delay: 1.2,
+                            child: CustomAppButton(
+                              text: "تسجيل",
+                              containerColor: AppColor.yellowColor,
+                              textColor: AppColor.white,
+                              onPressed: () {
+                                cubit.register();
+                              },
+                            ),
+                          ),
+                          FadeAnimationCustom(
+                            delay: 1.2,
+                            child: CustomAuthText(
+                              isLoadgin: false,
+                              textColor: AppColor.yellowColor,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      ),
+    );
   }
 }
