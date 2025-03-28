@@ -6,7 +6,7 @@ import 'package:dream_home/core/function/show_toast.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:dream_home/core/widget/custom_app_button.dart';
 import 'package:dream_home/di.dart';
-import 'package:dream_home/feature/auth/data/model/user_model.dart';
+import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:dream_home/feature/auth/presentation/widget/custom_text_form_filed.dart';
 import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_profile_cubit/customer_profile_cubit.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class CustomProfileInfo extends StatefulWidget {
 }
 
 class _CustomProfileInfoState extends State<CustomProfileInfo> {
-  UserModel? _user;
+  LoginModel? _user;
 
   @override
   void initState() {
@@ -34,12 +34,12 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
   }
 
   Future<void> load() async {
-    UserModel? user = await getUserFromSharedPreferences();
+    LoginModel? user = await getUserFromSharedPreferences();
     setState(() {
       _user = user;
     });
     log("$user");
-    log("${user!.name}");
+    // log("${user!.name}");
   }
 
   @override
@@ -73,44 +73,47 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
                   ),
                   height(50),
                   CustomTextFormFiled(
-                      controller: TextEditingController(text: _user?.name)),
+                      controller:
+                          TextEditingController(text: _user?.user?.firstName)),
                   height(16),
                   CustomTextFormFiled(
-                      controller: TextEditingController(text: _user?.phone)),
+                      controller: TextEditingController(
+                          text: _user?.user?.contactNumber)),
                   height(16),
                   CustomTextFormFiled(
-                      controller: TextEditingController(text: _user?.email)),
+                      controller:
+                          TextEditingController(text: _user?.user?.email)),
                   height(16),
-                  CustomTextFormFiled(
-                      controller: TextEditingController(text: _user?.password)),
-                  height(16),
-                  CustomTextFormFiled(
-                      controller: TextEditingController(text: _user?.location)),
+                  // CustomTextFormFiled(
+                  //     controller: TextEditingController(text: _user?.user?.firstName)),
+                  // height(16),
+                  // CustomTextFormFiled(
+                  //     controller: TextEditingController(text: _user?.location)),
+                  //  height(16),
+                  // Visibility(
+                  //   visible: _user?.isWorker ?? true,
+                  //   child: CustomDropDownContainer(
+                  //     onChanged: (val) {
+                  //       setState(() {
+                  //         cubit.selectedItem = val;
+                  //       });
+                  //     },
+                  //     hint: cubit.selectedItem.isNotEmpty
+                  //         ? cubit.selectedItem
+                  //         : (_user?.job?.isNotEmpty == true
+                  //             ? _user!.job!
+                  //             : "Select Your Job"),
+                  //     items: cubit.jobs
+                  //         .map((e) => DropdownMenuItem(
+                  //               value: e,
+                  //               child: Text(e.toString()),
+                  //             ))
+                  //         .toList(),
+                  //   ),
+                  // ),
                   height(16),
                   Visibility(
-                    visible: _user?.isWorker ?? true,
-                    child: CustomDropDownContainer(
-                      onChanged: (val) {
-                        setState(() {
-                          cubit.selectedItem = val;
-                        });
-                      },
-                      hint: cubit.selectedItem.isNotEmpty
-                          ? cubit.selectedItem
-                          : (_user?.job?.isNotEmpty == true
-                              ? _user!.job!
-                              : "Select Your Job"),
-                      items: cubit.jobs
-                          .map((e) => DropdownMenuItem(
-                                value: e,
-                                child: Text(e.toString()),
-                              ))
-                          .toList(),
-                    ),
-                  ),
-                  height(16),
-                  Visibility(
-                    visible: _user?.job?.isEmpty ?? true,
+                    visible: _user?.user?.job?.isEmpty ?? true,
                     child: CustomAppButton(
                       text: "Add",
                       containerColor: AppColor.beanut,

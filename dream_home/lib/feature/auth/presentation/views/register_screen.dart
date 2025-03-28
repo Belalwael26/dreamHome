@@ -33,19 +33,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
       create: (context) => RegisterCubit(getIt()),
       child: BlocConsumer<RegisterCubit, RegisterState>(
         listener: (context, state) {
-          // if (state is RegisterSuccessState) {
-          //   showToast(
-          //     message: state.user.message!,
-          //     backgroundColor: AppColor.green,
-          //   );
+          if (state is RegisterSuccess) {
+            showToast(
+              message: state.user.message!,
+              backgroundColor: AppColor.green,
+            );
 
-          //  // context.pushReplacement(Routes.bottomNavigationBar);
-          // } else if (state is RegisterFailedState) {
-          //   showToast(
-          //     message: state.message,
-          //     backgroundColor: AppColor.redED,
-          //   );
-          // }
+            context.read<RegisterCubit>().selectedItem == "employee"
+                ? context.pushReplacement(Routes.workernavbar)
+                : context.pushReplacement(Routes.customernavbar);
+          } else if (state is RegisterError) {
+            showToast(
+              message: state.message,
+              backgroundColor: AppColor.redED,
+            );
+          }
         },
         builder: (context, state) {
           final cubit = context.read<RegisterCubit>();
@@ -77,6 +79,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               validator: (val) =>
                                   AppValidation.displayNameValidator(
                                 cubit.userNameController.text,
+                              ),
+                            ),
+                          ),
+                          //! Confirm Password
+                          FadeAnimationCustom(
+                            delay: 1.2,
+                            child: CustomTextFormFiled(
+                              textInputColor: AppColor.primaryColor,
+                              hintColor: AppColor.black,
+                              borderColor: AppColor.yellowColor,
+                              controller: cubit.lastNameController,
+                              hintText: " ادخال الاسم الاخير",
+                              validator: (val) =>
+                                  AppValidation.displayNameValidator(
+                                cubit.lastNameController.text,
                               ),
                             ),
                           ),
@@ -125,22 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               ),
                             ),
                           ),
-                          //! Confirm Password
-                          FadeAnimationCustom(
-                            delay: 1.2,
-                            child: CustomTextFormFiled(
-                              textInputColor: AppColor.primaryColor,
-                              hintColor: AppColor.black,
-                              borderColor: AppColor.yellowColor,
-                              controller: cubit.confirmPasswordController,
-                              hintText: "اعد ادخال كلمة المرور الخاصة بك",
-                              validator: (val) =>
-                                  AppValidation.confirmPasswordVaildtor(
-                                password: cubit.passwordController.text,
-                                value: cubit.confirmPasswordController.text,
-                              ),
-                            ),
-                          ),
+
                           //! Account Type
                           FadeAnimationCustom(
                             delay: 1.2,

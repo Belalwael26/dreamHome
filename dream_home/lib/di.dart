@@ -1,8 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dream_home/feature/auth/data/repo/forgetpassword/forget_password_repo.dart';
 import 'package:dream_home/feature/auth/data/repo/login/login_repo_impl.dart';
-import 'package:dream_home/feature/auth/data/repo/register/register_repo.dart';
-import 'package:dream_home/feature/auth/data/repo/register/register_repo_impl.dart';
 import 'package:dream_home/feature/auth/data/source/base/auth_source.dart';
 import 'package:dream_home/feature/auth/data/source/impl/auth_source_impl.dart';
 import 'package:dream_home/feature/auth/domin/repo/auth_repo.dart';
@@ -80,7 +78,6 @@ void _registerSource() {
 
 void _registerRepos() {
   getIt.registerSingleton<AuthRepo>(LoginRepoImpl(getIt()));
-  getIt.registerSingleton<RegisterRepo>(RegisterRepoImpl());
   getIt.registerSingleton<ForgetPasswordRepo>(ForgetPasswordRepoImpl());
   getIt.registerSingleton<LogoutRepo>(LogoutRepoImpl());
   getIt.registerSingleton<CustomerHomeRepo>(CustomerHomeRepoImpl());

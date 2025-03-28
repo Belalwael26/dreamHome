@@ -1,11 +1,10 @@
 import 'dart:developer';
-
 import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/core/cache/user_info_cache.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/constant/constant.dart';
 import 'package:dream_home/di.dart';
-import 'package:dream_home/feature/auth/data/model/user_model.dart';
+import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_state.dart';
 import 'package:dream_home/feature/customer_home/presentation/data/models/worker_data_model.dart';
@@ -23,7 +22,7 @@ class CustomerHomeScreen extends StatefulWidget {
 }
 
 class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
-  UserModel? _user;
+  LoginModel? _user;
 
   @override
   void initState() {
@@ -32,12 +31,12 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
   }
 
   Future<void> load() async {
-    UserModel? user = await getUserFromSharedPreferences();
+    LoginModel? user = await getUserFromSharedPreferences();
     setState(() {
       _user = user;
     });
     log("$user");
-    log("${user!.name}");
+    log("${user?.user?.firstName}");
   }
 
   @override
@@ -52,7 +51,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
             child: Column(
               children: [
                 CustomCustomerHomeContainer(
-                  name: _user?.name ?? "",
+                  name: _user?.user?.firstName ?? "",
                   image: image,
                 ),
                 height(6),

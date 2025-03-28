@@ -1,5 +1,5 @@
-import 'package:dream_home/feature/auth/data/model/user_model.dart';
 import 'package:dream_home/feature/customer_home/data/model/order_model.dart';
+import '../../../auth/data/model/Login/login_model/login_model.dart';
 
 abstract class CustomerHomeState {}
 
@@ -8,7 +8,7 @@ class CustomerHomeInitialState extends CustomerHomeState {}
 class GetWorkersLoadingState extends CustomerHomeState {}
 
 class GetWorkerSuccessState extends CustomerHomeState {
-  final List<UserModel> model;
+  final List<LoginModel> model;
 
   GetWorkerSuccessState(this.model);
 }

@@ -28,4 +28,32 @@ class LoginRepoImpl implements AuthRepo {
       return Left(ServerFailure(e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, LoginModel>> register(
+      {required String firstName,
+      required String lastName,
+      required String email,
+      required String password,
+      required String phone,
+      required String type,
+      required String job}) async {
+    try {
+      final response = await _source.register(
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+        phone: phone,
+        type: type,
+        job: job,
+      );
+      if (response['message'] == null) {
+        return Left(ServerFailure(response['message']));
+      }
+      return Right(LoginModel.fromJson(response));
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
 }

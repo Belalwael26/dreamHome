@@ -19,4 +19,29 @@ class AuthSourceImpl implements AuthSource {
       rethrow;
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> register(
+      {required String firstName,
+      required String lastName,
+      required String email,
+      required String password,
+      required String phone,
+      required String type,
+      required String job}) async {
+    try {
+      final response = await _dio.post(EndPoints.register, data: {
+        "firstName": firstName,
+        "lastName": lastName,
+        "email": email,
+        "password": password,
+        "role": type,
+        "contactNumber": phone,
+        "job": job
+      });
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

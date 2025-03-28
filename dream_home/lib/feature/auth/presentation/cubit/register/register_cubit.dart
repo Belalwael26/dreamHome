@@ -1,29 +1,28 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:dream_home/core/utils/app_images.dart';
+import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../data/model/user_model.dart';
-import '../../../data/repo/register/register_repo.dart';
+import '../../../../../core/cache/user_info_cache.dart';
+import '../../../domin/repo/auth_repo.dart';
 
 part 'register_state.dart';
 
 class RegisterCubit extends Cubit<RegisterState> {
-  final RegisterRepo _repo;
+  final AuthRepo _repo;
   RegisterCubit(this._repo) : super(RegisterInitial());
 
   static RegisterCubit get(context) => BlocProvider.of(context);
-
-  UserModel user = UserModel();
+  LoginModel user = LoginModel();
 
   final TextEditingController userNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
 
   final formKey = GlobalKey<FormState>();
 
@@ -54,11 +53,13 @@ class RegisterCubit extends Cubit<RegisterState> {
     if (formKey.currentState!.validate()) {
       emit(RegisterLoading());
       final result = await _repo.register(
-        name: userNameController.text,
+        firstName: userNameController.text,
+        lastName: lastNameController.text,
         email: emailController.text,
         password: passwordController.text,
-        confirmPassword: confirmPasswordController.text,
         phone: phoneController.text,
+        type: selectedItem,
+        job: selectedJob,
       );
       result.fold(
         (l) {
@@ -67,9 +68,9 @@ class RegisterCubit extends Cubit<RegisterState> {
         },
         (r) async {
           user = r;
-          // await saveUserToSharedPreferences(user);
-          log("User: ${r.name}");
-          log("User Name ${user.name}");
+          await saveUserToSharedPreferences(user);
+          log("User: ${r.user?.firstName}");
+          log("User Name ${user.user?.firstName}");
           emit(RegisterSuccess(r));
         },
       );

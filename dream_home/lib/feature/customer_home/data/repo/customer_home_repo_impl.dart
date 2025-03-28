@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dream_home/feature/auth/data/model/user_model.dart';
+import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:dream_home/feature/customer_home/data/repo/customer_home_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -12,19 +12,21 @@ import '../model/order_model.dart';
 
 class CustomerHomeRepoImpl implements CustomerHomeRepo {
   @override
-  Future<Either<Failure, List<UserModel>>> getWorker(
+  Future<Either<Failure, List<LoginModel>>> getWorker(
       {required String category}) async {
     CollectionReference<Map<String, dynamic>> user =
         FirebaseFirestore.instance.collection('users');
 
-    List<UserModel> cateogties = [];
+    List<LoginModel> cateogties = [];
     try {
       QuerySnapshot<Map<String, dynamic>> snapshot =
           await user.where("job", isEqualTo: category).get();
-      cateogties =
-          snapshot.docs.map((e) => UserModel.fromDocumentSnapshot(e)).toList();
+      // cateogties =
+      //     snapshot.docs.map((e) => LoginModel.fromJson(e)).toList();
 
-      return Right(cateogties);
+      // return Right(cateogties);
+      return Right(
+          snapshot.docs.map((e) => LoginModel.fromJson(e.data())).toList());
     } on FirebaseAuthException catch (e) {
       // final message = getFriendlyErrorMessage(e.code);
       return Left(ServerFailure(e.toString()));

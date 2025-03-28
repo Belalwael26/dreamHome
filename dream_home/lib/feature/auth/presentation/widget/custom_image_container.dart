@@ -56,8 +56,8 @@ class CustomAddImage extends StatelessWidget {
                   cubit.logoPicker(ImageSource.gallery);
                   context.pop();
                 },
-                cameraText: "",
-                galleryText: "",
+                cameraText: "التقاط صورة",
+                galleryText: "اختر صورة من المعرض",
               );
             }),
           ],

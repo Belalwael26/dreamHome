@@ -1,11 +1,8 @@
 import 'dart:convert';
 import 'dart:developer';
-
 import 'package:dream_home/core/cache/shred_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../feature/auth/data/model/Login/login_model/login_model.dart';
-import '../../feature/auth/data/model/user_model.dart';
 
 Future<void> saveUserToSharedPreferences(LoginModel user,
     [Map<String, dynamic>? updates]) async {
@@ -32,12 +29,12 @@ Future<void> saveUserToSharedPreferences(LoginModel user,
   }
 }
 
-Future<UserModel?> getUserFromSharedPreferences() async {
+Future<LoginModel?> getUserFromSharedPreferences() async {
   final prefs = await SharedPreferences.getInstance();
   final userJson = prefs.getString(ShredKeys.user);
   if (userJson != null) {
     log("cached User Data $userJson");
-    return UserModel.fromJson(jsonDecode(userJson));
+    return LoginModel.fromJson(jsonDecode(userJson));
   }
   return null;
 }

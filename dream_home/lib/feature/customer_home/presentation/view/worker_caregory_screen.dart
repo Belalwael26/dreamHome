@@ -48,9 +48,10 @@ class WorkerCaregoryScreen extends StatelessWidget {
                         ...List.generate(
                           cubit.users.length,
                           (index) => CustomWorkerInfoContainer(
-                            name: cubit.users[index].name!,
-                            phone: cubit.users[index].phone ?? "01000000000",
-                            image: cubit.users[index].image ?? image,
+                            name: cubit.users[index].user?.firstName ?? "",
+                            phone: cubit.users[index].user?.contactNumber ??
+                                "01000000000",
+                            image: cubit.users[index].user?.firstName ?? image,
                           ).onTap(() {
                             context.pushNamed(Routes.workerdetails,
                                 extra: cubit.users[index]);

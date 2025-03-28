@@ -7,7 +7,7 @@ import 'package:dream_home/core/function/show_toast.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:dream_home/core/widget/custom_loader.dart';
 import 'package:dream_home/di.dart';
-import 'package:dream_home/feature/auth/data/model/user_model.dart';
+import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:dream_home/feature/customer_home/presentation/widgets/custom_customer_home_container.dart';
 import 'package:dream_home/feature/worker_home/presentation/cubit/worker_home_cubit.dart';
 import 'package:dream_home/feature/worker_home/presentation/widget/custom_accept_or_declin_order.dart';
@@ -26,16 +26,16 @@ class WorkerHomeScreen extends StatefulWidget {
 }
 
 class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
-  UserModel? _user;
+  LoginModel? _user;
   Future<void> load() async {
-    UserModel? user = await getUserFromSharedPreferences();
+    LoginModel? user = await getUserFromSharedPreferences();
     setState(() {
       _user = user;
     });
     log("$user");
-    log("${user!.name}");
-    log("${_user!.job}");
-    log("=======================================${_user!.id}");
+    // log("${user!.name}");
+    // log("${_user!.job}");
+    // log("=======================================${_user!.id}");
   }
 
   @override
@@ -68,7 +68,7 @@ class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
                       children: [
                         CustomCustomerHomeContainer(
                           text: "Orders",
-                          name: _user?.name ?? "",
+                          name: _user?.user?.firstName ?? "",
                           image: image,
                         ),
                         height(cubit.order.isEmpty
