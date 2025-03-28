@@ -24,7 +24,7 @@ class WhoAreYouCubit extends Cubit<WhoAreYouState> {
       },
       (success) {
         isWork = success;
-        saveUserToSharedPreferences(UserModel(), {ShredKeys.woker: isWorker});
+        // saveUserToSharedPreferences(UserModel(), {ShredKeys.woker: isWorker});
         log("Is Worker Saved $success");
         emit(WhoAreYouSuccess(success));
       },

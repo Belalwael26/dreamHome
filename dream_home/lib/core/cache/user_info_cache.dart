@@ -4,9 +4,10 @@ import 'dart:developer';
 import 'package:dream_home/core/cache/shred_keys.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../feature/auth/data/model/Login/login_model/login_model.dart';
 import '../../feature/auth/data/model/user_model.dart';
 
-Future<void> saveUserToSharedPreferences(UserModel user,
+Future<void> saveUserToSharedPreferences(LoginModel user,
     [Map<String, dynamic>? updates]) async {
   final prefs = await SharedPreferences.getInstance();
 

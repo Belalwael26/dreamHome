@@ -63,8 +63,8 @@ class CustomerProfileCubit extends Cubit<CustomerProfileState> {
       result.fold((fail) {
         emit(AddPhoneNumberFailureState(fail.message));
       }, (success) async {
-        await saveUserToSharedPreferences(
-            user, {ShredKeys.phone: phoneController.text});
+        // await saveUserToSharedPreferences(
+        //     user, {ShredKeys.phone: phoneController.text});
 
         emit(AddphoneNumberSuccessState(success));
       });
@@ -92,9 +92,9 @@ class CustomerProfileCubit extends Cubit<CustomerProfileState> {
     result.fold((fail) {
       emit(AddJobFailureState(fail.message));
     }, (success) async {
-      await saveUserToSharedPreferences(user, {
-        ShredKeys.job: selectedItem,
-      });
+      // await saveUserToSharedPreferences(user, {
+      //   ShredKeys.job: selectedItem,
+      // });
       emit(AddJobSuccessState(success));
     });
   }

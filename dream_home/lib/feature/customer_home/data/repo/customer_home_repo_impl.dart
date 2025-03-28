@@ -17,7 +17,7 @@ class CustomerHomeRepoImpl implements CustomerHomeRepo {
     CollectionReference<Map<String, dynamic>> user =
         FirebaseFirestore.instance.collection('users');
 
-    List<UserModel> cateogties = [ ] ;
+    List<UserModel> cateogties = [];
     try {
       QuerySnapshot<Map<String, dynamic>> snapshot =
           await user.where("job", isEqualTo: category).get();

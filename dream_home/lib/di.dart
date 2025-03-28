@@ -1,8 +1,11 @@
+import 'package:dio/dio.dart';
 import 'package:dream_home/feature/auth/data/repo/forgetpassword/forget_password_repo.dart';
-import 'package:dream_home/feature/auth/data/repo/login/login_repo.dart';
 import 'package:dream_home/feature/auth/data/repo/login/login_repo_impl.dart';
 import 'package:dream_home/feature/auth/data/repo/register/register_repo.dart';
 import 'package:dream_home/feature/auth/data/repo/register/register_repo_impl.dart';
+import 'package:dream_home/feature/auth/data/source/base/auth_source.dart';
+import 'package:dream_home/feature/auth/data/source/impl/auth_source_impl.dart';
+import 'package:dream_home/feature/auth/domin/repo/auth_repo.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/login/login_cubit.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/register/register_cubit.dart';
 import 'package:dream_home/feature/customer_home/data/repo/customer_home_repo.dart';
@@ -28,6 +31,10 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'core/constant/end_points.dart';
+import 'core/network/dio/base_dio.dart';
+import 'core/network/dio/dio_client.dart';
+import 'core/network/dio/dio_interceptor.dart';
 import 'feature/auth/data/repo/forgetpassword/forget_password_repo_impl.dart';
 import 'feature/auth/presentation/cubit/forget_passowrd/forget_password_cubit.dart';
 import 'feature/notifications/data/repo/notification_repo_impl.dart';
@@ -38,6 +45,7 @@ SharedPreferences preferences = getIt<SharedPreferences>();
 Future<void> initDependencyInjection() async {
   await _registerSingletons();
 
+  _registerSource();
   _registerRepos();
   _registerFactory();
 }
@@ -47,12 +55,31 @@ Future<void> _registerSingletons() async {
     () => GlobalKey<NavigatorState>(),
   );
   final SharedPreferences preferences = await SharedPreferences.getInstance();
-
+  BaseOptions options = BaseOptions(
+    validateStatus: (status) {
+      return status != null && status < 500;
+    },
+    baseUrl: EndPoints.baseurl,
+    followRedirects: false,
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    connectTimeout: const Duration(seconds: 60),
+    receiveTimeout: const Duration(seconds: 60),
+  );
+  getIt.registerSingleton<BaseDio>(
+      DioClient(options: options, dio: Dio(), interceptors: [
+    DioInterceptor(),
+  ]));
   getIt.registerSingleton<SharedPreferences>(preferences);
 }
 
+void _registerSource() {
+  getIt.registerSingleton<AuthSource>(AuthSourceImpl(getIt()));
+}
+
 void _registerRepos() {
-  getIt.registerSingleton<LoginRepo>(LoginRepoImpl());
+  getIt.registerSingleton<AuthRepo>(LoginRepoImpl(getIt()));
   getIt.registerSingleton<RegisterRepo>(RegisterRepoImpl());
   getIt.registerSingleton<ForgetPasswordRepo>(ForgetPasswordRepoImpl());
   getIt.registerSingleton<LogoutRepo>(LogoutRepoImpl());

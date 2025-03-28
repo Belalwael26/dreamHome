@@ -58,7 +58,7 @@ class RegisterCubit extends Cubit<RegisterState> {
         },
         (r) async {
           user = r;
-          await saveUserToSharedPreferences(user);
+          // await saveUserToSharedPreferences(user);
           log("User: ${r.name}");
           log("User Name ${user.name}");
           emit(RegisterSuccess(r));

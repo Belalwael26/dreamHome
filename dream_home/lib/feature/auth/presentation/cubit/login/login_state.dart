@@ -1,5 +1,6 @@
-import 'package:dream_home/feature/auth/data/model/user_model.dart';
 import 'package:equatable/equatable.dart';
+
+import '../../../data/model/Login/login_model/login_model.dart';
 
 class LoginState extends Equatable {
   @override
@@ -13,7 +14,7 @@ class ChangeObsecureTextState extends LoginState {}
 class LoginLoadingState extends LoginState {}
 
 class LoginSuccessState extends LoginState {
-  final UserModel user;
+  final LoginModel user;
 
   LoginSuccessState(this.user);
   @override
