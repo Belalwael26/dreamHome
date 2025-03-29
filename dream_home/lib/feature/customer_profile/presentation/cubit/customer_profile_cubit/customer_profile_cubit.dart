@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../core/cache/user_info_cache.dart';
+import '../../../../../core/utils/app_images.dart';
 import '../../../data/repo/logout/logout_repo.dart';
 part 'customer_profile_state.dart';
 
@@ -16,10 +17,13 @@ class CustomerProfileCubit extends Cubit<CustomerProfileState> {
   static CustomerProfileCubit get(context) =>
       BlocProvider.of<CustomerProfileCubit>(context);
 
+  String selectedItem = "";
+  String selectedJob = "";
+  List<String> items = ["employee", "customer"];
+  List<String> images = [AppImages.craft2, AppImages.per2];
+
   final TextEditingController phoneController = TextEditingController();
   final formKey = GlobalKey<FormState>();
-
-  String selectedItem = "";
 
   Future<void> logout() async {
     emit(CustomerProfileLoading());

@@ -1,9 +1,10 @@
 import 'dart:developer';
-
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/extension/extension.dart';
 import 'package:dream_home/core/function/show_toast.dart';
 import 'package:dream_home/core/utils/app_color.dart';
+import 'package:dream_home/core/utils/app_images.dart';
+import 'package:dream_home/core/utils/fade_animation_custom.dart';
 import 'package:dream_home/core/widget/custom_app_button.dart';
 import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
@@ -12,9 +13,11 @@ import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../core/cache/user_info_cache.dart';
-import '../../../../core/widget/custom_drop_down_container.dart';
+import '../../../../core/widget/dialogs/dialog.dart';
+import '../../../auth/presentation/widget/custom_choose_account_type.dart';
+import '../../../auth/presentation/widget/custom_choose_your_job.dart';
+import '../../../customer_home/presentation/data/models/worker_data_model.dart';
 import 'custom_add_profile_stack.dart';
 
 class CustomProfileInfo extends StatefulWidget {
@@ -61,67 +64,150 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 40),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 16,
                 children: [
-                  Icon(Icons.arrow_back_ios, color: AppColor.beanut)
+                  Icon(Icons.arrow_back_ios, color: AppColor.yellowColor)
                       .onTap(context.pop),
                   height(24),
                   CustomAddProfileStack(
-                    containerColor: AppColor.beanut,
+                    containerColor: AppColor.yellowColor,
+                    personIcon: Image.asset(
+                      _user!.user!.role == "customer"
+                          ? AppImages.per2
+                          : AppImages.craft2,
+                    ),
                     borderColor: AppColor.greyD,
                     iconColor: AppColor.lightblack,
                     iconBorderColor: AppColor.transparent,
                   ),
-                  height(50),
-                  CustomTextFormFiled(
-                      controller:
-                          TextEditingController(text: _user?.user?.firstName)),
-                  height(16),
-                  CustomTextFormFiled(
-                      controller: TextEditingController(
-                          text: _user?.user?.contactNumber)),
-                  height(16),
-                  CustomTextFormFiled(
-                      controller:
-                          TextEditingController(text: _user?.user?.email)),
-                  height(16),
-                  // CustomTextFormFiled(
-                  //     controller: TextEditingController(text: _user?.user?.firstName)),
-                  // height(16),
-                  // CustomTextFormFiled(
-                  //     controller: TextEditingController(text: _user?.location)),
-                  //  height(16),
-                  // Visibility(
-                  //   visible: _user?.isWorker ?? true,
-                  //   child: CustomDropDownContainer(
-                  //     onChanged: (val) {
-                  //       setState(() {
-                  //         cubit.selectedItem = val;
-                  //       });
-                  //     },
-                  //     hint: cubit.selectedItem.isNotEmpty
-                  //         ? cubit.selectedItem
-                  //         : (_user?.job?.isNotEmpty == true
-                  //             ? _user!.job!
-                  //             : "Select Your Job"),
-                  //     items: cubit.jobs
-                  //         .map((e) => DropdownMenuItem(
-                  //               value: e,
-                  //               child: Text(e.toString()),
-                  //             ))
-                  //         .toList(),
-                  //   ),
-                  // ),
-                  height(16),
-                  Visibility(
-                    visible: _user?.user?.job?.isEmpty ?? true,
-                    child: CustomAppButton(
-                      text: "Add",
-                      containerColor: AppColor.beanut,
-                      textColor: AppColor.white,
-                      onPressed: () {
-                        cubit.job(_user!);
+                  height(30),
+                  //! Name
+                  FadeAnimationCustom(
+                    delay: 1.2,
+                    child: CustomTextFormFiled(
+                      borderColor: AppColor.yellowColor,
+                      hintText: _user?.user?.firstName,
+                      hintColor: AppColor.black,
+                      controller: TextEditingController(),
+                    ),
+                  ),
+                  //! Email
+                  FadeAnimationCustom(
+                    delay: 1.2,
+                    child: CustomTextFormFiled(
+                        borderColor: AppColor.yellowColor,
+                        hintText: _user?.user?.email,
+                        hintColor: AppColor.black,
+                        controller: TextEditingController()),
+                  ),
+                  //! Phone Number
+                  FadeAnimationCustom(
+                    delay: 1.2,
+                    child: CustomTextFormFiled(
+                        borderColor: AppColor.yellowColor,
+                        hintText: _user?.user?.contactNumber,
+                        hintColor: AppColor.black,
+                        controller: TextEditingController()),
+                  ),
+                  //! Account Type
+                  FadeAnimationCustom(
+                    delay: 1.2,
+                    child: CustomTextFormFiled(
+                      hintColor: AppColor.black,
+                      controller: TextEditingController(),
+                      borderColor: AppColor.yellowColor,
+                      hintText: cubit.selectedItem == ""
+                          ? _user!.user!.role
+                          : cubit.selectedItem,
+                      enabled: false,
+                    ).onTap(
+                      () {
+                        popupDropDownDialogs(
+                            context: context,
+                            height: heightSize(context) * 0.25,
+                            children: [
+                              SizedBox(
+                                  height: heightSize(context) * 0.25,
+                                  width: double.maxFinite,
+                                  child: ListView.separated(
+                                    separatorBuilder: (context, index) =>
+                                        Divider(
+                                      color: AppColor.yellowColor,
+                                      thickness: 3,
+                                    ),
+                                    itemCount: cubit.items.length,
+                                    itemBuilder: (context, index) {
+                                      return CustomChooseAccountType(
+                                        image: cubit.images[index],
+                                        text: cubit.items[index],
+                                      ).onTap(() {
+                                        setState(() {
+                                          cubit.selectedItem =
+                                              cubit.items[index];
+                                        });
+                                        context.pop();
+                                      });
+                                    },
+                                  ))
+                            ]);
                       },
                     ),
+                  ),
+                  //! Job Title
+                  Visibility(
+                    visible: cubit.selectedItem == "employee",
+                    child: FadeAnimationCustom(
+                      delay: 1.2,
+                      child: CustomTextFormFiled(
+                        hintColor: AppColor.black,
+                        controller: TextEditingController(),
+                        borderColor: AppColor.yellowColor,
+                        hintText: cubit.selectedJob == ""
+                            ? "اختار نوع الوظيفة"
+                            : cubit.selectedJob,
+                        enabled: false,
+                      ).onTap(
+                        () {
+                          popupDropDownDialogs(
+                              context: context,
+                              height: heightSize(context) * 0.7,
+                              children: [
+                                SizedBox(
+                                  height: heightSize(context) * 0.7,
+                                  width: double.maxFinite,
+                                  child: GridView.builder(
+                                    padding: EdgeInsets.only(bottom: 8),
+                                    gridDelegate:
+                                        SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount: 2,
+                                    ),
+                                    itemBuilder: (context, index) {
+                                      return CustomChooseYourJob(
+                                        image: worker[index].image,
+                                        text: worker[index].jobName,
+                                      ).onTap(() {
+                                        setState(() {
+                                          cubit.selectedJob =
+                                              worker[index].jobName;
+                                        });
+                                        context.pop();
+                                      });
+                                    },
+                                    itemCount: worker.length,
+                                  ),
+                                )
+                              ]);
+                        },
+                      ),
+                    ),
+                  ),
+                  CustomAppButton(
+                    text: "Update",
+                    containerColor: AppColor.yellowColor,
+                    textColor: AppColor.white,
+                    onPressed: () {
+                      cubit.job(_user!);
+                    },
                   )
                 ],
               ),
