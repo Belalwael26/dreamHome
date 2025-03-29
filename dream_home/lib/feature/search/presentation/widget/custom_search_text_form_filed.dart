@@ -18,26 +18,26 @@ class CustomSearchTextFormFiled extends StatelessWidget {
       controller: controller,
       decoration: InputDecoration(
         hintText: "Search",
-        hintStyle: AppTextStyle.style16.copyWith(color: AppColor.beanut),
+        hintStyle: AppTextStyle.style16.copyWith(color: AppColor.yellowColor),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
           borderSide: BorderSide(color: AppColor.redED),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColor.beanut),
+          borderSide: BorderSide(color: AppColor.yellowColor),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColor.beanut),
+          borderSide: BorderSide(color: AppColor.yellowColor),
         ),
         disabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColor.beanut),
+          borderSide: BorderSide(color: AppColor.yellowColor),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide(color: AppColor.beanut),
+          borderSide: BorderSide(color: AppColor.yellowColor),
         ),
       ),
     );

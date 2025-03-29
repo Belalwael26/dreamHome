@@ -1,12 +1,11 @@
 import 'dart:developer';
-
-import 'package:dream_home/core/styles/app_text_style.dart';
-import 'package:dream_home/core/utils/app_color.dart';
+import 'package:dream_home/core/utils/app_images.dart';
+import 'package:dream_home/core/utils/fade_animation_custom.dart';
 import 'package:dream_home/feature/search/presentation/cubit/search_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../../../../core/constant/app_sized.dart';
+import '../../../../core/widget/aimated_loader.dart';
 import '../../../customer_home/presentation/widgets/custom_grid_view_item_builder.dart';
 import '../widget/custom_search_text_form_filed.dart';
 
@@ -25,23 +24,24 @@ class SearchScreen extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 80),
             child: Column(
               children: [
-                CustomSearchTextFormFiled(
-                  controller: cubit.searchController,
-                  onChanged: (query) {
-                    log(cubit.searchController.text);
-                    log("Query $query");
-                    cubit.searchWorkshops(query);
-                  },
+                FadeAnimationCustom(
+                  delay: 1.2,
+                  child: CustomSearchTextFormFiled(
+                    controller: cubit.searchController,
+                    onChanged: (query) {
+                      log(cubit.searchController.text);
+                      log("Query $query");
+                      cubit.searchWorkshops(query);
+                    },
+                  ),
                 ),
                 cubit.filteredWorkshops.isEmpty
                     ? height(heightSize(context) * 0.3)
                     : height(16),
                 cubit.filteredWorkshops.isEmpty
-                    ? Text(
-                        "There is No Item",
-                        style: AppTextStyle.style24.copyWith(
-                          color: AppColor.lightblack,
-                          fontWeight: FontWeight.w700,
+                    ? Expanded(
+                        child: AnimatedLoader(
+                          animation: AppImages.emptyList,
                         ),
                       )
                     : Expanded(
