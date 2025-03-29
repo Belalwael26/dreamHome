@@ -1,20 +1,11 @@
 part of 'notification_cubit.dart';
 
-sealed class NotificationState {}
+sealed class NotificationState extends Equatable {
+  @override
+  List<Object> get props => [];
+}
 
 final class NotificationInitial extends NotificationState {}
-
-final class NotificationSuccessState extends NotificationState {
-  final List<NotificationModel> notifications;
-
-  NotificationSuccessState(this.notifications);
-}
-
-final class NotificationFailureState extends NotificationState {
-  final String message;
-
-  NotificationFailureState(this.message);
-}
 
 final class NotificationLoadingState extends NotificationState {}
 
@@ -32,10 +23,34 @@ final class DeleteNotificationFailureState extends NotificationState {
   DeleteNotificationFailureState(this.message);
 }
 
-final class ChangeNotificationStatusSuccessState extends NotificationState {}
+final class GetNotificationLoadingState extends NotificationState {}
 
-final class ChangeNotificationStatusFailureState extends NotificationState {
+final class GetNotificationSuccessState extends NotificationState {
+  final GetNotification notification;
+
+  GetNotificationSuccessState(this.notification);
+}
+
+final class GetNotificationFailureState extends NotificationState {
   final String message;
 
-  ChangeNotificationStatusFailureState(this.message);
+  GetNotificationFailureState(this.message);
+}
+
+final class AddNotificationLoadingState extends NotificationState {}
+
+final class AddNotificationSuccessState extends NotificationState {
+  final AddNotification notification;
+
+  AddNotificationSuccessState(this.notification);
+  @override
+  List<Object> get props => [notification];
+}
+
+final class AddNotificationFailureState extends NotificationState {
+  final String message;
+
+  AddNotificationFailureState(this.message);
+  @override
+  List<Object> get props => [message];
 }

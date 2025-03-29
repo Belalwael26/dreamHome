@@ -6,12 +6,12 @@ import '../../../../core/utils/app_color.dart';
 
 class NotificationItem extends StatelessWidget {
   final String title;
-  final String body;
+  //final String body;
   final Color? color;
   const NotificationItem({
     super.key,
     required this.title,
-    required this.body,
+    //  required this.body,
     this.color,
   });
 
@@ -33,10 +33,10 @@ class NotificationItem extends StatelessWidget {
             style: AppTextStyle.style20.copyWith(color: AppColor.lightblack),
           ),
           height(4),
-          Text(
-            body,
-            style: AppTextStyle.style16.copyWith(color: AppColor.lightblack),
-          ),
+          // Text(
+          //   body,
+          //   style: AppTextStyle.style16.copyWith(color: AppColor.lightblack),
+          // ),
         ],
       ),
     );
