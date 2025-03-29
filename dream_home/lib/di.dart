@@ -6,7 +6,7 @@ import 'package:dream_home/feature/auth/data/source/impl/auth_source_impl.dart';
 import 'package:dream_home/feature/auth/domin/repo/auth_repo.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/login/login_cubit.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/register/register_cubit.dart';
-import 'package:dream_home/feature/customer_home/data/repo/customer_home_repo.dart';
+import 'package:dream_home/feature/customer_home/domain/repo/customer_home_repo.dart';
 import 'package:dream_home/feature/customer_home/data/repo/customer_home_repo_impl.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
 import 'package:dream_home/feature/customer_profile/data/repo/image_picker/image_picker_repo.dart';
@@ -32,6 +32,8 @@ import 'core/network/dio/dio_client.dart';
 import 'core/network/dio/dio_interceptor.dart';
 import 'feature/auth/data/repo/forgetpassword/forget_password_repo_impl.dart';
 import 'feature/auth/presentation/cubit/forget_passowrd/forget_password_cubit.dart';
+import 'feature/customer_home/data/source/base/customer_home_source.dart';
+import 'feature/customer_home/data/source/impl/customer_home_source_impl.dart';
 import 'feature/notifications/data/repo/notification_repo_impl.dart';
 import 'feature/notifications/data/source/base/notification_source.dart';
 import 'feature/notifications/data/source/impl/notification_source_impl.dart';
@@ -74,13 +76,14 @@ Future<void> _registerSingletons() async {
 void _registerSource() {
   getIt.registerSingleton<AuthSource>(AuthSourceImpl(getIt()));
   getIt.registerSingleton<NotificationSource>(NotificationSourceImpl(getIt()));
+  getIt.registerSingleton<CustomerHomeSource>(CustomerHomeSourceImpl(getIt()));
 }
 
 void _registerRepos() {
   getIt.registerSingleton<AuthRepo>(LoginRepoImpl(getIt()));
   getIt.registerSingleton<ForgetPasswordRepo>(ForgetPasswordRepoImpl());
   getIt.registerSingleton<LogoutRepo>(LogoutRepoImpl());
-  getIt.registerSingleton<CustomerHomeRepo>(CustomerHomeRepoImpl());
+  getIt.registerSingleton<CustomerHomeRepo>(CustomerHomeRepoImpl(getIt()));
   getIt.registerSingleton<WorkerProfileRepo>(WorkerProfileRepoImpl());
   getIt.registerSingleton<ImagePickerRepo>(ImagePickerRepoImpl());
   getIt.registerSingleton<NotificationRepo>(NotificationRepoImpl(getIt()));

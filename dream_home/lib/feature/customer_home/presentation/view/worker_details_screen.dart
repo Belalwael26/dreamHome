@@ -5,9 +5,11 @@ import 'package:dream_home/Core/styles/app_text_style.dart';
 import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/function/show_toast.dart';
+import 'package:dream_home/core/utils/app_images.dart';
 import 'package:dream_home/core/widget/custom_app_button.dart';
 import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
+import 'package:dream_home/feature/customer_home/data/model/WorkerModel/get_worker_model/employee.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_state.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +21,7 @@ import '../../../customer_profile/presentation/widget/custom_add_profile_stack.d
 import 'package:carousel_slider/carousel_slider.dart';
 
 class WorkerDetailsScreen extends StatefulWidget {
-  final LoginModel user;
+  final Employee user;
   const WorkerDetailsScreen({super.key, required this.user});
 
   @override
@@ -71,38 +73,39 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
                       children: [
                         Align(
                           alignment: AlignmentDirectional.centerStart,
-                          child:
-                              Icon(Icons.arrow_back_ios, color: AppColor.beanut)
-                                  .onTap(context.pop),
+                          child: Icon(Icons.arrow_back_ios,
+                                  color: AppColor.yellowColor)
+                              .onTap(context.pop),
                         ),
                         height(16),
                         CustomAddProfileStack(
-                          containerColor: AppColor.beanut,
+                          containerColor: AppColor.yellowColor,
                           borderColor: AppColor.greyD,
-                          iconColor: AppColor.lightblack,
+                          iconColor: AppColor.black,
                           iconBorderColor: AppColor.transparent,
+                          personIcon: Image.asset(AppImages.craft2),
                         ),
                         height(16),
                         Text(
-                          widget.user.user?.firstName ?? "",
+                          widget.user.firstName ?? "",
                           style: AppTextStyle.style18.copyWith(
-                            color: AppColor.lightblack,
+                            color: AppColor.black,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         height(8),
                         Text(
-                          widget.user.user?.contactNumber ?? "01000000000",
+                          widget.user.contactNumber ?? "01000000000",
                           style: AppTextStyle.style18.copyWith(
-                            color: AppColor.lightblack,
+                            color: AppColor.black,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         height(8),
                         Text(
-                          widget.user.user?.job ?? "",
+                          widget.user.job ?? "",
                           style: AppTextStyle.style18.copyWith(
-                            color: AppColor.lightblack,
+                            color: AppColor.black,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
@@ -139,7 +142,7 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
                   padding: EdgeInsets.symmetric(horizontal: 8, vertical: 24),
                   child: CustomAppButton(
                     text: "Order Now",
-                    containerColor: AppColor.beanut,
+                    containerColor: AppColor.yellowColor,
                     textColor: AppColor.white,
                     onPressed: () {
                       cubit.order(
@@ -148,10 +151,10 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
                           userLocation: "_user?.location ?? " "",
                           userId: _user?.user?.id ?? "",
                           isWorker: false,
-                          job: widget.user.user?.job ?? "",
-                          worderId: widget.user.user?.id ?? "",
-                          workerName: widget.user.user?.firstName ?? "",
-                          workerPhone: widget.user.user?.contactNumber ?? "",
+                          job: widget.user.job ?? "",
+                          worderId: widget.user.id ?? "",
+                          workerName: widget.user.firstName ?? "",
+                          workerPhone: widget.user.contactNumber ?? "",
                           workerLocation: "widget.user.location ?? " "");
                     },
                   ),

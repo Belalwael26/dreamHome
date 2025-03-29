@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'package:dream_home/core/utils/app_images.dart';
-import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
-import 'package:dream_home/feature/customer_home/data/repo/customer_home_repo.dart';
+import 'package:dream_home/feature/customer_home/data/model/WorkerModel/get_worker_model/get_worker_model.dart';
+import 'package:dream_home/feature/customer_home/domain/repo/customer_home_repo.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'customer_home_state.dart';
 
@@ -12,7 +12,7 @@ class CustomerHomeCubit extends Cubit<CustomerHomeState> {
   static CustomerHomeCubit get(context) =>
       BlocProvider.of<CustomerHomeCubit>(context);
 
-  List<LoginModel> users = [];
+  GetWorkerModel? users;
 
   Future<void> getworker({
     required String category,
@@ -24,8 +24,7 @@ class CustomerHomeCubit extends Cubit<CustomerHomeState> {
       emit(GetWorkerFailureState(failure.message));
     }, (success) {
       users = success;
-      log("${success.length}");
-      // log("${success.map((e) => e.job)}");
+
       emit(GetWorkerSuccessState(success));
     });
   }

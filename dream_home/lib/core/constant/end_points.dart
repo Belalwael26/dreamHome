@@ -5,4 +5,5 @@ class EndPoints {
   static String getNotifications(String userId) => "/notification/user/$userId";
   static String deleteNotification(String id) => "/notification/delete/$id";
   static String addNotification = "/notification/add";
+  static String getWorker = "/user/getEmployees";
 }
