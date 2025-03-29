@@ -48,7 +48,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(Icons.arrow_back_ios, color: AppColor.beanut)
+                          Icon(Icons.arrow_back_ios,
+                                  color: AppColor.yellowColor)
                               .onTap(context.pop),
                           height(24),
                           Text(
@@ -75,7 +76,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                               child: NotificationItem(
                                 color:
                                     cubit.notificationList[index].isOpen == true
-                                        ? AppColor.beanut.withValues(alpha: 0.3)
+                                        ? AppColor.yellowColor
+                                            .withValues(alpha: 0.3)
                                         : AppColor.transparent,
                                 body: cubit.notificationList[index].title ?? "",
                                 title: cubit.notificationList[index].body ?? "",
