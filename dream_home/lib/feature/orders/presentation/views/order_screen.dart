@@ -43,7 +43,7 @@ class OrderScreen extends StatelessWidget {
                           duration: const Duration(milliseconds: 300),
                           decoration: BoxDecoration(
                             color: cubit.currentIndex == index
-                                ? AppColor.beanut.withValues(alpha: 0.3)
+                                ? AppColor.yellowColor.withValues(alpha: 0.3)
                                 : AppColor.transparent,
                             border: Border.all(
                               color: cubit.currentIndex == index

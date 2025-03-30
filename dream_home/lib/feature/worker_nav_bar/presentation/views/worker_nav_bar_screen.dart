@@ -16,10 +16,11 @@ class WorkerNavBarScreen extends StatelessWidget {
           final cubit = WorkerNavBarCubit.get(context);
           return Scaffold(
             bottomNavigationBar: BottomNavigationBar(
+              backgroundColor: AppColor.white,
               onTap: (index) {
                 cubit.changeIndex(index);
               },
-              selectedItemColor: AppColor.beanut,
+              selectedItemColor: AppColor.yellowColor,
               unselectedItemColor: AppColor.primaryColor,
               currentIndex: cubit.currentIndex,
               selectedFontSize: 16,
