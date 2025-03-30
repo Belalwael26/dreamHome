@@ -13,6 +13,8 @@ import 'package:dream_home/feature/customer_profile/data/repo/image_picker/image
 import 'package:dream_home/feature/customer_profile/data/repo/image_picker/image_picker_repo_impl.dart';
 import 'package:dream_home/feature/customer_profile/data/repo/logout/logout_repo.dart';
 import 'package:dream_home/feature/customer_profile/data/repo/logout/logout_repo_impl.dart';
+import 'package:dream_home/feature/customer_profile/data/source/base/profile_info_source.dart';
+import 'package:dream_home/feature/customer_profile/domian/repo/profile_info_repo.dart';
 import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_profile_cubit/customer_profile_cubit.dart';
 import 'package:dream_home/feature/customer_profile/presentation/cubit/image_picker/image_picker_cubit.dart';
 import 'package:dream_home/feature/notifications/domain/repo/notification_repo.dart';
@@ -34,6 +36,8 @@ import 'feature/auth/data/repo/forgetpassword/forget_password_repo_impl.dart';
 import 'feature/auth/presentation/cubit/forget_passowrd/forget_password_cubit.dart';
 import 'feature/customer_home/data/source/base/customer_home_source.dart';
 import 'feature/customer_home/data/source/impl/customer_home_source_impl.dart';
+import 'feature/customer_profile/data/repo/updateProfileInfo/update_profile_info.dart';
+import 'feature/customer_profile/data/source/impl/profile_info_source_impl.dart';
 import 'feature/notifications/data/repo/notification_repo_impl.dart';
 import 'feature/notifications/data/source/base/notification_source.dart';
 import 'feature/notifications/data/source/impl/notification_source_impl.dart';
@@ -77,6 +81,7 @@ void _registerSource() {
   getIt.registerSingleton<AuthSource>(AuthSourceImpl(getIt()));
   getIt.registerSingleton<NotificationSource>(NotificationSourceImpl(getIt()));
   getIt.registerSingleton<CustomerHomeSource>(CustomerHomeSourceImpl(getIt()));
+  getIt.registerSingleton<ProfileInfoSource>(ProfileInfoSourceImpl(getIt()));
 }
 
 void _registerRepos() {
@@ -88,6 +93,7 @@ void _registerRepos() {
   getIt.registerSingleton<ImagePickerRepo>(ImagePickerRepoImpl());
   getIt.registerSingleton<NotificationRepo>(NotificationRepoImpl(getIt()));
   getIt.registerSingleton<WorkerHomeRepo>(WorkerHomeRepoImpl());
+  getIt.registerSingleton<ProfileInfoRepo>(UpdateProfileInfo(getIt()));
 }
 
 void _registerFactory() {
@@ -96,7 +102,7 @@ void _registerFactory() {
   getIt
       .registerFactory<ForgetPasswordCubit>(() => ForgetPasswordCubit(getIt()));
   getIt.registerFactory<CustomerProfileCubit>(
-      () => CustomerProfileCubit(logoutRepo: getIt()));
+      () => CustomerProfileCubit(logoutRepo: getIt(), getIt()));
   getIt.registerFactory<CustomerHomeCubit>(() => CustomerHomeCubit(getIt()));
   getIt.registerFactory<ImagePickerCubit>(() => ImagePickerCubit(getIt()));
   getIt.registerFactory<NotificationCubit>(() => NotificationCubit(getIt()));

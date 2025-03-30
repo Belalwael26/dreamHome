@@ -1,5 +1,8 @@
 import 'dart:developer';
 import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
+import 'package:dream_home/feature/auth/data/model/Login/login_model/user.dart';
+import 'package:dream_home/feature/customer_profile/data/model/profile_info_model/profile_info_model.dart';
+import 'package:dream_home/feature/customer_profile/domian/repo/profile_info_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,7 +13,9 @@ part 'customer_profile_state.dart';
 
 class CustomerProfileCubit extends Cubit<CustomerProfileState> {
   final LogoutRepo logoutRepo;
-  CustomerProfileCubit({
+  final ProfileInfoRepo _repo;
+  CustomerProfileCubit(
+    this._repo, {
     required this.logoutRepo,
   }) : super(CustomerProfileInitial());
 
@@ -22,7 +27,14 @@ class CustomerProfileCubit extends Cubit<CustomerProfileState> {
   List<String> items = ["employee", "customer"];
   List<String> images = [AppImages.craft2, AppImages.per2];
 
+  ProfileInfoModel userInfo = ProfileInfoModel();
+
+  final TextEditingController userNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
 
   Future<void> logout() async {
@@ -99,5 +111,45 @@ class CustomerProfileCubit extends Cubit<CustomerProfileState> {
       // });
       emit(AddJobSuccessState(success));
     });
+  }
+
+  Future<void> updateProfileInfo(String userId) async {
+    emit(UpdateProfileInfoLoadingState());
+    final result = await _repo.updateProfileInfo(
+      userId: userId,
+      firstName: userNameController.text,
+      lastName: lastNameController.text,
+      email: emailController.text,
+      phone: phoneController.text,
+      role: selectedItem,
+      job: selectedJob,
+    );
+    result.fold(
+      (failure) {
+        log("message: ${failure.message}");
+        emit(UpdateProfileInfoFailureState(failure.message));
+      },
+      (user) async {
+        log("message: $user");
+        // await saveUserToSharedPreferences(user);
+        emit(UpdateProfileInfoSuccessState(user));
+      },
+    );
+  }
+
+  Future<void> getUserInfo(String userId) async {
+    emit(CustomerProfileLoading());
+    final result = await _repo.getProfileInfo(userId: userId);
+    result.fold(
+      (failure) {
+        log("message: ${failure.message}");
+        emit(GetUserInfoFailureState(failure.message));
+      },
+      (user) {
+        userInfo = user;
+        log("message: $userInfo");
+        emit(GetUserInfoSuccessState(user));
+      },
+    );
   }
 }

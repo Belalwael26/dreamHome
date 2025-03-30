@@ -45,7 +45,7 @@ class _ChangeNumberScreenState extends State<ChangeNumberScreen> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CustomerProfileCubit(logoutRepo: getIt()),
+      create: (context) => CustomerProfileCubit(logoutRepo: getIt(), getIt()),
       child: BlocConsumer<CustomerProfileCubit, CustomerProfileState>(
         listener: (context, state) {
           if (state is AddphoneNumberSuccessState) {
