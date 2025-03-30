@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dream_home/Core/styles/app_text_style.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/function/show_toast.dart';
@@ -7,9 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../app/routes/routes.dart';
+import '../../../../core/cache/user_info_cache.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/utils/app_images.dart';
 import '../../../../core/widget/dialogs/logout_dialog.dart';
+import '../../../customer_profile/presentation/widget/custom_logout_dialog.dart';
 import '../../../customer_profile/presentation/widget/custom_profile_item.dart';
 
 class WorkerProfileScreen extends StatelessWidget {
@@ -83,9 +87,18 @@ class WorkerProfileScreen extends StatelessWidget {
                   CustomProfileItem(
                     textColor: AppColor.redED,
                     onTap: () {
-                      logoutDialog(context, onPressed: () {
-                        cubit.logout();
-                      });
+                      logoutDialog(
+                          widget: CustomLogoutDialog(
+                            onPressed: () async {
+                              await clearUserData();
+                              context.pushReplacement(Routes.login);
+                              log("Logout and Clear User Data");
+                            },
+                          ),
+                          context,
+                          onPressed: () {
+                            cubit.logout();
+                          });
                     },
                     vectorColor: AppColor.redED,
                     svgIconPath: AppImages.logout,

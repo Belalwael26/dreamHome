@@ -189,7 +189,7 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
                           ),
                           //! Job Title
                           Visibility(
-                            visible: cubit.selectedItem == "employee",
+                            visible: cubit.userInfo.user?.role == "employee",
                             child: FadeAnimationCustom(
                               delay: 1.2,
                               child: CustomTextFormFiled(

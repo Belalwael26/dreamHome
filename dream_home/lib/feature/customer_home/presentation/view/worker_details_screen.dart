@@ -12,6 +12,7 @@ import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model
 import 'package:dream_home/feature/customer_home/data/model/WorkerModel/get_worker_model/employee.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_state.dart';
+import 'package:dream_home/feature/notifications/presentation/cubit/notification_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -137,25 +138,39 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  color: AppColor.white,
-                  padding: EdgeInsets.symmetric(horizontal: 8, vertical: 24),
-                  child: CustomAppButton(
-                    text: "Order Now",
-                    containerColor: AppColor.yellowColor,
-                    textColor: AppColor.white,
-                    onPressed: () {
-                      cubit.order(
-                          userName: _user?.user?.firstName ?? "",
-                          userphone: _user?.user?.contactNumber ?? "",
-                          userLocation: "_user?.location ?? " "",
-                          userId: _user?.user?.id ?? "",
-                          isWorker: false,
-                          job: widget.user.job ?? "",
-                          worderId: widget.user.id ?? "",
-                          workerName: widget.user.firstName ?? "",
-                          workerPhone: widget.user.contactNumber ?? "",
-                          workerLocation: "widget.user.location ?? " "");
+                BlocProvider(
+                  create: (context) => NotificationCubit(getIt()),
+                  child: BlocConsumer<NotificationCubit, NotificationState>(
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      final cubit = context.read<NotificationCubit>();
+                      return Container(
+                        color: AppColor.white,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 8, vertical: 24),
+                        child: CustomAppButton(
+                          text: "Order Now",
+                          containerColor: AppColor.yellowColor,
+                          textColor: AppColor.white,
+                          onPressed: () {
+                            cubit.addNotification(
+                              _user?.user?.id ?? "",
+                              "${_user?.user?.firstName ?? ""} wants to order from you",
+                            );
+                            // cubit.order(
+                            //     userName: _user?.user?.firstName ?? "",
+                            //     userphone: _user?.user?.contactNumber ?? "",
+                            //     userLocation: "_user?.location ?? " "",
+                            //     userId: _user?.user?.id ?? "",
+                            //     isWorker: false,
+                            //     job: widget.user.job ?? "",
+                            //     worderId: widget.user.id ?? "",
+                            //     workerName: widget.user.firstName ?? "",
+                            //     workerPhone: widget.user.contactNumber ?? "",
+                            //     workerLocation: "widget.user.location ?? " "");
+                          },
+                        ),
+                      );
                     },
                   ),
                 )

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/function/show_toast.dart';
@@ -12,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/cache/user_info_cache.dart';
 import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/widget/dialogs/logout_dialog.dart';
 
@@ -91,10 +94,18 @@ class CustomerProfilScreen extends StatelessWidget {
                     CustomProfileItem(
                       textColor: AppColor.redED,
                       onTap: () {
-                        logoutDialog(widget: CustomLogoutDialog(), context,
+                        logoutDialog(
+                            widget: CustomLogoutDialog(
+                              onPressed: () async {
+                                await clearUserData();
+                                context.pushReplacement(Routes.login);
+                                log("Logout and Clear User Data");
+                              },
+                            ),
+                            context,
                             onPressed: () {
-                          cubit.logout();
-                        });
+                              cubit.logout();
+                            });
                       },
                       vectorColor: AppColor.redED,
                       svgIconPath: AppImages.logout,
