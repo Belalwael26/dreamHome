@@ -1,7 +1,6 @@
 import 'package:dream_home/Core/extension/extension.dart';
 import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
-import 'package:dream_home/core/constant/constant.dart';
 import 'package:dream_home/core/styles/app_text_style.dart';
 import 'package:dream_home/core/widget/custom_loader.dart';
 import 'package:dream_home/di.dart';
@@ -34,7 +33,7 @@ class WorkerCaregoryScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Icon(Icons.arrow_back_ios, color: AppColor.beanut)
+                        Icon(Icons.arrow_back_ios, color: AppColor.yellowColor)
                             .onTap(context.pop),
                         height(24),
                         Text(
@@ -46,15 +45,16 @@ class WorkerCaregoryScreen extends StatelessWidget {
                         ),
                         height(24),
                         ...List.generate(
-                          cubit.users.length,
+                          cubit.users?.employees?.length ?? 0,
                           (index) => CustomWorkerInfoContainer(
-                            name: cubit.users[index].user?.firstName ?? "",
-                            phone: cubit.users[index].user?.contactNumber ??
-                                "01000000000",
-                            image: cubit.users[index].user?.firstName ?? image,
+                            name:
+                                cubit.users?.employees?[index].firstName ?? "",
+                            phone:
+                                cubit.users?.employees?[index].contactNumber ??
+                                    "01000000000",
                           ).onTap(() {
                             context.pushNamed(Routes.workerdetails,
-                                extra: cubit.users[index]);
+                                extra: cubit.users?.employees?[index]);
                           }),
                         )
                       ],

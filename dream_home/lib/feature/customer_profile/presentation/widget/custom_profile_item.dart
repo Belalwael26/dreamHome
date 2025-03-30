@@ -33,7 +33,7 @@ class CustomProfileItem extends StatelessWidget {
         padding: EdgeInsets.symmetric(horizontal: 8, vertical: 16),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: AppColor.beanut,
+          color: AppColor.yellowColor,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(

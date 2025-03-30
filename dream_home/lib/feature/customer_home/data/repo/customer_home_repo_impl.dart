@@ -1,38 +1,19 @@
 import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dartz/dartz.dart';
-import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
-import 'package:dream_home/feature/customer_home/data/repo/customer_home_repo.dart';
+import 'package:dream_home/feature/customer_home/data/model/WorkerModel/get_worker_model/get_worker_model.dart';
+import 'package:dream_home/feature/customer_home/data/source/base/customer_home_source.dart';
+import 'package:dream_home/feature/customer_home/domain/repo/customer_home_repo.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-
 import '../../../../core/network/error/failure.dart';
 import '../../../../core/service/notifications.dart';
 import '../model/order_model.dart';
 
 class CustomerHomeRepoImpl implements CustomerHomeRepo {
-  @override
-  Future<Either<Failure, List<LoginModel>>> getWorker(
-      {required String category}) async {
-    CollectionReference<Map<String, dynamic>> user =
-        FirebaseFirestore.instance.collection('users');
+  final CustomerHomeSource _source;
 
-    List<LoginModel> cateogties = [];
-    try {
-      QuerySnapshot<Map<String, dynamic>> snapshot =
-          await user.where("job", isEqualTo: category).get();
-      // cateogties =
-      //     snapshot.docs.map((e) => LoginModel.fromJson(e)).toList();
-
-      // return Right(cateogties);
-      return Right(
-          snapshot.docs.map((e) => LoginModel.fromJson(e.data())).toList());
-    } on FirebaseAuthException catch (e) {
-      // final message = getFriendlyErrorMessage(e.code);
-      return Left(ServerFailure(e.toString()));
-    }
-  }
-
+  CustomerHomeRepoImpl(this._source);
   @override
   Future<Either<Failure, OrderModel>> order({
     required String userName,
@@ -116,6 +97,22 @@ class CustomerHomeRepoImpl implements CustomerHomeRepo {
       return Right(OrderModel.fromDocumentSnapshot(order));
     } on FirebaseAuthException catch (e) {
       // final message = getFriendlyErrorMessage(e.code);
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, GetWorkerModel>> getWorker(
+      {required String category}) async {
+    try {
+      final response = await _source.getWorker(category: category);
+      log("Response $response");
+      if (response['employees'] != null) {
+        return Right(GetWorkerModel.fromJson(response));
+      } else {
+        return Left(ServerFailure(response['message']));
+      }
+    } catch (e) {
       return Left(ServerFailure(e.toString()));
     }
   }

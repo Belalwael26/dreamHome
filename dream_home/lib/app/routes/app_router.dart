@@ -1,8 +1,8 @@
 import 'package:dream_home/app/routes/routes.dart';
-import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:dream_home/feature/auth/presentation/views/forget_password_screen.dart';
 import 'package:dream_home/feature/auth/presentation/views/login_screen.dart';
 import 'package:dream_home/feature/auth/presentation/views/register_screen.dart';
+import 'package:dream_home/feature/customer_home/data/model/WorkerModel/get_worker_model/employee.dart';
 import 'package:dream_home/feature/customer_home/presentation/view/worker_caregory_screen.dart';
 import 'package:dream_home/feature/customer_home/presentation/view/worker_details_screen.dart';
 import 'package:dream_home/feature/customer_nav_bar/presentation/view/customer_nav_bar_screen.dart';
@@ -90,7 +90,7 @@ final router = GoRouter(navigatorKey: navigatorKey, routes: [
       path: "/${Routes.workerdetails}",
       name: Routes.workerdetails,
       builder: (context, state) {
-        final user = state.extra as LoginModel;
+        final user = state.extra as Employee;
         return WorkerDetailsScreen(
           user: user,
         );

@@ -62,4 +62,5 @@ class AppImages {
   //! Animation
 
   static const load = "$_anmiPath/animation.json";
+  static const emptyList = "$_anmiPath/empty_list.json";
 }

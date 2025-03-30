@@ -122,7 +122,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                             vectors: worker[index].image,
                             onTap: () => context.pushNamed(
                               Routes.workerCategory,
-                              extra: worker[index].jobName,
+                              extra: worker[index].jobName.toLowerCase(),
                             ),
                           ),
                         );
