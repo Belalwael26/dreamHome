@@ -15,6 +15,7 @@ class CustomTextFormFiled extends StatelessWidget {
   final bool? enabled;
   final Color? hintColor;
   final Color? textInputColor;
+  final int? maxLength;
   const CustomTextFormFiled(
       {super.key,
       required this.controller,
@@ -26,11 +27,13 @@ class CustomTextFormFiled extends StatelessWidget {
       this.errorColor,
       this.enabled,
       this.hintColor,
-      this.textInputColor});
+      this.textInputColor,
+      this.maxLength});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: maxLength,
       enabled: enabled,
       controller: controller,
       validator: validator,

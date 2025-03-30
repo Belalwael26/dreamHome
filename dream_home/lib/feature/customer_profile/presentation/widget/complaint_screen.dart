@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../core/constant/app_sized.dart';
+import '../../../../core/function/validation.dart';
 import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/widget/custom_app_button.dart';
+import '../../../auth/presentation/widget/custom_text_form_filed.dart';
 
 class ComplaintScreen extends StatelessWidget {
   const ComplaintScreen({super.key});
@@ -18,7 +20,7 @@ class ComplaintScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Icon(Icons.arrow_back_ios, color: AppColor.beanut)
+            Icon(Icons.arrow_back_ios, color: AppColor.yellowColor)
                 .onTap(context.pop),
             height(24),
             Text(
@@ -26,14 +28,22 @@ class ComplaintScreen extends StatelessWidget {
               style: AppTextStyle.style24.copyWith(color: AppColor.lightblack),
             ),
             Spacer(),
-            TextFormField(
-              maxLines: 10,
-              decoration: InputDecoration(hintText: "Your Complaint....."),
+            CustomTextFormFiled(
+              maxLength: 10,
+              controller: TextEditingController(),
+              hintText: "Your Complaint.....",
+              textInputColor: AppColor.black,
+              hintColor: AppColor.black,
+              borderColor: AppColor.yellowColor,
+              validator: (val) {
+                return AppValidation.displayNameValidator(
+                    TextEditingController().text);
+              },
             ),
             Spacer(),
             CustomAppButton(
               text: "Send",
-              containerColor: AppColor.beanut,
+              containerColor: AppColor.yellowColor,
               textColor: AppColor.white,
             )
           ],

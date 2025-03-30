@@ -6,6 +6,7 @@ import 'package:dream_home/core/utils/app_images.dart';
 import 'package:dream_home/core/utils/fade_animation_custom.dart';
 import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_profile_cubit/customer_profile_cubit.dart';
+import 'package:dream_home/feature/customer_profile/presentation/widget/custom_logout_dialog.dart';
 import 'package:dream_home/feature/customer_profile/presentation/widget/custom_profile_item.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -90,7 +91,8 @@ class CustomerProfilScreen extends StatelessWidget {
                     CustomProfileItem(
                       textColor: AppColor.redED,
                       onTap: () {
-                        logoutDialog(context, onPressed: () {
+                        logoutDialog(widget: CustomLogoutDialog(), context,
+                            onPressed: () {
                           cubit.logout();
                         });
                       },

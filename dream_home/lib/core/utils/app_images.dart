@@ -44,6 +44,7 @@ class AppImages {
   static const String banner1 = "$_path/banner1.jpg";
   static const String banner2 = "$_path/banner2.jpg";
   static const String banner3 = "$_path/banner3.jpg";
+  static const String logoutLogo = "$_path/logout_logo.png";
 
   //! Vectors
   static const String aboutus = '$_vectorPath/aboutus.svg';
