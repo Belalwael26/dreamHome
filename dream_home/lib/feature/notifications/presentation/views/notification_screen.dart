@@ -46,7 +46,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          NotificationCubit(getIt())..getNotifications(_user?.user?.id ?? ""),
+          NotificationCubit(getIt())..getNotifications(_user!.user!.id!),
       child: BlocConsumer<NotificationCubit, NotificationState>(
         listener: (context, state) {
           if (state is DeleteNotificationSuccessState) {
@@ -66,7 +66,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         builder: (context, state) {
           final cubit = context.read<NotificationCubit>();
           return Scaffold(
-            body: state is NotificationLoadingState
+            body: state is GetNotificationLoadingState
                 ? CustomLoader()
                 : Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 40),
