@@ -11,6 +11,16 @@
   "onboardingsubtitle4": "Communicate with clients or craft workers in real-time and manage your projects effortlessly" ,
   "onboardingTitle5":"Reliable Services",
   "onboardingsubtitle5": "Experience reliable services from skilled craft workers with secure payments and verified profiles." ,
+  "Welcome_Again" : "Welcome Again" ,
+  "PleaseLogin" :"Please Login" ,
+  "EmailHint" :"Enter your email address.",
+  "passwordHint" :"Enter your password.",
+  "ForgetPassword" : "Forgot Password?" ,
+  "login": "Login",
+  "NoAccount" :"Don’t have an account?" ,
+  "HaveAccount" :"Have an account?" ,
+  "SignupHere" :"Sign up here" ,
+  "LoginHere" :"Login Here" ,
   "servicex" : {
     "SERVICES": "Services",
     "FIX_NOW": "Fix Now",
@@ -25,7 +35,7 @@
     "CURTAINS": "Curtains",
     "AIR_CONDITION": "Air Condition",
     "HOME_APPLIANCES": "Home Appliance",
-    "WOODEN_FLOORS": "Wooden Floors"
+    "WOODEN_FLOORS": "Wooden Floors" 
   } ,
   "navbar": {
     "Dream" : "Dream" ,
@@ -36,7 +46,7 @@
     "contact": "Contact Us",
     "darkMode": "Dark Mode",
     "lightMode": "Light Mode",
-    "login": "Login",
+  
     "register": "Register",
     "toggleThemeDark": "Switch to Dark Mode",
     "toggleThemeLight": "Switch to Light Mode",
@@ -44,7 +54,7 @@
     "language": "Ar" ,
     "searchPlaceHolder" : "Search By Service..."
   } ,
-  "login": {
+  "login2": {
     "title": "Login Form",
     "emailPlaceholder": "Your Email...",
     "emailLabel": "Email",

@@ -10,6 +10,16 @@
   "onboardingsubtitle4": "اتصل بالعملاء او العمال المهرة في الوقت الحالي وادارة مشروعك بسهولة" ,
   "onboardingTitle5":"خدمات موثوقة",
   "onboardingsubtitle5":"استمتع بخدمات موثوقة من حرفيين مهرة مع مدفوعات آمنة وملفات شخصية موثقة",
+  "Welcome_Again" : "مرحبا مرة اخرى" ,
+  "PleaseLogin" :"من فضلك قم بتسجيل الدخول",
+  "EmailHint" :"ادخل البريد الالكتروني الخاص بك",
+  "passwordHint" :"ادخل كلمة المرور الخاصة بك", 
+  "ForgetPassword" : "نسيت كلمة المرور؟" ,
+  "login": "تسجيل الدخول",
+  "NoAccount" :"ليس لديك حساب؟",
+  "HaveAccount" :"لديك حساب؟",
+  "SignupHere" :"تسجيل حساب جديد هنا",
+   "LoginHere" :"تسجيل الدخول هنا",
   "servicex": {
     "SERVICES": "الخدمات",
     "FIX_NOW": "إصلاح الآن",
@@ -35,7 +45,6 @@
     "contact": "اتصل بنا",
     "darkMode": "الوضع الليلي",
     "lightMode": "الوضع النهاري",
-    "login": "تسجيل الدخول",
     "register": "تسجيل حساب",
     "toggleThemeDark": "التغيير للوضع الليلي",
     "toggleThemeLight": "التغيير للوضع النهاري",
@@ -43,7 +52,7 @@
     "language": "En" ,
     "searchPlaceHolder" : "ابحث عن الخدمه ..."
   },
-  "login": {
+  "login2": {
     "title": "نموذج تسجيل الدخول",
     "emailPlaceholder": "بريدك الإلكتروني...",
     "emailLabel": "البريد الإلكتروني",
