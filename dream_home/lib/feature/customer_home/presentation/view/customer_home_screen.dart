@@ -10,6 +10,7 @@ import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_state.dart';
 import 'package:dream_home/feature/customer_home/presentation/data/models/worker_data_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -96,7 +97,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                     child: Align(
                       alignment: AlignmentDirectional.centerStart,
                       child: Text(
-                        "Choose your service",
+                        "ChooseService".tr(),
                         style: AppTextStyle.style20.copyWith(
                           fontWeight: FontWeight.w600,
                         ),
@@ -122,7 +123,7 @@ class _CustomerHomeScreenState extends State<CustomerHomeScreen> {
                             vectors: worker[index].image,
                             onTap: () => context.pushNamed(
                               Routes.workerCategory,
-                              extra: worker[index].jobName.toLowerCase(),
+                              extra: worker[index].jobNameEn.toLowerCase(),
                             ),
                           ),
                         );
