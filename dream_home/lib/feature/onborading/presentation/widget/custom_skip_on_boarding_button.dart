@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:dream_home/core/styles/app_text_style.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -29,7 +30,7 @@ class CustomVisibleSkipButton extends StatelessWidget {
           context.pushReplacement(Routes.login);
         },
         child: Text(
-          "Skip",
+          "Skip".tr(),
           style: AppTextStyle.style16,
         ),
       ),

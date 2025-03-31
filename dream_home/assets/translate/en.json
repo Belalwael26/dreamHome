@@ -1,4 +1,16 @@
 {
+
+  "Skip": "Skip",
+  "onboardingTitle1":"Welcome To Dream Home" ,
+  "onboardingsubtitle1":"Connecting skilled craft workers with clients for every project need.",
+  "onboardingTitle2":"Showcase Your Expertise",
+  "onboardingsubtitle2": "Build a professional profile to highlight your craft and reach more clients." ,
+  "onboardingTitle3":"Find the Right Talent",
+  "onboardingsubtitle3": "Explore skilled craft workers for your projects, all in one place" ,
+  "onboardingTitle4":"Connect & Collaborate",
+  "onboardingsubtitle4": "Communicate with clients or craft workers in real-time and manage your projects effortlessly" ,
+  "onboardingTitle5":"Reliable Services",
+  "onboardingsubtitle5": "Experience reliable services from skilled craft workers with secure payments and verified profiles." ,
   "servicex" : {
     "SERVICES": "Services",
     "FIX_NOW": "Fix Now",
