@@ -1,8 +1,10 @@
 import 'package:dream_home/core/utils/app_color.dart';
+import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../Core/utils/app_images.dart';
 import '../../../../app/routes/routes.dart';
+import '../../../../core/cache/user_info_cache.dart';
 import '../../../../core/constant/app_sized.dart';
 import '../../../../core/service/on_boarding_service.dart';
 
@@ -16,7 +18,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   bool _isCentered = false;
   bool _isExpanded = false;
-  //User? _user;
+  LoginModel? _user;
 
   @override
   void initState() {
@@ -26,9 +28,9 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> load() async {
-    // User? user = await getUserFromSharedPreferences();
+    LoginModel? user = await getUserFromSharedPreferences();
     setState(() {
-      //  _user = user;
+      _user = user;
     });
   }
 
@@ -53,17 +55,19 @@ class _SplashScreenState extends State<SplashScreen> {
     bool onboardingShown = await OnboardingService().isOnboardingShown();
 
     if (onboardingShown) {
-      //   if (_user?.token == null) {
-      //     context.pushReplacement(Routes.login);
-      //   } else {
-      //  _user.role == 'customer' ?    context.pushReplacement(Routes.customernavbar)  : context.pushReplacement(Routes.workernavbar);
-      //   }
-      // } else {
-      //   context.pushReplacement(Routes.onboarding);
-      // }
+      if (_user?.user!.id! == null) {
+        context.pushReplacement(Routes.login);
+      } else {
+        _user!.user!.role == 'employee'
+            ? context.pushReplacement(Routes.workernavbar)
+            : context.pushReplacement(Routes.customernavbar);
+      }
+    } else {
+      context.pushReplacement(Routes.onboarding);
     }
   }
 
+  @override
   @override
   Widget build(BuildContext context) {
     final screenWidth = widthSize(context);
