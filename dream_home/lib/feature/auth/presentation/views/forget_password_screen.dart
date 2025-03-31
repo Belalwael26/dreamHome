@@ -4,6 +4,7 @@ import 'package:dream_home/core/styles/app_text_style.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:dream_home/core/widget/custom_loader.dart';
 import 'package:dream_home/di.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +27,7 @@ class ForgetPasswordScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is ForgetPasswordSuccessState) {
             showToast(
-              message: "Email Send Success",
+              message: "EmailSend".tr(),
               backgroundColor: AppColor.beanut,
             );
             context.pushReplacement(Routes.login);
@@ -41,7 +42,7 @@ class ForgetPasswordScreen extends StatelessWidget {
           final cubit = context.read<ForgetPasswordCubit>();
           return Scaffold(
             appBar: appBar(context,
-                title: "Forget Password",
+                title: "ForgetPasswordTitle".tr(),
                 automaticallyImplyLeading: false,
                 leading: Icon(
                   Icons.arrow_back_ios_new,
@@ -61,7 +62,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                           children: [
                             height(heightSize(context) * 0.2),
                             Text(
-                              "Email",
+                              "email".tr(),
                               style: AppTextStyle.style14
                                   .copyWith(color: AppColor.yellowColor),
                             ),
@@ -76,7 +77,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                             ),
                             height(heightSize(context) * 0.2),
                             CustomAppButton(
-                              text: "Submit",
+                              text: "Submit".tr(),
                               onPressed: () {
                                 cubit.forgetpassword();
                               },

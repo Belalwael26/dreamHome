@@ -21,6 +21,10 @@
   "HaveAccount" :"Have an account?" ,
   "SignupHere" :"Sign up here" ,
   "LoginHere" :"Login Here" ,
+  "EmailSend" :"Email Send Success",
+  "ForgetPasswordTitle" :"Forget Password",
+  "email": "Email",
+  "Submit" : "Submit" ,
   "servicex" : {
     "SERVICES": "Services",
     "FIX_NOW": "Fix Now",
@@ -85,7 +89,7 @@
       "register": "Register",
       "firstname": "Firstname",
       "lastname": "Lastname",
-      "email": "Email",
+     
       "password": "Password",
       "repassword": "Re-enter Password",
       "contactNumber": "Contact Number",

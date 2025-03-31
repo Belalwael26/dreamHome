@@ -20,6 +20,10 @@
   "HaveAccount" :"لديك حساب؟",
   "SignupHere" :"تسجيل حساب جديد هنا",
    "LoginHere" :"تسجيل الدخول هنا",
+  "EmailSend" :"تم ارسال البريد الالكتروني بنجاح",
+  "ForgetPasswordTitle" :"نسيت كلمة المرور",
+  "email": "البريد الإلكتروني",
+  "Submit" : "تاكيد",
   "servicex": {
     "SERVICES": "الخدمات",
     "FIX_NOW": "إصلاح الآن",
@@ -85,7 +89,7 @@
     "register": "تسجيل",
     "firstname": "الاسم الأول",
     "lastname": "الاسم الأخير",
-    "email": "البريد الإلكتروني",
+
     "password": "كلمة المرور",
     "repassword": "إعادة إدخال كلمة المرور",
     "contactNumber": "رقم الهاتف",
