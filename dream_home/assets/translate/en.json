@@ -51,6 +51,18 @@
   "Electronic" :"Electronic Repairs",
   "Appliance" :"Home Appliance Maintenance",
    "House" :"House Cleaning",
+   "notification": "Notification",
+   "LogoutSuccess" :"Logout Success",
+   "AccountDeleted" :"Account Deleted" ,
+   "Account" :"Account" ,
+   "ChangeNumber" :"Change Number",
+   "DeleteAccount" :"Delete Account" ,
+   "deleteaccounttitle" :"Are you sure you want to delete account?" , 
+   "Logout" :"Logout" ,
+   "Help" :"Help" ,
+   "Contactus":"Contact us" ,
+   "Complaint":"Complaint" ,
+   "Aboutus":"About Us" ,
   "servicex" : {
     "SERVICES": "Services",
     "FIX_NOW": "Fix Now",
@@ -190,7 +202,7 @@
     } ,
     "notifications": {
       "yourNotifications": "Your Notifications",
-      "notification": "Notification",
+     
       "customerName": "Customer Name",
       "employeeName": "Employee Name",
       "day": "Day",

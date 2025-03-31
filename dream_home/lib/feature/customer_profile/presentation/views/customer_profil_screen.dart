@@ -10,6 +10,7 @@ import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_profile_cubit/customer_profile_cubit.dart';
 import 'package:dream_home/feature/customer_profile/presentation/widget/custom_logout_dialog.dart';
 import 'package:dream_home/feature/customer_profile/presentation/widget/custom_profile_item.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -29,13 +30,15 @@ class CustomerProfilScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is LogoutSuccessState) {
             showToast(
-                message: "Logout Success", backgroundColor: AppColor.beanut);
+                message: "LogoutSuccess".tr(),
+                backgroundColor: AppColor.beanut);
             context.pushReplacement(Routes.login);
           } else if (state is LogoutFailureState) {
             showToast(message: state.message, backgroundColor: AppColor.redED);
           } else if (state is DeleteAccountSuccessState) {
             showToast(
-                message: "Account Deleted", backgroundColor: AppColor.beanut);
+                message: "AccountDeleted".tr(),
+                backgroundColor: AppColor.beanut);
             context.pushReplacement(Routes.login);
           } else if (state is DeleteAccountFailureState) {
             showToast(message: state.message, backgroundColor: AppColor.redED);
@@ -52,7 +55,7 @@ class CustomerProfilScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "Account",
+                      "Account".tr(),
                       style:
                           AppTextStyle.style24.copyWith(color: AppColor.black),
                     ),
@@ -64,7 +67,7 @@ class CustomerProfilScreen extends StatelessWidget {
                       },
                       vectorColor: AppColor.black,
                       svgIconPath: AppImages.profile,
-                      text: "Profile",
+                      text: "Profile".tr(),
                     ),
                     CustomProfileItem(
                       textColor: AppColor.white,
@@ -73,22 +76,21 @@ class CustomerProfilScreen extends StatelessWidget {
                       },
                       vectorColor: AppColor.black,
                       svgIconPath: AppImages.number,
-                      text: "Change Number ",
+                      text: "ChangeNumber".tr(),
                     ),
                     CustomProfileItem(
                       textColor: AppColor.redED,
                       onTap: () {
                         logoutDialog(
-                            textButton: "Delete Account",
-                            textTitle:
-                                "Are you sure you want to delete account?",
+                            textButton: "DeleteAccount".tr(),
+                            textTitle: "deleteaccounttitle".tr(),
                             context, onPressed: () {
                           cubit.deleteAccount();
                         });
                       },
                       vectorColor: AppColor.redED,
                       svgIconPath: AppImages.deleteacc,
-                      text: "Delete Account",
+                      text: "DeleteAccount".tr(),
                       iconColor: AppColor.redED,
                     ),
                     CustomProfileItem(
@@ -109,12 +111,12 @@ class CustomerProfilScreen extends StatelessWidget {
                       },
                       vectorColor: AppColor.redED,
                       svgIconPath: AppImages.logout,
-                      text: "Logout",
+                      text: "Logout".tr(),
                       iconColor: AppColor.redED,
                     ),
                     height(24),
                     Text(
-                      "Help",
+                      "Help".tr(),
                       style:
                           AppTextStyle.style24.copyWith(color: AppColor.black),
                     ),
@@ -126,7 +128,7 @@ class CustomerProfilScreen extends StatelessWidget {
                       },
                       vectorColor: AppColor.black,
                       svgIconPath: AppImages.aboutus,
-                      text: "About us",
+                      text: "Aboutus".tr(),
                     ),
                     CustomProfileItem(
                       textColor: AppColor.white,
@@ -135,7 +137,7 @@ class CustomerProfilScreen extends StatelessWidget {
                       },
                       vectorColor: AppColor.black,
                       svgIconPath: AppImages.contactus,
-                      text: "Contact us",
+                      text: "Contactus".tr(),
                     ),
                     CustomProfileItem(
                       textColor: AppColor.white,
@@ -144,7 +146,7 @@ class CustomerProfilScreen extends StatelessWidget {
                       },
                       vectorColor: AppColor.black,
                       svgIconPath: AppImages.comlaint,
-                      text: "Complaint",
+                      text: "Complaint".tr(),
                     ),
                   ],
                 ),
