@@ -4,9 +4,10 @@ import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/Pick_Location/cubit/pick_location_cubit.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/login/login_cubit.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/register/register_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import '../core/localization/localization.dart';
 import '../feature/customer_home/presentation/cubit/customer_home_cubit.dart';
 import '../feature/customer_profile/presentation/cubit/image_picker/image_picker_cubit.dart';
 
@@ -37,10 +38,20 @@ class DreamHomeApp extends StatelessWidget {
           lazy: false,
         ),
       ],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        routerConfig: router,
-        theme: theme(),
+      child: BlocProvider(
+        create: (context) => LocaleCubit(getIt(), context),
+        child: BlocBuilder<LocaleCubit, Locale>(
+          builder: (context, locale) {
+            return MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              localizationsDelegates: context.localizationDelegates,
+              supportedLocales: context.supportedLocales,
+              locale: locale,
+              routerConfig: router,
+              theme: theme(),
+            );
+          },
+        ),
       ),
     );
   }
