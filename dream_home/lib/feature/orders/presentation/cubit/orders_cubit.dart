@@ -1,5 +1,6 @@
 import 'package:dream_home/feature/customer_home/data/model/order_model.dart';
 import 'package:dream_home/feature/worker_home/data/repos/worker_home_repo.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'orders_state.dart';
@@ -13,9 +14,9 @@ class OrdersCubit extends Cubit<OrdersState> {
   List<OrderModel> order = [];
 
   List<String> orderStatus = [
-    "Pendding",
-    "Accepted",
-    "Decline",
+    "Pendding".tr(),
+    "Accepted".tr(),
+    "Declined".tr(),
   ];
 
   void changeIndexState(int index) {

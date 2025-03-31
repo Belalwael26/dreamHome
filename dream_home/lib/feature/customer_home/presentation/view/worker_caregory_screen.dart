@@ -7,6 +7,7 @@ import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_state.dart';
 import 'package:dream_home/feature/customer_home/presentation/widgets/custom_worker_info_container.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -37,7 +38,8 @@ class WorkerCaregoryScreen extends StatelessWidget {
                             .onTap(context.pop),
                         height(24),
                         Text(
-                          "The Most $category in Your Area",
+                          "most_popular_category"
+                              .tr(namedArgs: {"category": category}),
                           style: AppTextStyle.style22.copyWith(
                             color: AppColor.lightblack,
                             fontWeight: FontWeight.w700,

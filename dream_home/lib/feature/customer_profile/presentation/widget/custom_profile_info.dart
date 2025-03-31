@@ -10,6 +10,7 @@ import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:dream_home/feature/auth/presentation/widget/custom_text_form_filed.dart';
 import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_profile_cubit/customer_profile_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -189,7 +190,7 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
                           ),
                           //! Job Title
                           Visibility(
-                            visible: cubit.selectedItem == "employee",
+                            visible: cubit.userInfo.user?.role == "employee",
                             child: FadeAnimationCustom(
                               delay: 1.2,
                               child: CustomTextFormFiled(
@@ -236,7 +237,7 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
                             ),
                           ),
                           CustomAppButton(
-                            text: "Update",
+                            text: "Update".tr(),
                             containerColor: AppColor.yellowColor,
                             textColor: AppColor.white,
                             onPressed: () {

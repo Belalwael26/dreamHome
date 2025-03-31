@@ -1,5 +1,6 @@
 import 'package:dream_home/core/styles/app_text_style.dart';
 import 'package:dream_home/core/utils/app_color.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class CustomSearchTextFormFiled extends StatelessWidget {
@@ -17,7 +18,7 @@ class CustomSearchTextFormFiled extends StatelessWidget {
       onChanged: onChanged,
       controller: controller,
       decoration: InputDecoration(
-        hintText: "Search",
+        hintText: "Search".tr(),
         hintStyle: AppTextStyle.style16.copyWith(color: AppColor.yellowColor),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12),

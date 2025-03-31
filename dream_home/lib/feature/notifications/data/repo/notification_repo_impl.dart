@@ -45,7 +45,7 @@ class NotificationRepoImpl implements NotificationRepo {
     try {
       final response =
           await _notificationSource.getNotifications(userId: userId);
-      if (response['notification'] == null) {
+      if (response['notifications'] == null) {
         return Left(ServerFailure(response['message']));
       }
 

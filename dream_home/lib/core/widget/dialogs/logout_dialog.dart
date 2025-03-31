@@ -13,46 +13,49 @@ void logoutDialog(
   void Function()? onPressed,
   String? textTitle,
   String? textButton,
+  Widget? widget,
 }) {
   showDialog(
       context: context,
       builder: (context) {
-        return AlertDialog(
-          backgroundColor: AppColor.transparent,
-          content: Container(
-            padding: EdgeInsets.only(top: 4, right: 16, left: 16, bottom: 16),
-            width: double.maxFinite,
-            height: heightSize(context) * 0.3,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(25),
-              color: AppColor.lightblack,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                SvgPicture.asset(AppImages.cancel).onTap(() {
-                  context.pop();
-                }),
-                height(16),
-                Text(
-                  textTitle ?? "Are you sure you want to logout?",
-                  textAlign: TextAlign.center,
-                  style: AppTextStyle.style18.copyWith(
-                    color: AppColor.white,
-                    fontWeight: FontWeight.w700,
-                  ),
+        return widget ??
+            AlertDialog(
+              backgroundColor: AppColor.transparent,
+              content: Container(
+                padding:
+                    EdgeInsets.only(top: 4, right: 16, left: 16, bottom: 16),
+                width: double.maxFinite,
+                height: heightSize(context) * 0.3,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(25),
+                  color: AppColor.yellowColor,
                 ),
-                Spacer(),
-                CustomAppButton(
-                  text: textButton ?? "logout",
-                  containerColor: AppColor.redED,
-                  textColor: AppColor.white,
-                  borderColor: AppColor.redED,
-                  onPressed: onPressed,
-                )
-              ],
-            ),
-          ),
-        );
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    SvgPicture.asset(AppImages.cancel).onTap(() {
+                      context.pop();
+                    }),
+                    height(16),
+                    Text(
+                      textTitle ?? "Are you sure you want to logout?",
+                      textAlign: TextAlign.center,
+                      style: AppTextStyle.style18.copyWith(
+                        color: AppColor.white,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    Spacer(),
+                    CustomAppButton(
+                      text: textButton ?? "logout",
+                      containerColor: AppColor.redED,
+                      textColor: AppColor.white,
+                      borderColor: AppColor.redED,
+                      onPressed: onPressed,
+                    )
+                  ],
+                ),
+              ),
+            );
       });
 }

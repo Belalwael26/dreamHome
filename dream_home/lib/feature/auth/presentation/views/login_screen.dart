@@ -2,6 +2,7 @@ import 'package:dream_home/Core/extension/extension.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/utils/fade_animation_custom.dart';
 import 'package:dream_home/di.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -71,13 +72,13 @@ class LoginScreen extends StatelessWidget {
                                   children: [
                                     FadeAnimationCustom(
                                       delay: 1.2,
-                                      child: Text("مرحبا مجددا",
+                                      child: Text("Welcome_Again".tr(),
                                           style: AppTextStyle.style20),
                                     ),
                                     FadeAnimationCustom(
                                       delay: 1.2,
                                       child: Text(
-                                        "من فضلك قم بتسجيل الدخول",
+                                        "PleaseLogin".tr(),
                                         style: AppTextStyle.style16
                                             .copyWith(color: AppColor.white),
                                       ),
@@ -90,7 +91,7 @@ class LoginScreen extends StatelessWidget {
                                 child: CustomTextFormFiled(
                                   borderColor: AppColor.black,
                                   controller: cubit.emailController,
-                                  hintText: "ادخل البريد الالكتروني الخاص بك",
+                                  hintText: "EmailHint".tr(),
                                   validator: (value) =>
                                       AppValidation.emailValidator(
                                           cubit.emailController.text),
@@ -101,7 +102,7 @@ class LoginScreen extends StatelessWidget {
                                 child: CustomTextFormFiled(
                                   borderColor: AppColor.black,
                                   controller: cubit.passwordController,
-                                  hintText: "ادخل كلمة المرور الخاصة بك",
+                                  hintText: "passwordHint".tr(),
                                   validator: (value) =>
                                       AppValidation.passwordVaildtor(
                                           cubit.passwordController.text),
@@ -112,7 +113,7 @@ class LoginScreen extends StatelessWidget {
                                 child: Align(
                                   alignment: AlignmentDirectional.centerEnd,
                                   child: Text(
-                                    "نسيت كلمة المرور؟",
+                                    "ForgetPassword".tr(),
                                     style: AppTextStyle.style16
                                         .copyWith(color: AppColor.redED),
                                   ).onTap(() {
@@ -123,7 +124,7 @@ class LoginScreen extends StatelessWidget {
                               FadeAnimationCustom(
                                 delay: 1.2,
                                 child: CustomAppButton(
-                                  text: "تسجيل الدخول",
+                                  text: "login".tr(),
                                   containerColor: AppColor.white,
                                   textColor: AppColor.black,
                                   onPressed: () {

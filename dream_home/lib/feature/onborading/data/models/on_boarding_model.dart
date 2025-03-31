@@ -1,4 +1,5 @@
 import 'package:dream_home/core/utils/app_images.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 class OnBoardingModel {
   final String title;
@@ -14,33 +15,28 @@ class OnBoardingModel {
 
 List<OnBoardingModel> onBoarding = [
   OnBoardingModel(
-    title: "Welcome to Dream Home",
-    subTitle:
-        "Connecting skilled craft workers with clients for every project need.",
+    title: "onboardingTitle1".tr(),
+    subTitle: "onboardingsubtitle1".tr(),
     image: AppImages.vec6,
   ),
   OnBoardingModel(
-    title: "Showcase Your Expertise",
-    subTitle:
-        "Build a professional profile to highlight your craft and reach more clients.",
+    title: "onboardingTitle2".tr(),
+    subTitle: "onboardingsubtitle2".tr(),
     image: AppImages.vec8,
   ),
   OnBoardingModel(
-    title: "Find the Right Talent",
-    subTitle:
-        "Explore skilled craft workers for your projects, all in one place",
+    title: "onboardingTitle3".tr(),
+    subTitle: "onboardingsubtitle3".tr(),
     image: AppImages.vec5,
   ),
   OnBoardingModel(
-    title: "Connect & Collaborate",
-    subTitle:
-        "Communicate with clients or craft workers in real-time and manage your projects effortlessly",
+    title: "onboardingTitle4".tr(),
+    subTitle: "onboardingsubtitle4".tr(),
     image: AppImages.vec7,
   ),
   OnBoardingModel(
-    title: "Reliable Services",
-    subTitle:
-        "Experience reliable services from skilled craft workers with secure payments and verified profiles.",
+    title: "onboardingTitle5".tr(),
+    subTitle: "onboardingsubtitle5".tr(),
     image: AppImages.vec9,
   ),
 ];

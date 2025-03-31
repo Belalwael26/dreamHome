@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:dream_home/core/constant/end_points.dart';
 import 'package:dream_home/core/network/dio/base_dio.dart';
 import 'package:dream_home/feature/notifications/data/source/base/notification_source.dart';

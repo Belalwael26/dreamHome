@@ -1,6 +1,7 @@
 import 'package:dream_home/core/extension/extension.dart';
 import 'package:dream_home/core/styles/app_text_style.dart';
 import 'package:dream_home/core/utils/app_color.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,12 +17,9 @@ class CustomAuthText extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(
-            isLoadgin
-                ? "Don’t have an account? "
-                : "Already have an account ? ",
+        Text(isLoadgin ? "NoAccount".tr() : "HaveAccount".tr(),
             style: AppTextStyle.style14),
-        Text(isLoadgin ? "Sign Up Here" : "Login Here",
+        Text(isLoadgin ? "SignupHere".tr() : "LoginHere".tr(),
             style: AppTextStyle.style16.copyWith(
               color: textColor ?? AppColor.white,
             )).onTap(() {

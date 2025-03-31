@@ -2,6 +2,7 @@ import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/styles/app_text_style.dart';
 import 'package:dream_home/feature/onborading/data/models/on_boarding_model.dart';
 import 'package:flutter/material.dart';
+import '../../../../core/widget/custom_localization.dart';
 import '../widget/custom_row_buttons.dart';
 import '../widget/custom_skip_on_boarding_button.dart';
 
@@ -32,9 +33,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          CustomVisibleSkipButton(
-            pageController: pageController,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              CustomVisibleSkipButton(
+                pageController: pageController,
+              ),
+              CustomLocalization(),
+            ],
           ),
+          height(16),
           Expanded(
             child: PageView.builder(
               controller: pageController,

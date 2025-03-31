@@ -6,6 +6,7 @@ import 'package:dream_home/core/styles/app_text_style.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/orders/presentation/cubit/orders_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -30,7 +31,7 @@ class OrderScreen extends StatelessWidget {
           }
 
           return Scaffold(
-            appBar: appBar(context, title: "Orders"),
+            appBar: appBar(context, title: "Orders".tr()),
             body: Column(
               children: [
                 height(24),
@@ -43,24 +44,26 @@ class OrderScreen extends StatelessWidget {
                           duration: const Duration(milliseconds: 300),
                           decoration: BoxDecoration(
                             color: cubit.currentIndex == index
-                                ? AppColor.beanut.withValues(alpha: 0.3)
+                                ? AppColor.yellowColor.withValues(alpha: 0.3)
                                 : AppColor.transparent,
                             border: Border.all(
                               color: cubit.currentIndex == index
-                                  ? AppColor.beanut
-                                  : AppColor.lightblack,
+                                  ? AppColor.yellowColor
+                                  : AppColor.black,
                             ),
                           ),
                           child: Container(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 10),
                             child: Center(
-                              child: Text(
-                                cubit.orderStatus[index],
-                                style: AppTextStyle.style18.copyWith(
-                                  color: cubit.currentIndex == index
-                                      ? AppColor.white
-                                      : AppColor.lightblack,
+                              child: FittedBox(
+                                child: Text(
+                                  cubit.orderStatus[index],
+                                  style: AppTextStyle.style18.copyWith(
+                                    color: cubit.currentIndex == index
+                                        ? AppColor.white
+                                        : AppColor.lightblack,
+                                  ),
                                 ),
                               ),
                             ),
