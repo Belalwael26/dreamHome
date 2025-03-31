@@ -6,6 +6,7 @@ import 'package:dream_home/feature/auth/presentation/cubit/register/register_cub
 import 'package:dream_home/feature/auth/presentation/widget/custom_choose_account_type.dart';
 import 'package:dream_home/feature/auth/presentation/widget/custom_choose_your_job.dart';
 import 'package:dream_home/feature/customer_home/presentation/data/models/worker_data_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -75,7 +76,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               hintColor: AppColor.black,
                               controller: cubit.userNameController,
                               borderColor: AppColor.yellowColor,
-                              hintText: "ادخل  الاسم الخاص بك",
+                              hintText: "NameHint".tr(),
                               validator: (val) =>
                                   AppValidation.displayNameValidator(
                                 cubit.userNameController.text,
@@ -90,7 +91,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               hintColor: AppColor.black,
                               borderColor: AppColor.yellowColor,
                               controller: cubit.lastNameController,
-                              hintText: " ادخال الاسم الاخير",
+                              hintText: "lastNameHint".tr(),
                               validator: (val) =>
                                   AppValidation.displayNameValidator(
                                 cubit.lastNameController.text,
@@ -105,7 +106,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               hintColor: AppColor.black,
                               controller: cubit.emailController,
                               borderColor: AppColor.yellowColor,
-                              hintText: "ادخل البريد الالكتروني الخاص بك",
+                              hintText: "EmailHint".tr(),
                               validator: (val) => AppValidation.emailValidator(
                                 cubit.emailController.text,
                               ),
@@ -119,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               hintColor: AppColor.black,
                               borderColor: AppColor.yellowColor,
                               controller: cubit.phoneController,
-                              hintText: "ادخل رقم الهاتف الخاص بك",
+                              hintText: "PhoneHint".tr(),
                               validator: (val) =>
                                   AppValidation.phoneNumberVaildtor(
                                 cubit.phoneController.text,
@@ -135,7 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               hintColor: AppColor.black,
                               borderColor: AppColor.yellowColor,
                               controller: cubit.passwordController,
-                              hintText: "ادخل كلمة المرور الخاص بك",
+                              hintText: "PasswordHint".tr(),
                               validator: (val) =>
                                   AppValidation.passwordVaildtor(
                                 cubit.passwordController.text,
@@ -151,7 +152,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               controller: TextEditingController(),
                               borderColor: AppColor.yellowColor,
                               hintText: cubit.selectedItem == ""
-                                  ? "اختار نوع الحساب"
+                                  ? "AccountType".tr()
                                   : cubit.selectedItem,
                               enabled: false,
                             ).onTap(
@@ -197,7 +198,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                 controller: TextEditingController(),
                                 borderColor: AppColor.yellowColor,
                                 hintText: cubit.selectedJob == ""
-                                    ? "اختار نوع الوظيفة"
+                                    ? "chooseJob".tr()
                                     : cubit.selectedJob,
                                 enabled: false,
                               ).onTap(
@@ -238,7 +239,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           FadeAnimationCustom(
                             delay: 1.2,
                             child: CustomAppButton(
-                              text: "تسجيل",
+                              text: "Sign".tr(),
                               containerColor: AppColor.yellowColor,
                               textColor: AppColor.white,
                               onPressed: () {

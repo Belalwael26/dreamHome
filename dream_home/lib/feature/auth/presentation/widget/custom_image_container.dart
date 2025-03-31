@@ -1,6 +1,7 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dream_home/core/extension/extension.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/register/register_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -41,7 +42,7 @@ class CustomAddImage extends StatelessWidget {
             ),
             width(12),
             Text(
-              "اضف صورة",
+              "addImage".tr(),
               style: AppTextStyle.style16.copyWith(
                 color: AppColor.primaryColor,
               ),
@@ -56,8 +57,8 @@ class CustomAddImage extends StatelessWidget {
                   cubit.logoPicker(ImageSource.gallery);
                   context.pop();
                 },
-                cameraText: "التقاط صورة",
-                galleryText: "اختر صورة من المعرض",
+                cameraText: "camera".tr(),
+                galleryText: "gallery".tr(),
               );
             }),
           ],
