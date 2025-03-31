@@ -14,6 +14,7 @@ import 'package:dream_home/feature/customer_home/presentation/widgets/custom_cus
 import 'package:dream_home/feature/worker_home/presentation/cubit/worker_home_cubit.dart';
 import 'package:dream_home/feature/worker_home/presentation/widget/custom_accept_or_declin_order.dart';
 import 'package:dream_home/feature/worker_home/presentation/widget/custom_order_data_body.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -66,7 +67,7 @@ class _WorkerHomeScreenState extends State<WorkerHomeScreen> {
                   : Column(
                       children: [
                         CustomCustomerHomeContainer(
-                          text: "Orders",
+                          text: "Orders".tr(),
                           name: _user?.user?.firstName ?? "",
                           image: image,
                         ),
