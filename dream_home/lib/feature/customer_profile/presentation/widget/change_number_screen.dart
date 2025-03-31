@@ -6,6 +6,7 @@ import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:dream_home/feature/auth/presentation/widget/custom_text_form_filed.dart';
 import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_profile_cubit/customer_profile_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -71,7 +72,9 @@ class _ChangeNumberScreenState extends State<ChangeNumberScreen> {
                         .onTap(context.pop),
                     height(24),
                     Text(
-                      isChange ? "Add Phone Number" : "Change Phone Number",
+                      isChange
+                          ? "AddPhoneNumber".tr()
+                          : "ChangePhoneNumber".tr(),
                       style:
                           AppTextStyle.style24.copyWith(color: AppColor.black),
                     ),

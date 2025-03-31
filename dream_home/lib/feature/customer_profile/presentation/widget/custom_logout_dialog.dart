@@ -1,4 +1,5 @@
 import 'package:dream_home/core/utils/app_color.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../Core/styles/app_text_style.dart';
@@ -29,14 +30,14 @@ class CustomLogoutDialog extends StatelessWidget {
           children: [
             Image.asset(AppImages.logoutLogo),
             Text(
-              "اوه لا ,انت تغادر",
+              "leave".tr(),
               style: AppTextStyle.style16.copyWith(
                 fontWeight: FontWeight.w700,
                 color: AppColor.primaryColor,
               ),
             ),
             Text(
-              "هل انت متاكد من تسجيل الخروج ؟",
+              "sureLogout".tr(),
               style: AppTextStyle.style14.copyWith(
                 fontWeight: FontWeight.w700,
                 color: AppColor.redED,
@@ -48,7 +49,7 @@ class CustomLogoutDialog extends StatelessWidget {
                 Flexible(
                   child: CustomAppButton(
                     height: 48,
-                    text: "لا",
+                    text: "no".tr(),
                     containerColor: AppColor.black,
                     textColor: AppColor.white,
                     onPressed: () => context.pop(),
@@ -56,7 +57,7 @@ class CustomLogoutDialog extends StatelessWidget {
                 ),
                 Flexible(
                     child: CustomAppButton(
-                  text: "نعم",
+                  text: "yes".tr(),
                   onPressed: onPressed,
                   containerColor: AppColor.redED,
                   height: 48,

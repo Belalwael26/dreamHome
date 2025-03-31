@@ -1,6 +1,7 @@
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/extension/extension.dart';
 import 'package:dream_home/core/utils/fade_animation_custom.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,32 +25,32 @@ class AboutUsScreen extends StatelessWidget {
                   .onTap(context.pop),
               height(24),
               Text(
-                "About Dream Home ",
+                "AboutTitle".tr(),
                 style: AppTextStyle.style24.copyWith(color: AppColor.black),
               ),
               height(8),
               Text(
-                "Our platform connects skilled craft workers with clients who need their services. We bridge the gap by providing an easy-to-use application where users can find reliable professionals for any task, big or small. Whether you need repairs, custom projects, or maintenance, we’ve got the right expert for the job.",
+                "AboutText".tr(),
                 style: AppTextStyle.style16.copyWith(color: AppColor.black),
               ),
               height(24),
               Text(
-                "Our Vision",
+                "VisionTile".tr(),
                 style: AppTextStyle.style24.copyWith(color: AppColor.black),
               ),
               height(8),
               Text(
-                "To become the go-to platform for clients and craft workers alike, fostering trust, reliability, and convenience. We aim to create an ecosystem where craftsmanship meets demand seamlessly, empowering professionals while ensuring top-quality services for users.",
+                "VisionText".tr(),
                 style: AppTextStyle.style16.copyWith(color: AppColor.black),
               ),
               height(24),
               Text(
-                "Our Mission",
+                "MissionTitle".tr(),
                 style: AppTextStyle.style24.copyWith(color: AppColor.black),
               ),
               height(8),
               Text(
-                "To simplify the process of finding skilled craft workers while providing professionals with opportunities to grow their businesses. We are committed to enhancing access, ensuring quality, and building a community based on transparency and mutual respect.",
+                "missionText".tr(),
                 style: AppTextStyle.style16.copyWith(color: AppColor.black),
               )
             ],

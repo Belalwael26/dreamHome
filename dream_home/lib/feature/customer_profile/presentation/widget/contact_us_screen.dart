@@ -4,6 +4,7 @@ import 'package:dream_home/core/function/validation.dart';
 import 'package:dream_home/core/utils/fade_animation_custom.dart';
 import 'package:dream_home/core/widget/custom_app_button.dart';
 import 'package:dream_home/feature/auth/presentation/widget/custom_text_form_filed.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -27,14 +28,14 @@ class ContactUsScreen extends StatelessWidget {
                   .onTap(context.pop),
               height(24),
               Text(
-                "Send us Your Problem",
+                "SendProblem".tr(),
                 style: AppTextStyle.style24.copyWith(color: AppColor.black),
               ),
               Spacer(),
               CustomTextFormFiled(
                 maxLength: 10,
                 controller: TextEditingController(),
-                hintText: "Your Problem.....",
+                hintText: "YourProblem".tr(),
                 textInputColor: AppColor.black,
                 hintColor: AppColor.black,
                 borderColor: AppColor.yellowColor,
@@ -45,7 +46,7 @@ class ContactUsScreen extends StatelessWidget {
               ),
               Spacer(),
               CustomAppButton(
-                text: "Send",
+                text: "send".tr(),
                 containerColor: AppColor.yellowColor,
                 textColor: AppColor.white,
               )

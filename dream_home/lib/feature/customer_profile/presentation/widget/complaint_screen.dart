@@ -1,4 +1,5 @@
 import 'package:dream_home/core/extension/extension.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,14 +25,14 @@ class ComplaintScreen extends StatelessWidget {
                 .onTap(context.pop),
             height(24),
             Text(
-              "Send us Your Complaint",
+              "SendComplaint".tr(),
               style: AppTextStyle.style24.copyWith(color: AppColor.lightblack),
             ),
             Spacer(),
             CustomTextFormFiled(
               maxLength: 10,
               controller: TextEditingController(),
-              hintText: "Your Complaint.....",
+              hintText: "YourComplaint".tr(),
               textInputColor: AppColor.black,
               hintColor: AppColor.black,
               borderColor: AppColor.yellowColor,
@@ -42,7 +43,7 @@ class ComplaintScreen extends StatelessWidget {
             ),
             Spacer(),
             CustomAppButton(
-              text: "Send",
+              text: "send".tr(),
               containerColor: AppColor.yellowColor,
               textColor: AppColor.white,
             )
