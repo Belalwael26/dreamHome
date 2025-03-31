@@ -76,7 +76,7 @@ class WorkerProfileScreen extends StatelessWidget {
                       },
                       vectorColor: AppColor.black,
                       svgIconPath: AppImages.number,
-                      text: "ChangeNumber".tr(),
+                      text: "ChangePhoneNumber".tr(),
                     ),
                     CustomProfileItem(
                       textColor: AppColor.redED,

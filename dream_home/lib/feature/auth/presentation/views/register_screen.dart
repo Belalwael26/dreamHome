@@ -120,7 +120,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               hintColor: AppColor.black,
                               borderColor: AppColor.yellowColor,
                               controller: cubit.phoneController,
-                              hintText: "PhoneHint".tr(),
+                              hintText: "phoneHint".tr(),
                               validator: (val) =>
                                   AppValidation.phoneNumberVaildtor(
                                 cubit.phoneController.text,
@@ -136,7 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               hintColor: AppColor.black,
                               borderColor: AppColor.yellowColor,
                               controller: cubit.passwordController,
-                              hintText: "PasswordHint".tr(),
+                              hintText: "passwordHint".tr(),
                               validator: (val) =>
                                   AppValidation.passwordVaildtor(
                                 cubit.passwordController.text,

@@ -56,12 +56,14 @@ class OrderScreen extends StatelessWidget {
                             padding: EdgeInsets.symmetric(
                                 horizontal: 16, vertical: 10),
                             child: Center(
-                              child: Text(
-                                cubit.orderStatus[index],
-                                style: AppTextStyle.style18.copyWith(
-                                  color: cubit.currentIndex == index
-                                      ? AppColor.white
-                                      : AppColor.lightblack,
+                              child: FittedBox(
+                                child: Text(
+                                  cubit.orderStatus[index],
+                                  style: AppTextStyle.style18.copyWith(
+                                    color: cubit.currentIndex == index
+                                        ? AppColor.white
+                                        : AppColor.lightblack,
+                                  ),
                                 ),
                               ),
                             ),
