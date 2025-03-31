@@ -13,6 +13,7 @@ import 'package:dream_home/feature/customer_home/data/model/WorkerModel/get_work
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_state.dart';
 import 'package:dream_home/feature/notifications/presentation/cubit/notification_cubit.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -149,7 +150,7 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
                         padding:
                             EdgeInsets.symmetric(horizontal: 8, vertical: 24),
                         child: CustomAppButton(
-                          text: "Order Now",
+                          text: "OrderNow".tr(),
                           containerColor: AppColor.yellowColor,
                           textColor: AppColor.white,
                           onPressed: () {

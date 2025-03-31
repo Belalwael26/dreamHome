@@ -81,6 +81,8 @@
  "send": "Send",
  "SendComplaint" :"Send us Your Complaint" ,
  "YourComplaint" :"Your Complaint....." ,
+ "most_popular_category": "The Most {category} in Your Area",
+ "OrderNow" :"Order Now" ,
   "servicex" : {
     "SERVICES": "Services",
     "FIX_NOW": "Fix Now",
