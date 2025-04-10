@@ -48,7 +48,7 @@ class LoginRepoImpl implements AuthRepo {
         type: type,
         job: job,
       );
-      if (response['message'] == null) {
+      if (response['message'] != "User created successfully") {
         return Left(ServerFailure(response['message']));
       }
       return Right(LoginModel.fromJson(response));
