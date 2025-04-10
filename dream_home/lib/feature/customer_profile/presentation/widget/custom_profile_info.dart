@@ -4,13 +4,11 @@ import 'package:dream_home/core/function/show_toast.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:dream_home/core/utils/app_images.dart';
 import 'package:dream_home/core/utils/fade_animation_custom.dart';
-import 'package:dream_home/core/widget/custom_app_button.dart';
 import 'package:dream_home/core/widget/custom_loader.dart';
 import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:dream_home/feature/auth/presentation/widget/custom_text_form_filed.dart';
 import 'package:dream_home/feature/customer_profile/presentation/cubit/customer_profile_cubit/customer_profile_cubit.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -236,14 +234,14 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
                               ),
                             ),
                           ),
-                          CustomAppButton(
-                            text: "Update".tr(),
-                            containerColor: AppColor.yellowColor,
-                            textColor: AppColor.white,
-                            onPressed: () {
-                              cubit.updateProfileInfo(_user?.user?.id ?? "");
-                            },
-                          )
+                          // CustomAppButton(
+                          //   text: "Update".tr(),
+                          //   containerColor: AppColor.yellowColor,
+                          //   textColor: AppColor.white,
+                          //   onPressed: () {
+                          //     cubit.updateProfileInfo(_user?.user?.id ?? "");
+                          //   },
+                          // )
                         ],
                       ),
                     ),
