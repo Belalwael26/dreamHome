@@ -1,4 +1,5 @@
 import 'package:dream_home/core/utils/app_images.dart';
+import 'package:dream_home/translation/local_keys.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class OnBoardingModel {
@@ -15,7 +16,7 @@ class OnBoardingModel {
 
 List<OnBoardingModel> onBoarding = [
   OnBoardingModel(
-    title: "onboardingTitle1".tr(),
+    title: LocaleKeys.onboardingTitle1.tr(),
     subTitle: "onboardingsubtitle1".tr(),
     image: AppImages.vec6,
   ),

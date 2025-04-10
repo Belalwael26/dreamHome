@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/function/show_toast.dart';
@@ -14,7 +13,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
 import '../../../../core/cache/user_info_cache.dart';
 import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/widget/dialogs/logout_dialog.dart';
@@ -54,6 +52,7 @@ class CustomerProfilScreen extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    height(24),
                     Text(
                       "Account".tr(),
                       style:
