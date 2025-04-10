@@ -16,7 +16,7 @@ class WorkerDataModel {
 final List<WorkerDataModel> worker = [
   WorkerDataModel(
     jobName: "Carpentry".tr(),
-    image: AppImages.carpenter,
+    image: AppImages.carpentry,
     jobNameEn: "Carpentry",
   ),
   WorkerDataModel(
@@ -26,17 +26,17 @@ final List<WorkerDataModel> worker = [
   ),
   WorkerDataModel(
     jobName: "Plumbing".tr(),
-    image: AppImages.plumber,
+    image: AppImages.bgPlumbing,
     jobNameEn: "Plumbing",
   ),
   WorkerDataModel(
     jobName: "Electricity".tr(),
-    image: AppImages.electrician,
+    image: AppImages.electricity,
     jobNameEn: "Electricity",
   ),
   WorkerDataModel(
     jobName: "Painting".tr(),
-    image: AppImages.painter,
+    image: AppImages.painting,
     jobNameEn: "Painting",
   ),
   WorkerDataModel(
@@ -51,17 +51,17 @@ final List<WorkerDataModel> worker = [
   ),
   WorkerDataModel(
     jobName: "Flooring".tr(),
-    image: AppImages.flooring,
+    image: AppImages.woodenFlooring,
     jobNameEn: "Tiling and Flooring Installation",
   ),
   WorkerDataModel(
     jobName: "Cooling".tr(),
-    image: AppImages.technician,
+    image: AppImages.airConditioner,
     jobNameEn: "Cooling and Air Conditioning",
   ),
   WorkerDataModel(
     jobName: "Electronic".tr(),
-    image: AppImages.electronic,
+    image: AppImages.appliance,
     jobNameEn: "Electronic Repairs",
   ),
   WorkerDataModel(

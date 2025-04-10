@@ -61,7 +61,16 @@ class AppImages {
   static const String order = '$_vectorPath/order.svg';
 
   //! Animation
-
   static const load = "$_anmiPath/animation.json";
   static const emptyList = "$_anmiPath/empty_list.json";
+
+  //! Services
+  static const String airConditioner = "$_path/Air-Condition-Unit.webp";
+  static const String appliance = "$_path/appliens.webp";
+  static const String bgPlumbing = "$_path/bgPlumbing.webp";
+  static const String carpentry = "$_path/Carpentry.webp";
+  static const String curtains = "$_path/curtains.webp";
+  static const String electricity = "$_path/Electricity.webp";
+  static const String painting = "$_path/painting.webp";
+  static const String woodenFlooring = "$_path/woodenFlooring.webp";
 }
