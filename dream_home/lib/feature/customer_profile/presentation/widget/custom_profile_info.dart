@@ -38,9 +38,11 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
 
   Future<void> load() async {
     LoginModel? user = await getUserFromSharedPreferences();
-    setState(() {
-      _user = user;
-    });
+    if (mounted) {
+      setState(() {
+        _user = user;
+      });
+    }
   }
 
   @override
@@ -60,6 +62,9 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
           }
         },
         builder: (context, state) {
+          if (_user == null) {
+            return const Center(child: CustomLoader());
+          }
           final cubit = context.read<CustomerProfileCubit>();
           return Scaffold(
             body: state is UpdateProfileInfoLoadingState

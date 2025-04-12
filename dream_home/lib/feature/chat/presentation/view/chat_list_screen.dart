@@ -32,17 +32,22 @@ class _ChatListScreenState extends State<ChatListScreen> {
 
   Future<void> load() async {
     LoginModel? user = await getUserFromSharedPreferences();
-    setState(() {
-      _user = user;
-      _userType = user?.user?.role;
-    });
+    if (mounted) {
+      setState(() {
+        _user = user;
+        _userType = user?.user?.role;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_user == null) {
+      return const Center(child: CustomLoader());
+    }
     return BlocProvider(
       create: (context) =>
-          ChatCubit(getIt())..getAllChats(userid: _user!.user!.id.toString()),
+          ChatCubit(getIt())..getAllChats(userid: _user!.user!.id!),
       child: BlocBuilder<ChatCubit, ChatState>(
         builder: (context, state) {
           final cubit = context.read<ChatCubit>();

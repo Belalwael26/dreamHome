@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:dream_home/core/constant/app_sized.dart';
 import 'package:dream_home/core/extension/extension.dart';
 import 'package:dream_home/core/utils/app_images.dart';
@@ -37,12 +35,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   Future<void> load() async {
     LoginModel? user = await getUserFromSharedPreferences();
-    setState(() {
-      _user = user;
-    });
-    log("$user");
-    log("${user?.user?.firstName}");
-    log("============================${user?.user?.id}");
+    if (mounted) {
+      setState(() {
+        _user = user;
+      });
+    }
   }
 
   @override
@@ -63,6 +60,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
         },
         builder: (context, state) {
           final cubit = context.read<NotificationCubit>();
+          if (_user == null) {
+            return const Center(child: CustomLoader());
+          }
           return Scaffold(
             body: state is GetNotificationLoadingState
                 ? CustomLoader()

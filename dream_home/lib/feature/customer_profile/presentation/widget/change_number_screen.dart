@@ -1,7 +1,7 @@
-import 'dart:developer';
 import 'package:dream_home/core/extension/extension.dart';
 import 'package:dream_home/core/function/show_toast.dart';
 import 'package:dream_home/core/function/validation.dart';
+import 'package:dream_home/core/widget/custom_loader.dart';
 import 'package:dream_home/di.dart';
 import 'package:dream_home/feature/auth/data/model/Login/login_model/login_model.dart';
 import 'package:dream_home/feature/auth/presentation/widget/custom_text_form_filed.dart';
@@ -29,11 +29,11 @@ class _ChangeNumberScreenState extends State<ChangeNumberScreen> {
 
   Future<void> load() async {
     LoginModel? user = await getUserFromSharedPreferences();
-    setState(() {
-      _user = user;
-    });
-    log("$user");
-    //log("${user!.phone}");
+    if (mounted) {
+      setState(() {
+        _user = user;
+      });
+    }
   }
 
   @override
@@ -58,6 +58,9 @@ class _ChangeNumberScreenState extends State<ChangeNumberScreen> {
           }
         },
         builder: (context, state) {
+          if (_user == null) {
+            return const Center(child: CustomLoader());
+          }
           bool isChange = _user?.user?.contactNumber == null;
           final cubit = context.read<CustomerProfileCubit>();
           return Scaffold(
