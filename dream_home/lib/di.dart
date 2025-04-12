@@ -6,6 +6,10 @@ import 'package:dream_home/feature/auth/data/source/impl/auth_source_impl.dart';
 import 'package:dream_home/feature/auth/domin/repo/auth_repo.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/login/login_cubit.dart';
 import 'package:dream_home/feature/auth/presentation/cubit/register/register_cubit.dart';
+import 'package:dream_home/feature/chat/data/repo/chat_repo_impl.dart';
+import 'package:dream_home/feature/chat/data/source/base/chat_source.dart';
+import 'package:dream_home/feature/chat/domin/repo/chat_repo.dart';
+import 'package:dream_home/feature/chat/presentation/cubit/chat_cubit.dart';
 import 'package:dream_home/feature/customer_home/domain/repo/customer_home_repo.dart';
 import 'package:dream_home/feature/customer_home/data/repo/customer_home_repo_impl.dart';
 import 'package:dream_home/feature/customer_home/presentation/cubit/customer_home_cubit.dart';
@@ -34,6 +38,7 @@ import 'core/network/dio/dio_client.dart';
 import 'core/network/dio/dio_interceptor.dart';
 import 'feature/auth/data/repo/forgetpassword/forget_password_repo_impl.dart';
 import 'feature/auth/presentation/cubit/forget_passowrd/forget_password_cubit.dart';
+import 'feature/chat/data/source/impl/chat_source_impl.dart';
 import 'feature/customer_home/data/source/base/customer_home_source.dart';
 import 'feature/customer_home/data/source/impl/customer_home_source_impl.dart';
 import 'feature/customer_profile/data/repo/updateProfileInfo/update_profile_info.dart';
@@ -82,6 +87,7 @@ void _registerSource() {
   getIt.registerSingleton<NotificationSource>(NotificationSourceImpl(getIt()));
   getIt.registerSingleton<CustomerHomeSource>(CustomerHomeSourceImpl(getIt()));
   getIt.registerSingleton<ProfileInfoSource>(ProfileInfoSourceImpl(getIt()));
+  getIt.registerSingleton<ChatSource>(ChatSourceImpl(getIt()));
 }
 
 void _registerRepos() {
@@ -94,6 +100,7 @@ void _registerRepos() {
   getIt.registerSingleton<NotificationRepo>(NotificationRepoImpl(getIt()));
   getIt.registerSingleton<WorkerHomeRepo>(WorkerHomeRepoImpl());
   getIt.registerSingleton<ProfileInfoRepo>(UpdateProfileInfo(getIt()));
+  getIt.registerSingleton<ChatRepo>(ChatRepoImpl(getIt()));
 }
 
 void _registerFactory() {
@@ -108,4 +115,5 @@ void _registerFactory() {
   getIt.registerFactory<NotificationCubit>(() => NotificationCubit(getIt()));
   getIt.registerFactory<WorkerHomeCubit>(() => WorkerHomeCubit(getIt()));
   getIt.registerFactory<OrdersCubit>(() => OrdersCubit(getIt()));
+  getIt.registerFactory<ChatCubit>(() => ChatCubit(getIt()));
 }

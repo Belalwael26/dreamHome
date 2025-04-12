@@ -86,5 +86,7 @@
  "SendComplaint" :"Send us Your Complaint" ,
  "YourComplaint" :"Your Complaint....." ,
  "most_popular_category": "The Most {category} in Your Area",
- "OrderNow" :"Order Now" 
+ "OrderNow" :"Order Now"  ,
+ "Chat" :"Chat" , 
+ "Chats" :"Chats"
 }

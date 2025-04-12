@@ -85,5 +85,7 @@
   "send": "إرسال",
   "SendComplaint" :"ارسل لنا شكوكك" ,
   "YourComplaint" :"شكوكك....." ,
-  "OrderNow" :"طلب الان" 
+  "OrderNow" :"طلب الان"  , 
+  "Chat" :"دردشة",
+  "Chats" :"الدردشات"
 }

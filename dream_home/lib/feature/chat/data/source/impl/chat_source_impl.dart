@@ -1,0 +1,19 @@
+import 'package:dream_home/core/constant/end_points.dart';
+import 'package:dream_home/core/network/dio/base_dio.dart';
+import 'package:dream_home/feature/chat/data/source/base/chat_source.dart';
+
+class ChatSourceImpl implements ChatSource {
+  final BaseDio _dio;
+
+  ChatSourceImpl(this._dio);
+  @override
+  Future<Map<String, dynamic>> getAllChats({required String userid}) async {
+    try {
+      final response = await _dio.get(EndPoints.getAllChats(userid));
+
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+}

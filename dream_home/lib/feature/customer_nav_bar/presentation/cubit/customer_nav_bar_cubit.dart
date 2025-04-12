@@ -5,6 +5,8 @@ import 'package:dream_home/feature/search/presentation/views/search_screen.dart'
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../chat/presentation/view/chat_list_screen.dart';
+
 class CustomerNavBarCubit extends Cubit<CustomerNavBarState> {
   CustomerNavBarCubit() : super(CustomerNavBarInitialState());
 
@@ -21,6 +23,7 @@ class CustomerNavBarCubit extends Cubit<CustomerNavBarState> {
   List<Widget> screens = [
     CustomerHomeScreen(),
     SearchScreen(),
+    ChatListScreen(),
     CustomerProfilScreen(),
   ];
 }

@@ -33,6 +33,10 @@ class CustomerNavBarScreen extends StatelessWidget {
                 BottomNavigationBarItem(
                     icon: Icon(Icons.search), label: "Search".tr()),
                 BottomNavigationBarItem(
+                  icon: Icon(Icons.wechat_sharp),
+                  label: "Chat".tr(),
+                ),
+                BottomNavigationBarItem(
                     icon: Icon(Icons.person_3), label: "Profile".tr()),
               ],
             ),

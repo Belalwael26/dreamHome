@@ -2,6 +2,7 @@ import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/feature/auth/presentation/views/forget_password_screen.dart';
 import 'package:dream_home/feature/auth/presentation/views/login_screen.dart';
 import 'package:dream_home/feature/auth/presentation/views/register_screen.dart';
+import 'package:dream_home/feature/chat/presentation/view/chat_details_screen.dart';
 import 'package:dream_home/feature/customer_home/data/model/WorkerModel/get_worker_model/employee.dart';
 import 'package:dream_home/feature/customer_home/presentation/view/worker_caregory_screen.dart';
 import 'package:dream_home/feature/customer_home/presentation/view/worker_details_screen.dart';
@@ -107,4 +108,8 @@ final router = GoRouter(
               user: user,
             );
           }),
+      GoRoute(
+        path: Routes.chatDetails,
+        builder: (context, state) => ChatDetailsScreen(),
+      ),
     ]);

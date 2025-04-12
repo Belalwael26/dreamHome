@@ -8,4 +8,5 @@ class EndPoints {
   static String getWorker = "/user/getEmployees";
   static String updateProfile(String id) => "/user/update/$id";
   static String getUserInfo(String id) => "/user/profile/$id";
+  static String getAllChats(String userId) => "/chat/all-chats/$userId";
 }

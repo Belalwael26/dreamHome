@@ -17,4 +17,5 @@ class Routes {
   static const String notification = "/notificationscreen";
   static const String workerdetails = "/workerdetailsscreen";
   static const String customerOrder = "/customerordersscreen";
+  static const String chatDetails = "/chatdetailsscreen";
 }
