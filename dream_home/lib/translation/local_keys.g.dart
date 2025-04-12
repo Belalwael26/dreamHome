@@ -92,4 +92,5 @@ abstract class LocaleKeys {
   static const OrderNow = 'OrderNow';
   static const Chat = 'Chat';
   static const Chats = 'Chats';
+  static const Typeamessage = 'Typeamessage';
 }

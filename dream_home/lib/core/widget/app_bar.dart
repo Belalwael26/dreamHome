@@ -8,8 +8,10 @@ PreferredSizeWidget? appBar(
   List<Widget>? actions,
   bool automaticallyImplyLeading = true,
   Widget? leading,
+  bool? isCenter,
 }) {
   return AppBar(
+    backgroundColor: AppColor.white,
     elevation: 0,
     surfaceTintColor: AppColor.white,
     automaticallyImplyLeading: automaticallyImplyLeading,
@@ -19,6 +21,6 @@ PreferredSizeWidget? appBar(
     ),
     actions: actions,
     leading: leading,
-    centerTitle: true,
+    centerTitle: isCenter ?? true,
   );
 }

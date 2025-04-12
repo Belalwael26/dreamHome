@@ -88,5 +88,6 @@
  "most_popular_category": "The Most {category} in Your Area",
  "OrderNow" :"Order Now"  ,
  "Chat" :"Chat" , 
- "Chats" :"Chats"
+ "Chats" :"Chats" , 
+ "Typeamessage" :"Type a message" 
 }

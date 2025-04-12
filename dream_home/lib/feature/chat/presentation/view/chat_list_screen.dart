@@ -109,7 +109,18 @@ class _ChatListScreenState extends State<ChatListScreen> {
                             ],
                           ),
                           onTap: () {
-                            context.push(Routes.chatDetails);
+                            context.push(Routes.chatDetails, extra: {
+                              "senderId": cubit
+                                  .chatModel?.chats?[index].user1?.id
+                                  .toString(),
+                              "receiverId": cubit
+                                  .chatModel?.chats?[index].user2?.id
+                                  .toString(),
+                              "receiverName": cubit
+                                  .chatModel?.chats?[index].user2?.email
+                                  ?.split("@")
+                                  .first
+                            });
                           },
                         ),
                       );

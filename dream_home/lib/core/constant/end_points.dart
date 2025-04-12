@@ -9,4 +9,5 @@ class EndPoints {
   static String updateProfile(String id) => "/user/update/$id";
   static String getUserInfo(String id) => "/user/profile/$id";
   static String getAllChats(String userId) => "/chat/all-chats/$userId";
+  static String getChatMessages = "/chat/get-chat";
 }

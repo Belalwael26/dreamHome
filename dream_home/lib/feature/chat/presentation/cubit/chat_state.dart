@@ -28,3 +28,23 @@ final class GetAllFailureState extends ChatState {
   @override
   List<Object> get props => [error];
 }
+
+final class GetAllChatMessagesLoadingState extends ChatState {}
+
+final class GetAllChatMessagesSuccessState extends ChatState {
+  final ChatDetailsModel chatDetails;
+
+  const GetAllChatMessagesSuccessState(this.chatDetails);
+
+  @override
+  List<Object> get props => [chatDetails];
+}
+
+final class GetAllChatMessagesFailureState extends ChatState {
+  final String error;
+
+  const GetAllChatMessagesFailureState(this.error);
+
+  @override
+  List<Object> get props => [error];
+}

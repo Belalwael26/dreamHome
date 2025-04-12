@@ -110,6 +110,16 @@ final router = GoRouter(
           }),
       GoRoute(
         path: Routes.chatDetails,
-        builder: (context, state) => ChatDetailsScreen(),
+        builder: (context, state) {
+          final data = state.extra as Map<String, dynamic>;
+          final senderId = data['senderId'] as String?;
+          final receiverId = data['receiverId'] as String?;
+          final receiverName = data['receiverName'] as String?;
+          return ChatDetailsScreen(
+            receiverId: receiverId ?? "",
+            senderId: senderId ?? "",
+            receiverName: receiverName ?? "",
+          );
+        },
       ),
     ]);

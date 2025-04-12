@@ -111,7 +111,8 @@ class CodegenLoader extends AssetLoader {
     "YourComplaint": "شكوكك.....",
     "OrderNow": "طلب الان",
     "Chat": "دردشة",
-    "Chats": "الدردشات"
+    "Chats": "الدردشات",
+    "Typeamessage": "اكتب رسالة"
   };
   static const Map<String, dynamic> _en = {
     "Skip": "Skip",
@@ -210,7 +211,8 @@ class CodegenLoader extends AssetLoader {
     "most_popular_category": "The Most {category} in Your Area",
     "OrderNow": "Order Now",
     "Chat": "Chat",
-    "Chats": "Chats"
+    "Chats": "Chats",
+    "Typeamessage": "Type a message"
   };
   static const Map<String, Map<String, dynamic>> mapLocales = {
     "ar": _ar,
