@@ -115,10 +115,12 @@ final router = GoRouter(
           final senderId = data['senderId'] as String?;
           final receiverId = data['receiverId'] as String?;
           final receiverName = data['receiverName'] as String?;
+          final userType = data['userType'] as String?;
           return ChatDetailsScreen(
             receiverId: receiverId ?? "",
             senderId: senderId ?? "",
             receiverName: receiverName ?? "",
+            userType: userType ?? "",
           );
         },
       ),

@@ -5,6 +5,8 @@ import 'package:dream_home/feature/worker_profile/presentation/views/worker_prof
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../chat/presentation/view/chat_list_screen.dart';
+
 class WorkerNavBarCubit extends Cubit<WorkerNavBarState> {
   WorkerNavBarCubit() : super(WorkerNavBarInitialState());
 
@@ -21,6 +23,7 @@ class WorkerNavBarCubit extends Cubit<WorkerNavBarState> {
   List<Widget> screens = [
     WorkerHomeScreen(),
     OrderScreen(),
+    ChatListScreen(),
     WorkerProfileScreen(),
   ];
 }

@@ -1,25 +1,27 @@
 import 'package:dream_home/core/extension/extension.dart';
-import 'package:dream_home/core/styles/app_text_style.dart';
 import 'package:dream_home/core/utils/app_color.dart';
-import 'package:dream_home/core/widget/app_bar.dart';
 import 'package:dream_home/di.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/styles/app_text_style.dart';
+import '../../../../core/widget/app_bar.dart';
 import '../cubit/chat_cubit.dart';
 
 class ChatDetailsScreen extends StatefulWidget {
   final String senderId;
   final String receiverId;
   final String receiverName;
+  final String userType;
 
   const ChatDetailsScreen({
     super.key,
     required this.senderId,
     required this.receiverId,
     required this.receiverName,
+    required this.userType,
   });
 
   @override
@@ -28,10 +30,12 @@ class ChatDetailsScreen extends StatefulWidget {
 
 class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
   final ScrollController _scrollController = ScrollController();
+  final TextEditingController _messageController = TextEditingController();
 
   @override
   void dispose() {
     _scrollController.dispose();
+    _messageController.dispose();
     super.dispose();
   }
 
@@ -39,7 +43,7 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (_scrollController.hasClients) {
         _scrollController.animateTo(
-          _scrollController.position.minScrollExtent,
+          _scrollController.position.maxScrollExtent,
           duration: const Duration(milliseconds: 300),
           curve: Curves.easeOut,
         );
@@ -47,6 +51,7 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
     });
   }
 
+  @override
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -56,15 +61,16 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
       child: BlocConsumer<ChatCubit, ChatState>(
         listener: (context, state) {
           if (state is SendMessageSuccessState) {
+            _messageController.clear();
+            _scrollToBottom();
+          }
+          if (state is GetAllChatMessagesSuccessState) {
             _scrollToBottom();
           }
         },
         builder: (context, state) {
           final cubit = context.read<ChatCubit>();
-          final userMessages = cubit.chatDetailsModel?.messages
-                  ?.where((message) => message.sender?.id == widget.senderId)
-                  .toList() ??
-              [];
+          final messages = cubit.chatDetailsModel?.messages ?? [];
 
           return Scaffold(
             appBar: appBar(
@@ -75,16 +81,18 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
               leading: Icon(Icons.arrow_back_ios, color: AppColor.yellowColor)
                   .onTap(context.pop),
               actions: [
-                IconButton(
-                  icon: Icon(Icons.call),
-                  onPressed: () {},
-                  color: AppColor.yellowColor,
-                ),
-                IconButton(
-                  icon: Icon(Icons.videocam),
-                  onPressed: () {},
-                  color: AppColor.yellowColor,
-                ),
+                if (widget.userType == 'employee')
+                  IconButton(
+                    icon: Icon(Icons.call),
+                    onPressed: () {},
+                    color: AppColor.yellowColor,
+                  ),
+                if (widget.userType == 'employee')
+                  IconButton(
+                    icon: Icon(Icons.videocam),
+                    onPressed: () {},
+                    color: AppColor.yellowColor,
+                  ),
               ],
             ),
             body: Column(
@@ -92,24 +100,44 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                 Expanded(
                   child: ListView.builder(
                     controller: _scrollController,
-                    reverse: false,
-                    itemCount: userMessages.length,
+                    // Remove reverse: true
+                    itemCount: messages.length,
                     itemBuilder: (context, index) {
-                      final message = userMessages[index];
+                      final message = messages[index];
+                      final isMe =
+                          message.sender?.id.toString() == widget.senderId;
+
                       return Align(
-                        alignment: Alignment.centerRight,
+                        alignment:
+                            isMe ? Alignment.centerRight : Alignment.centerLeft,
                         child: Container(
                           margin: const EdgeInsets.all(8),
                           padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
-                            color: AppColor.yellowColor,
+                            color:
+                                isMe ? AppColor.yellowColor : Colors.grey[300],
                             borderRadius: BorderRadius.circular(12),
                           ),
-                          child: Text(
-                            message.message ?? "",
-                            style: AppTextStyle.style16.copyWith(
-                              color: AppColor.white,
-                            ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                message.message ?? "",
+                                style: AppTextStyle.style16.copyWith(
+                                  color: isMe ? AppColor.white : Colors.black,
+                                ),
+                              ),
+                              const SizedBox(height: 4),
+                              Text(
+                                // Add timestamp if available
+                                DateFormat('hh:mm a').format(
+                                    message.timestamp ?? DateTime.now()),
+                                style: AppTextStyle.style14.copyWith(
+                                  color: isMe ? AppColor.white : AppColor.black,
+                                  fontSize: 10,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       );
@@ -118,13 +146,18 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: Row(
                     children: [
-                      IconButton(icon: Icon(Icons.add), onPressed: () {}),
+                      IconButton(
+                        icon: Icon(Icons.attach_file),
+                        onPressed: () {
+                          // Add attachment functionality
+                        },
+                      ),
                       Expanded(
                         child: TextField(
-                          controller: cubit.messageController,
+                          controller: _messageController,
                           decoration: InputDecoration(
                             hintText: "Typeamessage".tr(),
                             border: OutlineInputBorder(
@@ -138,11 +171,13 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                       IconButton(
                         icon: Icon(Icons.send),
                         onPressed: () {
-                          cubit.sendMessage(
-                            senderId: widget.senderId,
-                            receiverId: widget.receiverId,
-                            message: cubit.messageController.text,
-                          );
+                          if (_messageController.text.trim().isNotEmpty) {
+                            cubit.sendMessage(
+                              senderId: widget.senderId,
+                              receiverId: widget.receiverId,
+                              message: _messageController.text.trim(),
+                            );
+                          }
                         },
                         color: AppColor.yellowColor,
                       ),

@@ -1,18 +1,17 @@
-import 'package:dream_home/Core/styles/app_text_style.dart';
 import 'package:dream_home/Core/utils/app_images.dart';
 import 'package:dream_home/app/routes/routes.dart';
-import 'package:dream_home/core/widget/app_bar.dart';
-import 'package:dream_home/core/widget/custom_loader.dart';
 import 'package:dream_home/di.dart';
-import 'package:dream_home/feature/chat/presentation/cubit/chat_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
+import '../../../../Core/styles/app_text_style.dart';
 import '../../../../core/cache/user_info_cache.dart';
 import '../../../../core/utils/app_color.dart';
+import '../../../../core/widget/app_bar.dart';
+import '../../../../core/widget/custom_loader.dart';
 import '../../../auth/data/model/Login/login_model/login_model.dart';
+import '../cubit/chat_cubit.dart';
 
 class ChatListScreen extends StatefulWidget {
   const ChatListScreen({super.key});
@@ -23,6 +22,7 @@ class ChatListScreen extends StatefulWidget {
 
 class _ChatListScreenState extends State<ChatListScreen> {
   LoginModel? _user;
+  String? _userType;
 
   @override
   void initState() {
@@ -34,6 +34,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
     LoginModel? user = await getUserFromSharedPreferences();
     setState(() {
       _user = user;
+      _userType = user?.user?.role;
     });
   }
 
@@ -52,6 +53,12 @@ class _ChatListScreenState extends State<ChatListScreen> {
                 : ListView.builder(
                     itemCount: cubit.chatModel?.chats?.length ?? 0,
                     itemBuilder: (context, index) {
+                      final chat = cubit.chatModel?.chats?[index];
+                      final isUser1 = chat?.user1?.id == _user?.user?.id;
+                      final otherUser = isUser1
+                          ? chat?.user2?.email?.split("@").first
+                          : chat?.user1?.email?.split("@").first;
+
                       return Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: 16, vertical: 8),
@@ -62,16 +69,11 @@ class _ChatListScreenState extends State<ChatListScreen> {
                             backgroundImage: AssetImage(AppImages.craft2),
                           ),
                           title: Text(
-                            cubit.chatModel?.chats?[index].user2?.email
-                                    ?.split('@')
-                                    .first ??
-                                "",
+                            otherUser ?? otherUser ?? "",
                             style: TextStyle(fontSize: 16),
                           ),
                           subtitle: Text(
-                            cubit.chatModel?.chats?[index].messages?[index]
-                                    .message ??
-                                "",
+                            chat?.messages?[index].message ?? "",
                             style: TextStyle(fontSize: 12),
                           ),
                           trailing: Column(
@@ -80,10 +82,9 @@ class _ChatListScreenState extends State<ChatListScreen> {
                             children: [
                               Text(
                                 DateFormat.Hm().format(
-                                  DateTime.parse(cubit
-                                          .chatModel?.chats?[index].createdAt
-                                          .toString() ??
-                                      ""),
+                                  DateTime.parse(
+                                    chat?.updatedAt.toString() ?? "",
+                                  ),
                                 ),
                                 style: AppTextStyle.style16,
                               ),
@@ -92,10 +93,7 @@ class _ChatListScreenState extends State<ChatListScreen> {
                                 radius: 10,
                                 backgroundColor: AppColor.green,
                                 child: Text(
-                                    cubit.chatModel?.chats?[index].messages
-                                            ?.length
-                                            .toString() ??
-                                        "",
+                                    chat?.messages?.length.toString() ?? "0",
                                     style: TextStyle(
                                         fontSize: 10, color: Colors.white)),
                               ),
@@ -103,16 +101,11 @@ class _ChatListScreenState extends State<ChatListScreen> {
                           ),
                           onTap: () {
                             context.push(Routes.chatDetails, extra: {
-                              "senderId": cubit
-                                  .chatModel?.chats?[index].user1?.id
-                                  .toString(),
-                              "receiverId": cubit
-                                  .chatModel?.chats?[index].user2?.id
-                                  .toString(),
-                              "receiverName": cubit
-                                  .chatModel?.chats?[index].user2?.email
-                                  ?.split("@")
-                                  .first
+                              "senderId": _user?.user?.id.toString(),
+                              "receiverId":
+                                  isUser1 ? chat?.user2?.id : chat?.user1?.id,
+                              "receiverName": otherUser,
+                              "userType": _userType
                             });
                           },
                         ),

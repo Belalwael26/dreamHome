@@ -33,6 +33,10 @@ class WorkerNavBarScreen extends StatelessWidget {
                 BottomNavigationBarItem(
                     icon: Icon(Icons.request_page), label: "Orders".tr()),
                 BottomNavigationBarItem(
+                  icon: Icon(Icons.wechat_sharp),
+                  label: "Chat".tr(),
+                ),
+                BottomNavigationBarItem(
                     icon: Icon(Icons.person_3), label: "Profile".tr()),
               ],
             ),
