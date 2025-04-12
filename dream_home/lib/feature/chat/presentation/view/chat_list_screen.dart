@@ -91,20 +91,13 @@ class _ChatListScreenState extends State<ChatListScreen> {
                               CircleAvatar(
                                 radius: 10,
                                 backgroundColor: AppColor.green,
-                                child: Visibility(
-                                  visible: cubit.chatModel?.chats?[index]
-                                          .messages?.length
-                                          .toString()
-                                          .isNotEmpty ??
-                                      false,
-                                  child: Text(
-                                      cubit.chatModel?.chats?[index].messages
-                                              ?.length
-                                              .toString() ??
-                                          "",
-                                      style: TextStyle(
-                                          fontSize: 10, color: Colors.white)),
-                                ),
+                                child: Text(
+                                    cubit.chatModel?.chats?[index].messages
+                                            ?.length
+                                            .toString() ??
+                                        "",
+                                    style: TextStyle(
+                                        fontSize: 10, color: Colors.white)),
                               ),
                             ],
                           ),

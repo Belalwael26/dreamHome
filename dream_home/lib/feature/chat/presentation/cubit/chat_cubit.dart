@@ -1,5 +1,6 @@
 import 'package:dream_home/feature/chat/domin/repo/chat_repo.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../data/model/chat_details_model/chat_details_model/chat_details_model.dart';
@@ -13,6 +14,8 @@ class ChatCubit extends Cubit<ChatState> {
 
   ChatModel? chatModel;
   ChatDetailsModel? chatDetailsModel;
+
+  final TextEditingController messageController = TextEditingController();
 
   Future<void> getAllChats({required String userid}) async {
     emit(GetAllChatsLoadingState());
@@ -35,6 +38,27 @@ class ChatCubit extends Cubit<ChatState> {
     result.fold((l) => emit(GetAllChatMessagesFailureState(l.message)), (r) {
       chatDetailsModel = r;
       emit(GetAllChatMessagesSuccessState(r));
+    });
+  }
+
+  Future<void> sendMessage({
+    required String senderId,
+    required String receiverId,
+    required String message,
+  }) async {
+    emit(SendMessageLoadingState());
+    final result = await _repo.sendMessage(
+      senderId: senderId,
+      receiverId: receiverId,
+      message: message,
+    );
+    result.fold((l) => emit(SendMessageFailureState(l.message)), (r) {
+      messageController.clear();
+      getChatMessages(
+        senderId: senderId,
+        receiverId: receiverId,
+      );
+      emit(SendMessageSuccessState());
     });
   }
 }

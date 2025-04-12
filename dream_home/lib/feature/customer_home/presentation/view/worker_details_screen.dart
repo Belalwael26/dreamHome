@@ -158,17 +158,6 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
                               _user?.user?.id ?? "",
                               "${_user?.user?.firstName ?? ""} wants to order from you",
                             );
-                            // cubit.order(
-                            //     userName: _user?.user?.firstName ?? "",
-                            //     userphone: _user?.user?.contactNumber ?? "",
-                            //     userLocation: "_user?.location ?? " "",
-                            //     userId: _user?.user?.id ?? "",
-                            //     isWorker: false,
-                            //     job: widget.user.job ?? "",
-                            //     worderId: widget.user.id ?? "",
-                            //     workerName: widget.user.firstName ?? "",
-                            //     workerPhone: widget.user.contactNumber ?? "",
-                            //     workerLocation: "widget.user.location ?? " "");
                           },
                         ),
                       );

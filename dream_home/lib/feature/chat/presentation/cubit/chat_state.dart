@@ -48,3 +48,18 @@ final class GetAllChatMessagesFailureState extends ChatState {
   @override
   List<Object> get props => [error];
 }
+
+final class SendMessageLoadingState extends ChatState {}
+
+final class SendMessageSuccessState extends ChatState {
+  const SendMessageSuccessState();
+}
+
+final class SendMessageFailureState extends ChatState {
+  final String error;
+
+  const SendMessageFailureState(this.error);
+
+  @override
+  List<Object> get props => [error];
+}

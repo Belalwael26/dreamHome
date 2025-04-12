@@ -7,4 +7,10 @@ abstract class ChatSource {
     required String senderId,
     required String receiverId,
   });
+
+  Future<Map<String, dynamic>> sendMessage({
+    required String senderId,
+    required String receiverId,
+    required String message,
+  });
 }

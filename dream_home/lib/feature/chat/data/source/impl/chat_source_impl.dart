@@ -30,4 +30,21 @@ class ChatSourceImpl implements ChatSource {
       rethrow;
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> sendMessage(
+      {required String senderId,
+      required String receiverId,
+      required String message}) async {
+    try {
+      final response = await _dio.post(EndPoints.sendMessage, data: {
+        "senderId": senderId,
+        "receiverId": receiverId,
+        "message": message,
+      });
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }
