@@ -13,4 +13,9 @@ abstract class ChatSource {
     required String receiverId,
     required String message,
   });
+
+  Future<Map<String, dynamic>> requestReview({
+    required String employeeId,
+    required String customerId,
+  });
 }

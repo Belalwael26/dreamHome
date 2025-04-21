@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:dream_home/core/network/error/failure.dart';
 import 'package:dream_home/feature/chat/data/model/chat_details_model/chat_details_model/chat_details_model.dart';
 import 'package:dream_home/feature/chat/data/model/chat_model/chat_model.dart';
+import 'package:dream_home/feature/chat/data/model/review_model/review_model.dart';
 
 import '../../data/model/Send_message_model/send_message_model/send_message_model.dart';
 
@@ -19,5 +20,10 @@ abstract class ChatRepo {
     required String senderId,
     required String receiverId,
     required String message,
+  });
+
+  Future<Either<Failure, ReviewModel>> requestReview({
+    required String employeeId,
+    required String customerId,
   });
 }

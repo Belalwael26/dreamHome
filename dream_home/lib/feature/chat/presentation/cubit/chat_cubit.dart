@@ -1,3 +1,4 @@
+import 'package:dream_home/feature/chat/data/model/review_model/review_model.dart';
 import 'package:dream_home/feature/chat/domin/repo/chat_repo.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,7 @@ class ChatCubit extends Cubit<ChatState> {
 
   ChatModel? chatModel;
   ChatDetailsModel? chatDetailsModel;
+  ReviewModel? reviewModel;
 
   final TextEditingController messageController = TextEditingController();
 
@@ -59,6 +61,20 @@ class ChatCubit extends Cubit<ChatState> {
         receiverId: receiverId,
       );
       emit(SendMessageSuccessState());
+    });
+  }
+
+  Future<void> requestReview({
+    required String employeeId,
+    required String customerId,
+  }) async {
+    final result = await _repo.requestReview(
+      employeeId: employeeId,
+      customerId: customerId,
+    );
+    result.fold((l) => emit(RequestReviewFailureState(l.message)), (r) {
+      reviewModel = r;
+      emit(RequestReviewSuccessState(r));
     });
   }
 }

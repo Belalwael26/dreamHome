@@ -47,4 +47,21 @@ class ChatSourceImpl implements ChatSource {
       rethrow;
     }
   }
+
+  @override
+  Future<Map<String, dynamic>> requestReview(
+      {required String employeeId, required String customerId}) async {
+    try {
+      final response = await _dio.post(
+        EndPoints.requestReview,
+        data: {
+          "employeeId": employeeId,
+          "customerId": customerId,
+        },
+      );
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

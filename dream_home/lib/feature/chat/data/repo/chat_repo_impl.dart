@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:dream_home/feature/chat/data/model/Send_message_model/send_message_model/send_message_model.dart';
 import 'package:dream_home/feature/chat/data/model/chat_details_model/chat_details_model/chat_details_model.dart';
+import 'package:dream_home/feature/chat/data/model/review_model/review_model.dart';
 import 'package:dream_home/feature/chat/data/source/base/chat_source.dart';
 import 'package:dream_home/feature/chat/domin/repo/chat_repo.dart';
 
@@ -55,6 +56,25 @@ class ChatRepoImpl implements ChatRepo {
       } else {
         return Left(ServerFailure(response['message']));
       }
+    } catch (e) {
+      return Left(ServerFailure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, ReviewModel>> requestReview(
+      {required String employeeId, required String customerId}) async {
+    try {
+      final response = await _source.requestReview(
+        customerId: customerId,
+        employeeId: employeeId,
+      );
+
+      if (response['message'] != "Review request created successfully") {
+        return Left(ServerFailure(response['message']));
+      }
+
+      return Right(ReviewModel.fromJson(response));
     } catch (e) {
       return Left(ServerFailure(e.toString()));
     }

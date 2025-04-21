@@ -11,4 +11,5 @@ class EndPoints {
   static String getAllChats(String userId) => "/chat/all-chats/$userId";
   static String getChatMessages = "/chat/get-chat";
   static String sendMessage = "/chat/create";
+  static String requestReview = "/review/request";
 }

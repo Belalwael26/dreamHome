@@ -2,7 +2,7 @@
 
 // ignore_for_file: constant_identifier_names
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const Skip = 'Skip';
   static const onboardingTitle1 = 'onboardingTitle1';
   static const onboardingsubtitle1 = 'onboardingsubtitle1';
@@ -61,7 +61,7 @@ abstract class  LocaleKeys {
   static const notification = 'notification';
   static const LogoutSuccess = 'LogoutSuccess';
   static const AccountDeleted = 'AccountDeleted';
-  static const ChangeNumber  = 'ChangeNumber ';
+  static const ChangeNumber = 'ChangeNumber ';
   static const DeleteAccount = 'DeleteAccount';
   static const deleteaccounttitle = 'deleteaccounttitle';
   static const Logout = 'Logout';
@@ -97,5 +97,4 @@ abstract class  LocaleKeys {
   static const all_workers = 'all_workers';
   static const Call_us = 'Call_us';
   static const rateUs = 'rateUs';
-
 }

@@ -118,6 +118,10 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                           hasRatingRequestBeenSent = true;
                         });
                       }
+                      cubit.requestReview(
+                        employeeId: widget.senderId,
+                        customerId: widget.receiverId,
+                      );
                     },
                     color: AppColor.yellowColor,
                   ),

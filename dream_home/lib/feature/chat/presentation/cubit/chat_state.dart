@@ -63,3 +63,22 @@ final class SendMessageFailureState extends ChatState {
   @override
   List<Object> get props => [error];
 }
+
+final class RequestReviewLoadingState extends ChatState {}
+
+final class RequestReviewSuccessState extends ChatState {
+  final ReviewModel review;
+  const RequestReviewSuccessState(this.review);
+
+  @override
+  List<Object> get props => [review];
+}
+
+final class RequestReviewFailureState extends ChatState {
+  final String error;
+
+  const RequestReviewFailureState(this.error);
+
+  @override
+  List<Object> get props => [error];
+}
