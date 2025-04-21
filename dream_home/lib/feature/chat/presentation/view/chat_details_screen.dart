@@ -8,7 +8,9 @@ import 'package:go_router/go_router.dart';
 import '../../../../core/cache/user_info_cache.dart';
 import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/widget/app_bar.dart';
+import '../../../../core/widget/dialogs/logout_dialog.dart';
 import '../cubit/chat_cubit.dart';
+import '../widgets/custom_rating_dialog.dart';
 
 class ChatDetailsScreen extends StatefulWidget {
   final String senderId;
@@ -96,6 +98,17 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
               leading: Icon(Icons.arrow_back_ios, color: AppColor.yellowColor)
                   .onTap(context.pop),
               actions: [
+                if (widget.userType != 'employee')
+                  IconButton(
+                    icon: Icon(Icons.star),
+                    onPressed: () {
+                      logoutDialog(
+                        widget: CustomRatingDialog(),
+                        context,
+                      );
+                    },
+                    color: AppColor.yellowColor,
+                  ),
                 if (widget.userType != 'employee')
                   IconButton(
                     icon: Icon(Icons.call),

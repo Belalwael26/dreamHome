@@ -16,6 +16,7 @@ class ChatCubit extends Cubit<ChatState> {
   ChatModel? chatModel;
   ChatDetailsModel? chatDetailsModel;
   ReviewModel? reviewModel;
+  int selectedRating = 0;
 
   final TextEditingController messageController = TextEditingController();
 
