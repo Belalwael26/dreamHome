@@ -52,72 +52,73 @@ class _ChatListScreenState extends State<ChatListScreen> {
         builder: (context, state) {
           final cubit = context.read<ChatCubit>();
           return Scaffold(
-            appBar: appBar(context, title: "Chats".tr()),
-            body: state is GetAllChatsLoadingState
-                ? CustomLoader()
-                : ListView.builder(
-                    itemCount: cubit.chatModel?.chats?.length ?? 0,
-                    itemBuilder: (context, index) {
-                      final chat = cubit.chatModel?.chats?[index];
-                      final isUser1 = chat?.user1?.id == _user?.user?.id;
-                      final otherUser = isUser1
-                          ? chat?.user2?.email?.split("@").first
-                          : chat?.user1?.email?.split("@").first;
+              appBar: appBar(context, title: "Chats".tr()),
+              body: state is GetAllChatsLoadingState
+                  ? CustomLoader()
+                  : ListView.builder(
+                      itemCount: cubit.chatModel?.chats?.length ?? 0,
+                      itemBuilder: (context, index) {
+                        final chat = cubit.chatModel?.chats?[index];
+                        final isUser1 = chat?.user1?.id == _user?.user?.id;
+                        final otherUser = isUser1
+                            ? chat?.user2?.email?.split("@").firstOrNull ??
+                                "Unknown"
+                            : chat?.user1?.email?.split("@").firstOrNull ??
+                                "Unknown";
 
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 8),
-                        child: ListTile(
-                          leading: CircleAvatar(
-                            backgroundColor: AppColor.yellowColor,
-                            radius: 25,
-                            backgroundImage: AssetImage(AppImages.craft2),
-                          ),
-                          title: Text(
-                            otherUser ?? otherUser ?? "",
-                            style: TextStyle(fontSize: 16),
-                          ),
-                          subtitle: Text(
-                            chat?.messages?[index].message ?? "",
-                            style: TextStyle(fontSize: 12),
-                          ),
-                          trailing: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text(
-                                DateFormat.Hm().format(
-                                  DateTime.parse(
-                                    chat?.updatedAt.toString() ?? "",
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 8),
+                          child: ListTile(
+                            leading: CircleAvatar(
+                              backgroundColor: AppColor.yellowColor,
+                              radius: 25,
+                              backgroundImage: AssetImage(AppImages.craft2),
+                            ),
+                            title:
+                                Text(otherUser, style: TextStyle(fontSize: 16)),
+                            subtitle: Text(
+                              chat?.messages?.isNotEmpty == true
+                                  ? chat!.messages!.last.message ?? ""
+                                  : "No messages yet",
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            trailing: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text(
+                                  DateFormat.Hm().format(
+                                    DateTime.parse(
+                                        chat?.updatedAt.toString() ?? ""),
                                   ),
+                                  style: AppTextStyle.style16,
                                 ),
-                                style: AppTextStyle.style16,
-                              ),
-                              SizedBox(height: 4),
-                              CircleAvatar(
-                                radius: 10,
-                                backgroundColor: AppColor.green,
-                                child: Text(
+                                SizedBox(height: 4),
+                                CircleAvatar(
+                                  radius: 10,
+                                  backgroundColor: AppColor.green,
+                                  child: Text(
                                     chat?.messages?.length.toString() ?? "0",
                                     style: TextStyle(
-                                        fontSize: 10, color: Colors.white)),
-                              ),
-                            ],
+                                        fontSize: 10, color: Colors.white),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            onTap: () {
+                              context.push(Routes.chatDetails, extra: {
+                                "senderId": _user?.user?.id.toString(),
+                                "receiverId":
+                                    isUser1 ? chat?.user2?.id : chat?.user1?.id,
+                                "receiverName": otherUser,
+                                "userType": _userType,
+                              });
+                            },
                           ),
-                          onTap: () {
-                            context.push(Routes.chatDetails, extra: {
-                              "senderId": _user?.user?.id.toString(),
-                              "receiverId":
-                                  isUser1 ? chat?.user2?.id : chat?.user1?.id,
-                              "receiverName": otherUser,
-                              "userType": _userType
-                            });
-                          },
-                        ),
-                      );
-                    },
-                  ),
-          );
+                        );
+                      },
+                    ));
         },
       ),
     );

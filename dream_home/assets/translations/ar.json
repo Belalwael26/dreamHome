@@ -88,5 +88,9 @@
   "OrderNow" :"طلب الان"  , 
   "Chat" :"دردشة",
   "Chats" :"الدردشات" , 
-  "Typeamessage" :"اكتب رسالة"
+  "Typeamessage" :"اكتب رسالة" , 
+  "recommended":"موصي بواسطة دريم هوم" , 
+  "all_workers":"جميع الحرفيين" , 
+  "Call_us" : "اتصل بنا"
+
 }

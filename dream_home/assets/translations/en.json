@@ -89,5 +89,8 @@
  "OrderNow" :"Order Now"  ,
  "Chat" :"Chat" , 
  "Chats" :"Chats" , 
- "Typeamessage" :"Type a message" 
+ "Typeamessage" :"Type a message" , 
+ "recommended":"Recommended by Dream Home" , 
+ "all_workers":"All workers" , 
+ "Call_us" : "Call us"
 }

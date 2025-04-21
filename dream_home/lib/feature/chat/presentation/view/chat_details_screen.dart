@@ -100,7 +100,6 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                 Expanded(
                   child: ListView.builder(
                     controller: _scrollController,
-                    // Remove reverse: true
                     itemCount: messages.length,
                     itemBuilder: (context, index) {
                       final message = messages[index];
@@ -129,7 +128,6 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                               ),
                               const SizedBox(height: 4),
                               Text(
-                                // Add timestamp if available
                                 DateFormat('hh:mm a').format(
                                     message.timestamp ?? DateTime.now()),
                                 style: AppTextStyle.style14.copyWith(
@@ -146,14 +144,12 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                 ),
                 Padding(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
                   child: Row(
                     children: [
                       IconButton(
                         icon: Icon(Icons.attach_file),
-                        onPressed: () {
-                          // Add attachment functionality
-                        },
+                        onPressed: () {},
                       ),
                       Expanded(
                         child: TextField(

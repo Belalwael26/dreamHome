@@ -4,7 +4,6 @@ import 'package:dream_home/Core/extension/extension.dart';
 import 'package:dream_home/Core/styles/app_text_style.dart';
 import 'package:dream_home/app/routes/routes.dart';
 import 'package:dream_home/core/constant/app_sized.dart';
-import 'package:dream_home/core/function/show_toast.dart';
 import 'package:dream_home/core/utils/app_images.dart';
 import 'package:dream_home/core/widget/custom_app_button.dart';
 import 'package:dream_home/di.dart';
@@ -51,123 +50,172 @@ class _WorkerDetailsScreenState extends State<WorkerDetailsScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => CustomerHomeCubit(getIt()),
-      child: BlocConsumer<CustomerHomeCubit, CustomerHomeState>(
-        listener: (context, state) {
-          if (state is OrderCreatedSuccessfllyState) {
-            showToast(
-                message: "Order Created Successfully",
-                backgroundColor: AppColor.beanut);
-            context.pushReplacement(Routes.customernavbar);
-          } else if (state is OrderCreatedFailureState) {
-            showToast(message: state.message, backgroundColor: AppColor.redED);
-          }
-        },
-        builder: (context, state) {
-          final cubit = context.read<CustomerHomeCubit>();
-          return Scaffold(
-            body: Column(
-              children: [
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 16, vertical: 40),
-                    child: Column(
+      child: Scaffold(
+        body: Stack(
+          children: [
+            // Scrollable content
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 16,
+                    right: 16,
+                    top: 40,
+                    bottom: 100), // Extra bottom padding for the button
+                child: Column(
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional.centerStart,
+                      child: Icon(Icons.arrow_back_ios,
+                              color: AppColor.yellowColor)
+                          .onTap(context.pop),
+                    ),
+                    height(16),
+                    CustomAddProfileStack(
+                      containerColor: AppColor.yellowColor,
+                      borderColor: AppColor.greyD,
+                      iconColor: AppColor.black,
+                      iconBorderColor: AppColor.transparent,
+                      personIcon: Image.asset(AppImages.craft2),
+                    ),
+                    height(16),
+                    Text(
+                      widget.user.firstName ?? "",
+                      style: AppTextStyle.style18.copyWith(
+                        color: AppColor.black,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    height(8),
+                    Text(
+                      widget.user.contactNumber ?? "01000000000",
+                      style: AppTextStyle.style18.copyWith(
+                        color: AppColor.black,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    height(8),
+                    Text(
+                      widget.user.job ?? "",
+                      style: AppTextStyle.style18.copyWith(
+                        color: AppColor.black,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    height(8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Align(
-                          alignment: AlignmentDirectional.centerStart,
-                          child: Icon(Icons.arrow_back_ios,
-                                  color: AppColor.yellowColor)
-                              .onTap(context.pop),
+                        Icon(
+                          Icons.star,
+                          color: AppColor.yellowColor,
                         ),
-                        height(16),
-                        CustomAddProfileStack(
-                          containerColor: AppColor.yellowColor,
-                          borderColor: AppColor.greyD,
-                          iconColor: AppColor.black,
-                          iconBorderColor: AppColor.transparent,
-                          personIcon: Image.asset(AppImages.craft2),
-                        ),
-                        height(16),
                         Text(
-                          widget.user.firstName ?? "",
+                          widget.user.rate.toString(),
                           style: AppTextStyle.style18.copyWith(
                             color: AppColor.black,
-                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                        height(8),
+                      ],
+                    ),
+                    height(8),
+                    Row(
+                      spacing: 8,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.call,
+                          color: AppColor.yellowColor,
+                        ),
                         Text(
-                          widget.user.contactNumber ?? "01000000000",
+                          "Call_us".tr(),
                           style: AppTextStyle.style18.copyWith(
                             color: AppColor.black,
-                            fontWeight: FontWeight.w700,
                           ),
                         ),
-                        height(8),
-                        Text(
-                          widget.user.job ?? "",
-                          style: AppTextStyle.style18.copyWith(
-                            color: AppColor.black,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        height(heightSize(context) * 0.1),
-                        Container(
+                      ],
+                    ).onTap(() {
+                      context.push(Routes.chatDetails, extra: {
+                        "senderId": _user?.user?.id.toString(),
+                        "receiverId": widget.user.id.toString(),
+                        "receiverName": widget.user.firstName,
+                        "userType": widget.user.role,
+                      });
+                    }),
+                    height(heightSize(context) * 0.1),
+                    BlocBuilder<CustomerHomeCubit, CustomerHomeState>(
+                      builder: (context, state) {
+                        final cubit = context.read<CustomerHomeCubit>();
+                        return Container(
                           height: 250,
                           width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.symmetric(horizontal: 8),
                           child: CarouselSlider(
-                              options: CarouselOptions(
-                                enlargeStrategy: CenterPageEnlargeStrategy.zoom,
-                                autoPlay: true,
-                                aspectRatio: 1.0,
-                                viewportFraction: 0.9,
-                                enlargeCenterPage: true,
-                                enableInfiniteScroll: true,
-                                enlargeFactor: 0.45,
-                              ),
-                              items: cubit.images
-                                  .map((e) => Container(
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(8)),
-                                      child: Image.asset(e)))
-                                  .toList()),
-                        ),
-                      ],
+                            options: CarouselOptions(
+                              enlargeStrategy: CenterPageEnlargeStrategy.zoom,
+                              autoPlay: true,
+                              aspectRatio: 1.0,
+                              viewportFraction: 0.9,
+                              enlargeCenterPage: true,
+                              enableInfiniteScroll: true,
+                              enlargeFactor: 0.45,
+                            ),
+                            items: cubit.images
+                                .map((e) => Container(
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(8)),
+                                    child: Image.asset(e)))
+                                .toList(),
+                          ),
+                        );
+                      },
                     ),
-                  ),
+                    // Add extra space at the bottom to account for the fixed button
+                    height(60),
+                  ],
                 ),
-                BlocProvider(
+              ),
+            ),
+
+            // Fixed button at the bottom
+            Positioned(
+              bottom: 0,
+              left: 0,
+              right: 0,
+              child: Container(
+                color: AppColor.white,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                child: BlocProvider(
                   create: (context) => NotificationCubit(getIt()),
                   child: BlocConsumer<NotificationCubit, NotificationState>(
                     listener: (context, state) {},
                     builder: (context, state) {
-                      final cubit = context.read<NotificationCubit>();
-                      return Container(
-                        color: AppColor.white,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 24),
-                        child: CustomAppButton(
-                          text: "OrderNow".tr(),
-                          containerColor: AppColor.yellowColor,
-                          textColor: AppColor.white,
-                          onPressed: () {
-                            cubit.addNotification(
-                              _user?.user?.id ?? "",
-                              "${_user?.user?.firstName ?? ""} wants to order from you",
-                            );
-                          },
-                        ),
+                      final notificationCubit =
+                          context.read<NotificationCubit>();
+                      //  final homeCubit = context.read<CustomerHomeCubit>();
+                      return CustomAppButton(
+                        text: "OrderNow".tr(),
+                        containerColor: AppColor.yellowColor,
+                        textColor: AppColor.white,
+                        onPressed: () {
+                          notificationCubit.addNotification(
+                            _user?.user?.id ?? "",
+                            "${_user?.user?.firstName ?? ""} wants to order from you",
+                          );
+                          // homeCubit.createOrder(
+                          //   customerId: _user?.user?.id ?? "",
+                          //   workerId: widget.user.id ?? "",
+                          // );
+                        },
                       );
                     },
                   ),
-                )
-              ],
+                ),
+              ),
             ),
-          );
-        },
+          ],
+        ),
       ),
     );
   }

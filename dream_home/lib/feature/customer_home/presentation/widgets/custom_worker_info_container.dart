@@ -9,11 +9,13 @@ import '../../../../core/styles/app_text_style.dart';
 class CustomWorkerInfoContainer extends StatelessWidget {
   final String name;
   final String phone;
+  final double rating;
 
   const CustomWorkerInfoContainer({
     super.key,
     required this.name,
     required this.phone,
+    required this.rating,
   });
 
   @override
@@ -28,30 +30,50 @@ class CustomWorkerInfoContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            Container(
-              height: 50,
-              width: 50,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: AppColor.yellowColor,
-              ),
-              child: Image.asset(
-                AppImages.craft2,
-              ),
-            ),
-            width(16),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
               children: [
-                Text(
-                  toBeginningOfSentenceCase(name),
-                  style: AppTextStyle.style18.copyWith(
-                    color: AppColor.black,
+                Container(
+                  height: 50,
+                  width: 50,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: AppColor.yellowColor,
+                  ),
+                  child: Image.asset(
+                    AppImages.craft2,
                   ),
                 ),
+                width(16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      toBeginningOfSentenceCase(name),
+                      style: AppTextStyle.style18.copyWith(
+                        color: AppColor.black,
+                      ),
+                    ),
+                    Text(
+                      phone,
+                      style: AppTextStyle.style18.copyWith(
+                        color: AppColor.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Icon(
+                  Icons.star,
+                  color: AppColor.yellowColor,
+                ),
                 Text(
-                  phone,
+                  rating.toString(),
                   style: AppTextStyle.style18.copyWith(
                     color: AppColor.black,
                   ),

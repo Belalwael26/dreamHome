@@ -26,42 +26,85 @@ class WorkerCaregoryScreen extends StatelessWidget {
         body: BlocBuilder<CustomerHomeCubit, CustomerHomeState>(
           builder: (context, state) {
             final cubit = context.read<CustomerHomeCubit>();
-            return state is GetWorkersLoadingState
-                ? CustomLoader()
-                : Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 40, horizontal: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Icon(Icons.arrow_back_ios, color: AppColor.yellowColor)
-                            .onTap(context.pop),
-                        height(24),
-                        Text(
-                          "most_popular_category"
-                              .tr(namedArgs: {"category": category}),
-                          style: AppTextStyle.style22.copyWith(
-                            color: AppColor.lightblack,
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                        height(24),
-                        ...List.generate(
-                          cubit.users?.employees?.length ?? 0,
-                          (index) => CustomWorkerInfoContainer(
-                            name:
-                                cubit.users?.employees?[index].firstName ?? "",
-                            phone:
-                                cubit.users?.employees?[index].contactNumber ??
-                                    "01000000000",
-                          ).onTap(() {
-                            context.pushNamed(Routes.workerdetails,
-                                extra: cubit.users?.employees?[index]);
-                          }),
-                        )
-                      ],
+
+            if (state is GetWorkersLoadingState) {
+              return CustomLoader();
+            }
+
+            final recommendedWorkers = cubit.users?.employees?.where((worker) {
+              final rating = worker.rate ?? 0;
+              return rating > 3.5;
+            }).toList();
+
+            final otherWorkers = cubit.users?.employees?.where((worker) {
+              final rating = worker.rate ?? 0;
+              return rating <= 3.5;
+            }).toList();
+
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 40, horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Icon(Icons.arrow_back_ios, color: AppColor.yellowColor)
+                      .onTap(context.pop),
+                  height(24),
+                  Text(
+                    "most_popular_category"
+                        .tr(namedArgs: {"category": category}),
+                    style: AppTextStyle.style22.copyWith(
+                      color: AppColor.lightblack,
+                      fontWeight: FontWeight.w700,
                     ),
-                  );
+                  ),
+                  height(24),
+                  if (recommendedWorkers != null &&
+                      recommendedWorkers.isNotEmpty) ...[
+                    Text(
+                      "recommended".tr(),
+                      style: AppTextStyle.style18.copyWith(
+                        color: AppColor.yellowColor,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    height(16),
+                    ...List.generate(
+                      recommendedWorkers.length,
+                      (index) => CustomWorkerInfoContainer(
+                        name: recommendedWorkers[index].firstName ?? "",
+                        phone: recommendedWorkers[index].contactNumber ??
+                            "01000000000",
+                        rating: recommendedWorkers[index].rate ?? 0,
+                      ).onTap(() {
+                        context.pushNamed(Routes.workerdetails,
+                            extra: recommendedWorkers[index]);
+                      }),
+                    ),
+                    height(24),
+                    Text(
+                      "all_workers".tr(),
+                      style: AppTextStyle.style18.copyWith(
+                        color: AppColor.lightblack,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
+                    height(16),
+                  ],
+                  ...List.generate(
+                    otherWorkers?.length ?? 0,
+                    (index) => CustomWorkerInfoContainer(
+                      name: otherWorkers?[index].firstName ?? "",
+                      phone:
+                          otherWorkers?[index].contactNumber ?? "01000000000",
+                      rating: otherWorkers?[index].rate ?? 0,
+                    ).onTap(() {
+                      context.pushNamed(Routes.workerdetails,
+                          extra: otherWorkers?[index]);
+                    }),
+                  )
+                ],
+              ),
+            );
           },
         ),
       ),
