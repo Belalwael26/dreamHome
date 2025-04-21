@@ -6,7 +6,6 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import '../../../../../core/cache/user_info_cache.dart';
 import '../../../domin/repo/auth_repo.dart';
 
 part 'register_state.dart';
@@ -68,9 +67,10 @@ class RegisterCubit extends Cubit<RegisterState> {
         },
         (r) async {
           user = r;
-          await saveUserToSharedPreferences(user);
-          log("User: ${r.user?.firstName}");
-          log("User Name ${user.user?.firstName}");
+          // await saveUserToSharedPreferences(user);
+          // log("User: ${r.user?.firstName}");
+          // log("User Name ${user.user?.firstName}");
+          // log("User ${user.user}");
           emit(RegisterSuccess(r));
         },
       );

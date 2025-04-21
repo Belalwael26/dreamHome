@@ -40,9 +40,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
               backgroundColor: AppColor.green,
             );
 
-            context.read<RegisterCubit>().selectedItem == "employee"
-                ? context.pushReplacement(Routes.workernavbar)
-                : context.pushReplacement(Routes.customernavbar);
+            context.pushReplacement(Routes.login);
           } else if (state is RegisterError) {
             showToast(
               message: state.message,
