@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dream_home/core/extension/extension.dart';
 import 'package:dream_home/core/utils/app_color.dart';
 import 'package:dream_home/di.dart';
@@ -34,6 +36,7 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _messageController = TextEditingController();
   bool hasRatingRequestBeenSent = false;
+  bool hasSentRatingRequest = false;
 
   @override
   void dispose() {
@@ -54,8 +57,33 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
     });
   }
 
+  String? _reviewId;
+  String? _reviewStatus;
+
+  Future<void> load() async {
+    String? reviewId = await getReviewId();
+    String? reviewStatus = await getReviewStaus();
+    setState(() {
+      _reviewId = reviewId;
+      _reviewStatus = reviewStatus;
+    });
+
+    log("=================== REVIEW ID $_reviewId");
+    log("=================== REVIEW STATUS $_reviewStatus");
+  }
+
+  Future<void> checkRatingRequestStatusSent() async {
+    final hasSent = hasSentRatingRequest;
+    if (mounted) {
+      setState(() {
+        hasSentRatingRequest = hasSent;
+      });
+    }
+  }
+
   Future<void> checkRatingRequestStatus() async {
     bool hasSentRequest = hasRatingRequestBeenSent;
+
     if (mounted) {
       setState(() {
         hasRatingRequestBeenSent = hasSentRequest;
@@ -73,6 +101,7 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ChatCubit(getIt())
+        ..getReview(employeeId: widget.senderId)
         ..getChatMessages(
             senderId: widget.senderId, receiverId: widget.receiverId),
       child: BlocConsumer<ChatCubit, ChatState>(
@@ -83,6 +112,9 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
           }
           if (state is GetAllChatMessagesSuccessState) {
             _scrollToBottom();
+          }
+          if (state is UpdateReviewSuccessState) {
+            checkRatingRequestStatusSent();
           }
         },
         builder: (context, state) {
@@ -98,17 +130,16 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
               leading: Icon(Icons.arrow_back_ios, color: AppColor.yellowColor)
                   .onTap(context.pop),
               actions: [
-                if (widget.userType != 'employee')
+                if (widget.userType != 'employee' && !hasSentRatingRequest)
                   IconButton(
-                    icon: Icon(Icons.star),
-                    onPressed: () {
-                      logoutDialog(
-                        widget: CustomRatingDialog(),
-                        context,
-                      );
-                    },
-                    color: AppColor.yellowColor,
-                  ),
+                      icon: Icon(Icons.star),
+                      onPressed: () {
+                        logoutDialog(
+                          widget: CustomRatingDialog(),
+                          context,
+                        );
+                      },
+                      color: AppColor.yellowColor),
                 if (widget.userType != 'employee')
                   IconButton(
                     icon: Icon(Icons.call),
@@ -125,10 +156,12 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                         message: 'rateUs'.tr(),
                       );
                       await markRatingRequestAsSent();
+                      await markRatingRequestSent(widget.receiverId);
 
                       if (mounted) {
                         setState(() {
                           hasRatingRequestBeenSent = true;
+                          hasSentRatingRequest = true;
                         });
                       }
                       cubit.requestReview(
@@ -174,7 +207,7 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
                               Text(
                                 message.message ?? "",
                                 style: AppTextStyle.style16.copyWith(
-                                  color: isMe ? AppColor.white : Colors.black,
+                                  color: isMe ? AppColor.white : AppColor.black,
                                 ),
                               ),
                               const SizedBox(height: 4),

@@ -1,8 +1,12 @@
+import 'dart:developer';
+
+import 'package:dream_home/core/function/show_toast.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:go_router/go_router.dart';
 import '../../../../Core/styles/app_text_style.dart';
+import '../../../../core/cache/user_info_cache.dart';
 import '../../../../core/utils/app_color.dart';
 import '../../../../core/widget/custom_app_button.dart';
 import '../../../../di.dart';
@@ -16,11 +20,35 @@ class CustomRatingDialog extends StatefulWidget {
 }
 
 class _CustomRatingDialogState extends State<CustomRatingDialog> {
+  String? _reviewId;
+
+  Future<void> load() async {
+    String? reviewId = await getReviewId();
+    setState(() {
+      _reviewId = reviewId;
+    });
+
+    log("=================== REVIEW ID $_reviewId");
+  }
+
+  @override
+  void initState() {
+    load();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => ChatCubit(getIt()),
-      child: BlocBuilder<ChatCubit, ChatState>(
+      child: BlocConsumer<ChatCubit, ChatState>(
+        listener: (context, state) {
+          if (state is UpdateReviewSuccessState) {
+            context.pop();
+          } else if (state is UpdateReviewFailureState) {
+            showToast(message: state.error, backgroundColor: AppColor.redED);
+          }
+        },
         builder: (context, state) {
           final cubit = context.read<ChatCubit>();
           return Dialog(
@@ -65,6 +93,7 @@ class _CustomRatingDialogState extends State<CustomRatingDialog> {
                     }),
                   ),
                   TextField(
+                    controller: cubit.reviewController,
                     maxLines: 4,
                     decoration: InputDecoration(
                       hintText: "shareYourFeedback".tr(),
@@ -80,6 +109,11 @@ class _CustomRatingDialogState extends State<CustomRatingDialog> {
                   ),
                   Spacer(),
                   CustomAppButton(
+                    onPressed: () {
+                      cubit.updateReview(
+                        reviewId: _reviewId!,
+                      );
+                    },
                     text: "rateUs".tr(),
                     containerColor: AppColor.yellowColor,
                   )

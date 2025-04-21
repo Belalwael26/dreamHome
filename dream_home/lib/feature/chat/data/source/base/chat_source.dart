@@ -18,4 +18,12 @@ abstract class ChatSource {
     required String employeeId,
     required String customerId,
   });
+
+  Future<Map<String, dynamic>> updateReview({
+    required String reviewId,
+    required String review,
+    required int rating,
+  });
+
+  Future<List<dynamic>> getReviews({required String employeeId});
 }

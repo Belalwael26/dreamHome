@@ -12,4 +12,6 @@ class EndPoints {
   static String getChatMessages = "/chat/get-chat";
   static String sendMessage = "/chat/create";
   static String requestReview = "/review/request";
+  static String updateReview = "/review/update-review";
+  static String getReviews(String id) => "/review/$id";
 }

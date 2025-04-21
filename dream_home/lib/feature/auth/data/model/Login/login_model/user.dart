@@ -8,7 +8,7 @@ class User extends Equatable {
   final String? role;
   final dynamic job;
   final dynamic images;
-  final int? rate;
+  final double? rate;
   final String? contactNumber;
   final int? v;
 
@@ -33,7 +33,7 @@ class User extends Equatable {
         role: json['role'] as String?,
         job: json['job'] as dynamic,
         images: json['images'] as dynamic,
-        rate: json['rate'] as int?,
+        rate: json['rate'] as double?,
         contactNumber: json['contactNumber'] as String?,
         v: json['__v'] as int?,
       );

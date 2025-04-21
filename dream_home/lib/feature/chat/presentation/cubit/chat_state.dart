@@ -82,3 +82,40 @@ final class RequestReviewFailureState extends ChatState {
   @override
   List<Object> get props => [error];
 }
+
+final class UpdateReviewLoadingState extends ChatState {}
+
+final class UpdateReviewSuccessState extends ChatState {
+  final UpdateReviewModel review;
+  const UpdateReviewSuccessState(this.review);
+
+  @override
+  List<Object> get props => [review];
+}
+
+final class UpdateReviewFailureState extends ChatState {
+  final String error;
+
+  const UpdateReviewFailureState(this.error);
+
+  @override
+  List<Object> get props => [error];
+}
+
+final class GetReviewsLoadingState extends ChatState {}
+
+final class GetReviewsSuccessState extends ChatState {
+  final List<GetReviewModel> reviews;
+  const GetReviewsSuccessState(this.reviews);
+
+  @override
+  List<Object> get props => [reviews];
+}
+
+final class GetReviewsFailureState extends ChatState {
+  final String error;
+  const GetReviewsFailureState(this.error);
+
+  @override
+  List<Object> get props => [error];
+}

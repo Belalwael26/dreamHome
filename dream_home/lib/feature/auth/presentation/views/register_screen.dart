@@ -218,7 +218,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                                             ),
                                             itemBuilder: (context, index) {
                                               return CustomChooseYourJob(
-                                                image: worker[index].image,
+                                                image: worker[index].vector,
                                                 text: worker[index].jobName,
                                               ).onTap(() {
                                                 setState(() {
