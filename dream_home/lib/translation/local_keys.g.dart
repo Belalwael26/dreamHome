@@ -96,5 +96,6 @@ abstract class  LocaleKeys {
   static const recommended = 'recommended';
   static const all_workers = 'all_workers';
   static const Call_us = 'Call_us';
+  static const rateUs = 'rateUs';
 
 }

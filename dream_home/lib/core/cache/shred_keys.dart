@@ -4,4 +4,5 @@ class ShredKeys {
   static String job = 'job';
   static String phone = 'phone';
   static String woker = 'isWorker';
+  static const keyRatingRequestSent = 'rating_request_sent';
 }

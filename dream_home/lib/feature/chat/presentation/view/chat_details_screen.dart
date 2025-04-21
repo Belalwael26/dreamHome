@@ -5,7 +5,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-
+import '../../../../core/cache/user_info_cache.dart';
 import '../../../../core/styles/app_text_style.dart';
 import '../../../../core/widget/app_bar.dart';
 import '../cubit/chat_cubit.dart';
@@ -31,6 +31,7 @@ class ChatDetailsScreen extends StatefulWidget {
 class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
   final ScrollController _scrollController = ScrollController();
   final TextEditingController _messageController = TextEditingController();
+  bool hasRatingRequestBeenSent = false;
 
   @override
   void dispose() {
@@ -51,7 +52,21 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
     });
   }
 
+  Future<void> checkRatingRequestStatus() async {
+    bool hasSentRequest = hasRatingRequestBeenSent;
+    if (mounted) {
+      setState(() {
+        hasRatingRequestBeenSent = hasSentRequest;
+      });
+    }
+  }
+
   @override
+  void initState() {
+    checkRatingRequestStatus();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -81,13 +96,32 @@ class _ChatDetailsScreenState extends State<ChatDetailsScreen> {
               leading: Icon(Icons.arrow_back_ios, color: AppColor.yellowColor)
                   .onTap(context.pop),
               actions: [
-                if (widget.userType == 'employee')
+                if (widget.userType != 'employee')
                   IconButton(
                     icon: Icon(Icons.call),
                     onPressed: () {},
                     color: AppColor.yellowColor,
                   ),
-                if (widget.userType == 'employee')
+                if (widget.userType == 'employee' && !hasRatingRequestBeenSent)
+                  IconButton(
+                    icon: Icon(Icons.star),
+                    onPressed: () async {
+                      cubit.sendMessage(
+                        senderId: widget.senderId,
+                        receiverId: widget.receiverId,
+                        message: 'rateUs'.tr(),
+                      );
+                      await markRatingRequestAsSent();
+
+                      if (mounted) {
+                        setState(() {
+                          hasRatingRequestBeenSent = true;
+                        });
+                      }
+                    },
+                    color: AppColor.yellowColor,
+                  ),
+                if (widget.userType != 'employee')
                   IconButton(
                     icon: Icon(Icons.videocam),
                     onPressed: () {},

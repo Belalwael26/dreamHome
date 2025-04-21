@@ -44,3 +44,13 @@ Future<void> clearUserData() async {
   await prefs.remove(ShredKeys.user);
   log("Cache is Cleared");
 }
+
+Future<bool> hasRatingRequestBeenSent() async {
+  final prefs = await SharedPreferences.getInstance();
+  return prefs.getBool(ShredKeys.keyRatingRequestSent) ?? false;
+}
+
+Future<void> markRatingRequestAsSent() async {
+  final prefs = await SharedPreferences.getInstance();
+  await prefs.setBool(ShredKeys.keyRatingRequestSent, true);
+}

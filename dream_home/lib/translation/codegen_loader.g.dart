@@ -107,7 +107,8 @@ class CodegenLoader extends AssetLoader{
   "Typeamessage": "اكتب رسالة",
   "recommended": "موصي بواسطة دريم هوم",
   "all_workers": "جميع الحرفيين",
-  "Call_us": "اتصل بنا"
+  "Call_us": "اتصل بنا",
+  "rateUs": "قيمنا"
 };
 static const Map<String,dynamic> _en = {
   "Skip": "Skip",
@@ -202,7 +203,8 @@ static const Map<String,dynamic> _en = {
   "Typeamessage": "Type a message",
   "recommended": "Recommended by Dream Home",
   "all_workers": "All workers",
-  "Call_us": "Call us"
+  "Call_us": "Call us",
+  "rateUs": "Rate Us"
 };
 static const Map<String, Map<String,dynamic>> mapLocales = {"ar": _ar, "en": _en};
 }
