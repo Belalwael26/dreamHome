@@ -29,6 +29,7 @@ class CustomProfileInfo extends StatefulWidget {
 
 class _CustomProfileInfoState extends State<CustomProfileInfo> {
   LoginModel? _user;
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -41,12 +42,21 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
     if (mounted) {
       setState(() {
         _user = user;
+        _isLoading = false;
       });
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return Scaffold(body: const Center(child: CustomLoader()));
+    }
+
+    if (_user == null || _user?.user?.id == null) {
+      return Scaffold(body: Center(child: Text("Failed to load user data")));
+    }
+
     return BlocProvider(
       create: (context) => CustomerProfileCubit(logoutRepo: getIt(), getIt())
         ..getUserInfo(_user!.user!.id!),
@@ -62,20 +72,16 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
           }
         },
         builder: (context, state) {
-          if (_user == null) {
-            return const Center(child: CustomLoader());
-          }
           final cubit = context.read<CustomerProfileCubit>();
           return Scaffold(
             body: state is UpdateProfileInfoLoadingState
-                ? CustomLoader()
+                ? const CustomLoader()
                 : Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 16, vertical: 40),
                     child: SingleChildScrollView(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
-                        spacing: 16,
                         children: [
                           Icon(Icons.arrow_back_ios,
                                   color: AppColor.yellowColor)
@@ -107,13 +113,14 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
                                       cubit.userNameController.text),
                             ),
                           ),
+                          height(16),
                           //! Last Name
                           FadeAnimationCustom(
                             delay: 1.2,
                             child: CustomTextFormFiled(
                               textInputColor: AppColor.black,
                               borderColor: AppColor.yellowColor,
-                              hintText: cubit.userInfo.user?.lastName,
+                              hintText: cubit.userInfo.user?.lastName ?? "",
                               hintColor: AppColor.black,
                               controller: cubit.lastNameController,
                               validator: (val) =>
@@ -121,32 +128,37 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
                                       cubit.lastNameController.text),
                             ),
                           ),
+                          height(16),
                           //! Email
                           FadeAnimationCustom(
                             delay: 1.2,
                             child: CustomTextFormFiled(
-                                textInputColor: AppColor.black,
-                                borderColor: AppColor.yellowColor,
-                                hintText: cubit.userInfo.user?.email,
-                                hintColor: AppColor.black,
-                                controller: cubit.emailController,
-                                validator: (val) =>
-                                    AppValidation.emailValidator(
-                                        cubit.emailController.text)),
+                              textInputColor: AppColor.black,
+                              borderColor: AppColor.yellowColor,
+                              hintText: cubit.userInfo.user?.email ?? "",
+                              hintColor: AppColor.black,
+                              controller: cubit.emailController,
+                              validator: (val) => AppValidation.emailValidator(
+                                  cubit.emailController.text),
+                            ),
                           ),
+                          height(16),
                           //! Phone Number
                           FadeAnimationCustom(
                             delay: 1.2,
                             child: CustomTextFormFiled(
-                                textInputColor: AppColor.black,
-                                borderColor: AppColor.yellowColor,
-                                hintText: cubit.userInfo.user?.contactNumber,
-                                hintColor: AppColor.black,
-                                controller: cubit.phoneController,
-                                validator: (val) =>
-                                    AppValidation.phoneNumberVaildtor(
-                                        cubit.phoneController.text)),
+                              textInputColor: AppColor.black,
+                              borderColor: AppColor.yellowColor,
+                              hintText:
+                                  cubit.userInfo.user?.contactNumber ?? "",
+                              hintColor: AppColor.black,
+                              controller: cubit.phoneController,
+                              validator: (val) =>
+                                  AppValidation.phoneNumberVaildtor(
+                                      cubit.phoneController.text),
+                            ),
                           ),
+                          height(16),
                           //! Account Type
                           FadeAnimationCustom(
                             delay: 1.2,
@@ -154,43 +166,46 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
                               hintColor: AppColor.black,
                               controller: TextEditingController(),
                               borderColor: AppColor.yellowColor,
-                              hintText: cubit.selectedItem == ""
-                                  ? cubit.userInfo.user?.role
+                              hintText: cubit.selectedItem.isEmpty
+                                  ? cubit.userInfo.user?.role ?? "Select role"
                                   : cubit.selectedItem,
                               enabled: false,
                             ).onTap(
                               () {
                                 popupDropDownDialogs(
-                                    context: context,
-                                    height: heightSize(context) * 0.25,
-                                    children: [
-                                      SizedBox(
-                                          height: heightSize(context) * 0.25,
-                                          width: double.maxFinite,
-                                          child: ListView.separated(
-                                            separatorBuilder:
-                                                (context, index) => Divider(
-                                              color: AppColor.yellowColor,
-                                              thickness: 3,
-                                            ),
-                                            itemCount: cubit.items.length,
-                                            itemBuilder: (context, index) {
-                                              return CustomChooseAccountType(
-                                                image: cubit.images[index],
-                                                text: cubit.items[index],
-                                              ).onTap(() {
-                                                setState(() {
-                                                  cubit.selectedItem =
-                                                      cubit.items[index];
-                                                });
-                                                context.pop();
-                                              });
-                                            },
-                                          ))
-                                    ]);
+                                  context: context,
+                                  height: heightSize(context) * 0.25,
+                                  children: [
+                                    SizedBox(
+                                      height: heightSize(context) * 0.25,
+                                      width: double.maxFinite,
+                                      child: ListView.separated(
+                                        separatorBuilder: (context, index) =>
+                                            Divider(
+                                          color: AppColor.yellowColor,
+                                          thickness: 3,
+                                        ),
+                                        itemCount: cubit.items.length,
+                                        itemBuilder: (context, index) {
+                                          return CustomChooseAccountType(
+                                            image: cubit.images[index],
+                                            text: cubit.items[index],
+                                          ).onTap(() {
+                                            setState(() {
+                                              cubit.selectedItem =
+                                                  cubit.items[index];
+                                            });
+                                            context.pop();
+                                          });
+                                        },
+                                      ),
+                                    )
+                                  ],
+                                );
                               },
                             ),
                           ),
+                          height(16),
                           //! Job Title
                           Visibility(
                             visible: cubit.userInfo.user?.role == "employee",
@@ -200,45 +215,49 @@ class _CustomProfileInfoState extends State<CustomProfileInfo> {
                                 hintColor: AppColor.black,
                                 controller: TextEditingController(),
                                 borderColor: AppColor.yellowColor,
-                                hintText: cubit.selectedJob == ""
-                                    ? cubit.userInfo.user?.job
+                                hintText: cubit.selectedJob.isEmpty
+                                    ? cubit.userInfo.user?.job ?? "Select job"
                                     : cubit.selectedJob,
                                 enabled: false,
                               ).onTap(
                                 () {
                                   popupDropDownDialogs(
-                                      context: context,
-                                      height: heightSize(context) * 0.7,
-                                      children: [
-                                        SizedBox(
-                                          height: heightSize(context) * 0.7,
-                                          width: double.maxFinite,
-                                          child: GridView.builder(
-                                            padding: EdgeInsets.only(bottom: 8),
-                                            gridDelegate:
-                                                SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2,
-                                            ),
-                                            itemBuilder: (context, index) {
-                                              return CustomChooseYourJob(
-                                                image: worker[index].image,
-                                                text: worker[index].jobName,
-                                              ).onTap(() {
-                                                setState(() {
-                                                  cubit.selectedJob =
-                                                      worker[index].jobName;
-                                                });
-                                                context.pop();
-                                              });
-                                            },
-                                            itemCount: worker.length,
+                                    context: context,
+                                    height: heightSize(context) * 0.7,
+                                    children: [
+                                      SizedBox(
+                                        height: heightSize(context) * 0.7,
+                                        width: double.maxFinite,
+                                        child: GridView.builder(
+                                          padding:
+                                              const EdgeInsets.only(bottom: 8),
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: 2,
                                           ),
-                                        )
-                                      ]);
+                                          itemBuilder: (context, index) {
+                                            return CustomChooseYourJob(
+                                              image: worker[index].image,
+                                              text: worker[index].jobName,
+                                            ).onTap(() {
+                                              setState(() {
+                                                cubit.selectedJob =
+                                                    worker[index].jobName;
+                                              });
+                                              context.pop();
+                                            });
+                                          },
+                                          itemCount: worker.length,
+                                        ),
+                                      )
+                                    ],
+                                  );
                                 },
                               ),
                             ),
                           ),
+                          // Uncomment if needed
+                          // height(16),
                           // CustomAppButton(
                           //   text: "Update".tr(),
                           //   containerColor: AppColor.yellowColor,

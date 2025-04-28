@@ -26,12 +26,14 @@ class ChangeNumberScreen extends StatefulWidget {
 
 class _ChangeNumberScreenState extends State<ChangeNumberScreen> {
   LoginModel? _user;
+  bool _isLoading = true;
 
   Future<void> load() async {
     LoginModel? user = await getUserFromSharedPreferences();
     if (mounted) {
       setState(() {
         _user = user;
+        _isLoading = false;
       });
     }
   }
@@ -44,6 +46,15 @@ class _ChangeNumberScreenState extends State<ChangeNumberScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (_isLoading) {
+      return Scaffold(body: const Center(child: CustomLoader()));
+    }
+
+    if (_user == null || _user?.user?.id == null) {
+      return Scaffold(
+          body: Center(child: Text("Failed to load user data".tr())));
+    }
+
     return BlocProvider(
       create: (context) => CustomerProfileCubit(logoutRepo: getIt(), getIt())
         ..getUserInfo(_user!.user!.id!),
@@ -58,9 +69,6 @@ class _ChangeNumberScreenState extends State<ChangeNumberScreen> {
           }
         },
         builder: (context, state) {
-          if (_user == null) {
-            return const Center(child: CustomLoader());
-          }
           bool isChange = _user?.user?.contactNumber == null;
           final cubit = context.read<CustomerProfileCubit>();
           return Scaffold(
